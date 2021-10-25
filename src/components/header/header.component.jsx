@@ -5,7 +5,7 @@ const Header = () => {
   const [user, setUser] = useState();
   return (
     <div>
-      <nav className="flex items-center flex-wrap bg-gray-400 p-6 ">
+      <nav className="flex items-center flex-wrap bg-gray-400 p-6">
         <div className="flex flex-shrink-0 text-white mx-6">
           <Link to="/">
             <img
@@ -13,6 +13,11 @@ const Header = () => {
               src="/logo.png"
               alt="Back Stack"
             />
+          </Link>
+        </div>
+        <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-6">
+          <Link to="/">
+            <div>home</div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-6">
