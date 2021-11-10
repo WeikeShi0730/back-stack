@@ -2,16 +2,19 @@ import React, { useState } from "react";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 
-const Sidebar = () => {
+const Sidebar = ({ setToggle }) => {
   const [start, setStart] = useState(false);
   const [status, setStatus] = useState(false);
+
   const [view, setView] = useState({
     view1: false,
     view2: false,
     view3: false,
   });
   const toggleStart = () => {
-    setStart(!start);
+    setStart(!start); //!!!!!!!!!!!!!!!!!!
+    setToggle(!start);
+
     toggleStatus();
   };
 
