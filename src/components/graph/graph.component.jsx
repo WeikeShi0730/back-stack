@@ -72,7 +72,7 @@ const Graph = ({ toggle }) => {
     labels: label,
     datasets: [
       {
-        label: "# of Votes",
+        label: "#",
         data: data,
         fill: false,
         backgroundColor: "rgb(255, 99, 132)",
