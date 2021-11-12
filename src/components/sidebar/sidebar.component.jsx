@@ -2,18 +2,12 @@ import React, { useState } from "react";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 
-const Sidebar = ({ setToggle }) => {
+const Sidebar = ({ setView, view }) => {
   const [start, setStart] = useState(false);
   const [status, setStatus] = useState(false);
 
-  const [view, setView] = useState({
-    view1: false,
-    view2: false,
-    view3: false,
-  });
   const toggleStart = () => {
-    setStart(!start); //!!!!!!!!!!!!!!!!!!
-    setToggle(!start);
+    setStart(!start);
 
     toggleStatus();
   };
@@ -30,13 +24,13 @@ const Sidebar = ({ setToggle }) => {
   };
   return (
     <div className="grid grid-cols-1 w-full h-full text-gray-50 bg-gray-600 justify-items-center items-center p-10">
-      <div className="flex justify-center" onClick={toggleStart}>
+      {/* <div className="flex justify-center" onClick={toggleStart}>
         {start ? (
           <CustomButton>stop</CustomButton>
         ) : (
           <CustomButton>start</CustomButton>
         )}
-      </div>
+      </div> */}
       <div className="place-self-start">
         <div>
           status: {status ? <span>connected</span> : <span>disconnected</span>}
