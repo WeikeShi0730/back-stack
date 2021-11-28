@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Papa from "papaparse";
 import { Line } from "react-chartjs-2";
 import { dbRef } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
 import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = ({ view }) => {
-  const [data, setData] = useState([]);
   const [viewData, setViewData] = useState({
     view1: [],
     view2: [],
