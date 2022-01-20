@@ -123,11 +123,11 @@ const Graph = ({ view }) => {
   //   ]
 
   const chartData = [
-    { value: -8, time: 1503617297689 },
-    { value: 15, time: 1503616962277 },
-    { value: -15, time: 1503616882654 },
-    { value: 20, time: 1503613184594 },
     { value: 15, time: 1503611308914 },
+    { value: 20, time: 1503613184594 },
+    { value: -15, time: 1503616882654 },
+    { value: 15, time: 1503616962277 },
+    { value: -8, time: 1503617297689 },
   ];
 
   /*****************************************/
@@ -149,9 +149,7 @@ const Graph = ({ view }) => {
                 dataKey="time"
                 domain={["auto", "auto"]}
                 name="Time"
-                tickFormatter={(unixTime) =>
-                  moment(unixTime).format("HH:mm Do")
-                }
+                tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
                 type="number"
               />
               <YAxis
