@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
+import moment from "moment";
+import {
+  ResponsiveContainer,
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Label,
+  ReferenceLine,
+  Tooltip,
+  Legend,
+  Line,
+} from "recharts";
 import { dbRef } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
-import CustomButton from "../custom-button/custom-button.component";
+// import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = ({ view }) => {
   const [viewData, setViewData] = useState({
@@ -12,6 +24,8 @@ const Graph = ({ view }) => {
   });
   const [label, setLabel] = useState([]);
   const [list, loading, error] = useListVals(dbRef);
+
+  // const [graphData, setGraphData] = useState();
 
   // const parseData = async () => {
   //   try {
@@ -62,7 +76,8 @@ const Graph = ({ view }) => {
 
   useEffect(() => {
     const temp = list;
-    console.log(list);
+    // setGraphData(temp);
+    console.log(temp);
     let view1 = [];
     let view2 = [];
     let view3 = [];
@@ -84,55 +99,105 @@ const Graph = ({ view }) => {
   }, [view, list]);
 
   // /*****************************************/
-  const plotData = {
-    labels: label,
-    datasets: [
-      {
-        label: "# x",
-        data: viewData.view1,
-        fill: false,
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgba(255, 99, 132, 0.2)",
-      },
-      {
-        label: "# y",
-        data: viewData.view2,
-        fill: false,
-        backgroundColor: "rgb(54, 162, 235)",
-        borderColor: "rgba(54, 162, 235, 0.2)",
-      },
-      {
-        label: "# z",
-        data: viewData.view3,
-        fill: false,
-        backgroundColor: "rgb(1, 2, 3)",
-        borderColor: "rgba(1, 2, 3, 0.2)",
-      },
-    ],
-  };
+  // const plotData = [
+  //     {
+  //       label: "# x",
+  //       data: viewData.view1,
+  //       fill: false,
+  //       backgroundColor: "rgb(255, 99, 132)",
+  //       borderColor: "rgba(255, 99, 132, 0.2)",
+  //     },
+  //     {
+  //       label: "# y",
+  //       data: viewData.view2,
+  //       fill: false,
+  //       backgroundColor: "rgb(54, 162, 235)",
+  //       borderColor: "rgba(54, 162, 235, 0.2)",
+  //     },
+  //     {
+  //       label: "# z",
+  //       data: viewData.view3,
+  //       fill: false,
+  //       backgroundColor: "rgb(1, 2, 3)",
+  //       borderColor: "rgba(1, 2, 3, 0.2)",
+  //     },
+  //   ]
 
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          type: "linear",
-          display: true,
-          position: "left",
-          id: "y-axis-1",
-        },
-      ],
-    },
-  };
+  const chartData = [
+    { value: -8, time: 1503617297689 },
+    { value: 15, time: 1503616962277 },
+    { value: -15, time: 1503616882654 },
+    { value: 20, time: 1503613184594 },
+    { value: 15, time: 1503611308914 },
+  ];
+
   /*****************************************/
 
   return (
-    <div>
-      <div className="m-2 space-x-2">
-        {/* <CustomButton onClick={getStartId}>start</CustomButton>
+    <div className="">
+      {/* <div className="m-2 space-x-2">
+         <CustomButton onClick={getStartId}>start</CustomButton>
 
-        <CustomButton onClick={getData}>stop</CustomButton> */}
+        <CustomButton onClick={getData}>stop</CustomButton> 
+      </div> */}
+      <div className="flex justify-center items-center">
+        <div className="w-11/12 h-full">
+          <ResponsiveContainer aspect={2}>
+            <LineChart>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                axisLine={false}
+                dataKey="time"
+                domain={["auto", "auto"]}
+                name="Time"
+                tickFormatter={(unixTime) =>
+                  moment(unixTime).format("HH:mm Do")
+                }
+                type="number"
+              />
+              <YAxis
+                tick={false}
+                type="number"
+                domain={[-100, 100]}
+                axisLine={false}
+              />
+              <ReferenceLine y={80} stroke="white">
+                <Label
+                  value="left"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <ReferenceLine y={0} stroke="black">
+                <Label
+                  value="0"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <ReferenceLine y={-80} stroke="white">
+                <Label
+                  value="right"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <Line
+                data={chartData}
+                type="monotone"
+                dataKey="value"
+                stroke="#8884d8"
+              />
+
+              {/* <Tooltip />
+              <Legend /> */}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      <Line data={plotData} />
     </div>
   );
 };
