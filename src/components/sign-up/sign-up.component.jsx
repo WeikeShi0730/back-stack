@@ -43,7 +43,7 @@ const SignUp = () => {
 
   return (
     <React.Fragment>
-      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
         <h1 className="text-base lg:text-lg font-medium text-primary mt-4 mb-12 text-center">
           Sign up 🔐
         </h1>
@@ -93,7 +93,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
-      <div className="w-full max-w-md m-auto mt-4">
+      <div className="w-full max-w-md mx-auto mt-4">
         <div className="text-base lg:text-lg flex justify-center items-center">
           Already have an account?
         </div>
