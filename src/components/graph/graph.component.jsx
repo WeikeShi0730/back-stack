@@ -77,7 +77,6 @@ const Graph = ({ view }) => {
   useEffect(() => {
     const temp = list;
     // setGraphData(temp);
-    console.log(temp);
     let view1 = [];
     let view2 = [];
     let view3 = [];

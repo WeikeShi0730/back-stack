@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.utils";
 
 const Header = () => {
-  const [user, setUser] = useState();
+  const [currentUser] = useAuthState(auth);
   return (
     <div>
       <nav className="flex items-center flex-wrap bg-gray-300 p-3">
@@ -17,31 +19,39 @@ const Header = () => {
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/">
-            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">home</div>
+            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
+              home
+            </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/measure">
-            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">measure</div>
+            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
+              measure
+            </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/excercise-report">
-            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">excercise report</div>
+            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
+              excercise report
+            </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/device-connection">
-            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">device connection</div>
+            <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
+              device connection
+            </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 flex-grow "></div>
 
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg lg:flex lg:items-center lg:w-auto">
-          {user ? (
-            <Link to={`/sign-out/${user.id}`}>
+          {currentUser ? (
+            <Link to={`/sign-out/${currentUser.uid}`}>
               <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0">
-                {user.name}
+                {currentUser.displayName}
               </button>
             </Link>
           ) : (
