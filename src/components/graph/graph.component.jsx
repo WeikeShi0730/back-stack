@@ -141,7 +141,7 @@ const Graph = ({ view }) => {
       </div> */}
       <div className="flex justify-center items-center">
         <div className="w-11/12 h-full">
-          <ResponsiveContainer aspect={2}>
+          <ResponsiveContainer aspect={3}>
             <LineChart>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
@@ -188,9 +188,55 @@ const Graph = ({ view }) => {
                 dataKey="value"
                 stroke="#8884d8"
               />
-
-              {/* <Tooltip />
-              <Legend /> */}
+            </LineChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer aspect={3}>
+            <LineChart>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                axisLine={false}
+                dataKey="time"
+                domain={["auto", "auto"]}
+                name="Time"
+                tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
+                type="number"
+              />
+              <YAxis
+                tick={false}
+                type="number"
+                domain={[-100, 100]}
+                axisLine={false}
+              />
+              <ReferenceLine y={80} stroke="white">
+                <Label
+                  value="forth"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <ReferenceLine y={0} stroke="black">
+                <Label
+                  value="0"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <ReferenceLine y={-80} stroke="white">
+                <Label
+                  value="back"
+                  position="insideLeft"
+                  dx={-50}
+                  style={{ textAnchor: "middle" }}
+                />
+              </ReferenceLine>
+              <Line
+                data={chartData}
+                type="monotone"
+                dataKey="value"
+                stroke="#8884d8"
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
