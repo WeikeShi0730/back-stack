@@ -87,7 +87,7 @@ const SignUp = () => {
             />
           </div>
           <div className="flex justify-center items-center mt-6">
-            <button className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none">
+            <button className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light">
               Sign up
             </button>
           </div>

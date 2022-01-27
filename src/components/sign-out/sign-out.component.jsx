@@ -53,7 +53,7 @@ const SignOut = () => {
       <Link to="/">
         <button
           onClick={clearCurrentUser}
-          className="text-xs md:text-sm lg:text-base  py-2 px-4 text-red-500 rounded border border-red-500"
+          className="text-xs md:text-sm lg:text-base  py-2 px-4 text-red-500 rounded border border-red-500 font-light"
         >
           Sign out
         </button>

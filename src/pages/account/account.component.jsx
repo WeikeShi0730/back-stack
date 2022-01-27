@@ -12,7 +12,7 @@ const Account = () => {
           <div className="text-5xl text-center m-10">
             Hi, {currentUser.displayName}!
           </div>
-          <UpdatePassword  currentUser={currentUser} />
+          <UpdatePassword currentUser={currentUser} />
           <SignOut  />
         </div>
       ) : (

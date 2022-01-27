@@ -15,7 +15,7 @@ const UpdatePassword = ({ currentUser }) => {
       <span>
         <button
           onClick={handleClick}
-          className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none"
+          className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
         >
           Send a password update email
         </button>

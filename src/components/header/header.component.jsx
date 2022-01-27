@@ -50,14 +50,14 @@ const Header = () => {
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg lg:flex lg:items-center lg:w-auto">
           {currentUser ? (
             <Link to={`/account/${currentUser.uid}`}>
-              <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0">
+              <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0 font-light">
                 {currentUser.displayName}
               </button>
             </Link>
           ) : (
             <Link to="/login">
-              <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0">
-                sign in
+              <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0 font-light">
+                Sign in
               </button>
             </Link>
           )}
