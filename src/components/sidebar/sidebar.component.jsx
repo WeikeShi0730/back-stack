@@ -31,7 +31,7 @@ const Sidebar = ({ setView, view }) => {
           <CustomButton>start</CustomButton>
         )}
       </div> */}
-      <div className="place-self-start">
+      {/* <div className="place-self-start">
         <div>
           status: {status ? <span>connected</span> : <span>disconnected</span>}
         </div>
@@ -68,7 +68,7 @@ const Sidebar = ({ setView, view }) => {
           />
           <span className="mx-2">view 3</span>
         </div>
-      </div>
+      </div> */}
       <div className="place-self-start">
         <div className="">param 1: 112.47</div>
         <div className="">param 2: 12.65</div>
