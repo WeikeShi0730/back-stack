@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   signInWithGoogle,
   signInWithEmail,
@@ -43,13 +43,8 @@ const SignIn = () => {
     });
   };
 
-  const handleClickForgotPassword = async () => { //??????????????????????
-    try {
-      await sendChangePasswordEmail();
-      alert("Password reset email sent to: ", );
-    } catch (error) {
-      console.error("Error sending the email: ", error);
-    }
+  const handleClickForgotPassword = () => {
+    history.push("/reset-password")
   };
 
   return (
@@ -106,6 +101,7 @@ const SignIn = () => {
         </div>
 
         <div className="">
+        
           <button onClick={handleClickForgotPassword} className="font-light">
             Forgot password?
           </button>

@@ -89,9 +89,9 @@ export const signOutGoogle = async () => {
   }
 };
 
-export const sendChangePasswordEmail = async (user) => {
+export const sendChangePasswordEmail = async (email) => {
   try {
-    await sendPasswordResetEmail(auth, user.email);
+    await sendPasswordResetEmail(auth, email);
   } catch (error) {
     console.error("Error updating password: ", error);
     throw error;
