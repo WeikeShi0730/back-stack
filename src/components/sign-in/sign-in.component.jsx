@@ -45,7 +45,7 @@ const SignIn = () => {
   return (
     <React.Fragment>
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
-        <div className="text-base lg:text-lg font-medium text-primary mt-4 mb-12 text-center">
+        <div className="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center">
           Alrady have an account? Sign in 🔐
         </div>
         <form onSubmit={handleSubmit}>

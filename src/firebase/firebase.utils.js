@@ -11,7 +11,9 @@ import {
   browserLocalPersistence,
   onAuthStateChanged,
   signOut,
+  sendPasswordResetEmail,
   updatePassword,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
 
@@ -87,9 +89,9 @@ export const signOutGoogle = async () => {
   }
 };
 
-export const updateUserPassword = async (user, newPassword) => {
+export const sendChangePasswordEmail = async (user) => {
   try {
-    await updatePassword(user, newPassword);
+    await sendPasswordResetEmail(auth, user.email);
   } catch (error) {
     console.error("Error updating password: ", error);
     throw error;

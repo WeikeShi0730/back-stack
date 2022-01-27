@@ -8,8 +8,8 @@ import {
   YAxis,
   Label,
   ReferenceLine,
-  Tooltip,
-  Legend,
+  // Tooltip,
+  // Legend,
   Line,
 } from "recharts";
 import { dbRef } from "../../firebase/firebase.utils";
@@ -17,13 +17,13 @@ import { useListVals } from "react-firebase-hooks/database";
 // import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = ({ view }) => {
-  const [viewData, setViewData] = useState({
-    view1: [],
-    view2: [],
-    view3: [],
-  });
-  const [label, setLabel] = useState([]);
-  const [list, loading, error] = useListVals(dbRef);
+  // const [viewData, setViewData] = useState({
+  //   view1: [],
+  //   view2: [],
+  //   view3: [],
+  // });
+  // const [label, setLabel] = useState([]);
+  const [list] = useListVals(dbRef);
 
   // const [graphData, setGraphData] = useState();
 
@@ -74,28 +74,28 @@ const Graph = ({ view }) => {
   //   setLabel(label);
   // };
 
-  useEffect(() => {
-    const temp = list;
-    // setGraphData(temp);
-    let view1 = [];
-    let view2 = [];
-    let view3 = [];
-    let label = [0];
-    temp.forEach((row) => {
-      label.push(label[label.length - 1] + 1);
-      if (view.view1) {
-        view1.push(row.Ax);
-      }
-      if (view.view2) {
-        view2.push(row.Ay);
-      }
-      if (view.view3) {
-        view3.push(row.Az);
-      }
-    });
-    setViewData({ view1, view2, view3 });
-    setLabel(label);
-  }, [view, list]);
+  // useEffect(() => {
+  //   const temp = list;
+  //   // setGraphData(temp);
+  //   let view1 = [];
+  //   let view2 = [];
+  //   let view3 = [];
+  //   let label = [0];
+  //   temp.forEach((row) => {
+  //     label.push(label[label.length - 1] + 1);
+  //     if (view.view1) {
+  //       view1.push(row.Ax);
+  //     }
+  //     if (view.view2) {
+  //       view2.push(row.Ay);
+  //     }
+  //     if (view.view3) {
+  //       view3.push(row.Az);
+  //     }
+  //   });
+  //   setViewData({ view1, view2, view3 });
+  //   setLabel(label);
+  // }, [view, list]);
 
   // /*****************************************/
   // const plotData = [

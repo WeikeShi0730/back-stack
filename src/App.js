@@ -8,7 +8,7 @@ import Login from "./pages/login/login.component";
 import Account from "./pages/account/account.component";
 function App() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen font-light">
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />

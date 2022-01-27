@@ -44,7 +44,7 @@ const SignUp = () => {
   return (
     <React.Fragment>
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
-        <h1 className="text-base lg:text-lg font-medium text-primary mt-4 mb-12 text-center">
+        <h1 className="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center">
           Don't have an account? Sign up 🔐
         </h1>
         <form onSubmit={handleSignUpFormSubmit}>
