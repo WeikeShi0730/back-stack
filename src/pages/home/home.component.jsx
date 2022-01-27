@@ -3,28 +3,32 @@ import React from "react";
 const Home = () => {
   return (
     <div className="m-24 p-16 flex flex-col flex-grow font-light">
-      <p>
-        <div className="text-7xl">Back Stack</div>
+      <div>
+        <p className="text-7xl">Back Stack</p>
         <br /> Tracker of{" "}
         <span className="underline decoration-green-700 underline-offset-1 text-2xl">
           spine alignment
         </span>
         , focusing on rehabilitating stroke vicims.
-      </p>
+      </div>
       <br />
-      <p>
-        Losing track of your position? There is something you can do about it.
-      </p>
+      <div>
+        <p>
+          Losing track of your position? There is something you can do about it.
+        </p>
+      </div>
       <br />
       <br />
       <br />
       <br />
-      <p>
-        Back Stack works in{" "}
-        <span className="underline decoration-green-700 underline-offset-1 text-2xl">
-          3
-        </span>{" "}
-        easy steps:
+      <div>
+        <p>
+          Back Stack works in{" "}
+          <span className="underline decoration-green-700 underline-offset-1 text-2xl">
+            3
+          </span>{" "}
+          easy steps:
+        </p>
         <ul>
           <br />
           <li>1. Place Stack on your back.</li>
@@ -36,7 +40,7 @@ const Home = () => {
           <br />
           <li>3. Get your personal analysis and progress report.</li>
         </ul>
-      </p>
+      </div>
     </div>
   );
 };
