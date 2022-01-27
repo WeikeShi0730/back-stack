@@ -4,10 +4,12 @@ const Home = () => {
   return (
     <div className="m-24 p-16 flex flex-col flex-grow font-light">
       <p>
-        <div className="text-7xl">Back Stack:</div>
+        <div className="text-7xl">Back Stack</div>
         <br /> Tracker of{" "}
-        <span className="underline text-xl">spine alignment</span>, focusing on
-        rehabilitating stroke vicims.
+        <span className="underline decoration-green-700 underline-offset-1 text-2xl">
+          spine alignment
+        </span>
+        , focusing on rehabilitating stroke vicims.
       </p>
       <br />
       <p>
@@ -18,8 +20,11 @@ const Home = () => {
       <br />
       <br />
       <p>
-        Back Stack works in <span className="underline text-xl">3</span> easy
-        steps:
+        Back Stack works in{" "}
+        <span className="underline decoration-green-700 underline-offset-1 text-2xl">
+          3
+        </span>{" "}
+        easy steps:
         <ul>
           <br />
           <li>1. Place Stack on your back.</li>

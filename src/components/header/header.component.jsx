@@ -7,7 +7,7 @@ const Header = () => {
   const [currentUser] = useAuthState(auth);
   return (
     <div>
-      <nav className="flex items-center flex-wrap bg-gray-300 p-3">
+      <nav className="flex items-center flex-wrap bg-gray-300 bg-opacity-70 backdrop-blur-lg p-3">
         <div className="flex flex-shrink-0 text-white mx-6">
           <Link to="/">
             <img

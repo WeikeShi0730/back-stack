@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
 import { useHistory, Link } from "react-router-dom";
 import {
   signInWithGoogle,
@@ -42,6 +43,15 @@ const SignIn = () => {
     });
   };
 
+  const handleClickForgotPassword = async () => { //??????????????????????
+    try {
+      await sendChangePasswordEmail();
+      alert("Password reset email sent to: ", );
+    } catch (error) {
+      console.error("Error sending the email: ", error);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
@@ -82,18 +92,23 @@ const SignIn = () => {
             </button>
           </div>
         </form>
-      </div>
-
-      <div className="w-full max-w-md mx-auto mt-4">
-        <div className="flex justify-center">
-          <div>
-            <button
-              className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
-              onClick={handleClick}
-            >
-              Sign in with Google
-            </button>
+        <div className="w-full max-w-md mx-auto mt-4">
+          <div className="flex justify-center">
+            <div>
+              <button
+                className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
+                onClick={handleClick}
+              >
+                Sign in with Google
+              </button>
+            </div>
           </div>
+        </div>
+
+        <div className="">
+          <button onClick={handleClickForgotPassword} className="font-light">
+            Forgot password?
+          </button>
         </div>
       </div>
     </React.Fragment>

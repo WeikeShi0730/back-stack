@@ -140,7 +140,7 @@ const Graph = ({ view }) => {
         <CustomButton onClick={getData}>stop</CustomButton> 
       </div> */}
       <div className="flex justify-center items-center">
-        <div className="w-11/12 h-full">
+        <div className="w-10/12 h-full">
           <ResponsiveContainer aspect={3}>
             <LineChart>
               <CartesianGrid strokeDasharray="3 3" />
@@ -160,9 +160,9 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="left"
+                  value="leftward"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -170,15 +170,15 @@ const Graph = ({ view }) => {
                 <Label
                   value="0"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="right"
+                  value="rightward"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -209,9 +209,9 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="forth"
+                  value="forward"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -219,15 +219,15 @@ const Graph = ({ view }) => {
                 <Label
                   value="0"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="back"
+                  value="backward"
                   position="insideLeft"
-                  dx={-50}
+                  offset={-20}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
