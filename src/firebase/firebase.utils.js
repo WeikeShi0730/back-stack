@@ -11,6 +11,7 @@ import {
   browserLocalPersistence,
   onAuthStateChanged,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
 
@@ -82,5 +83,15 @@ export const signOutGoogle = async () => {
     await signOut(auth);
   } catch (error) {
     console.error("Error signing out: ", error);
+    throw error;
+  }
+};
+
+export const updateUserPassword = async (user, newPassword) => {
+  try {
+    await updatePassword(user, newPassword);
+  } catch (error) {
+    console.error("Error updating password: ", error);
+    throw error;
   }
 };

@@ -45,7 +45,7 @@ const SignUp = () => {
     <React.Fragment>
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
         <h1 className="text-base lg:text-lg font-medium text-primary mt-4 mb-12 text-center">
-          Sign up 🔐
+          Don't have an account? Sign up 🔐
         </h1>
         <form onSubmit={handleSignUpFormSubmit}>
           <div>
@@ -92,20 +92,6 @@ const SignUp = () => {
             </button>
           </div>
         </form>
-      </div>
-      <div className="w-full max-w-md mx-auto mt-4">
-        <div className="text-base lg:text-lg flex justify-center items-center">
-          Already have an account?
-        </div>
-        <div>
-          <Link to="/sign-in">
-            <div className="flex justify-center items-center mt-6">
-              <button className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none">
-                Sign in
-              </button>
-            </div>
-          </Link>
-        </div>
       </div>
     </React.Fragment>
   );

@@ -49,13 +49,13 @@ const Header = () => {
 
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg lg:flex lg:items-center lg:w-auto">
           {currentUser ? (
-            <Link to={`/sign-out/${currentUser.uid}`}>
+            <Link to={`/account/${currentUser.uid}`}>
               <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0">
                 {currentUser.displayName}
               </button>
             </Link>
           ) : (
-            <Link to="/sign-in">
+            <Link to="/login">
               <button className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300 lg:mt-0">
                 sign in
               </button>

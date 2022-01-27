@@ -60,22 +60,6 @@ const SignOut = () => {
       </Link>
       <div />
       <div />
-      {/* <Link to="/">
-        <button
-          onClick={handleDeleteRecord}
-          className="text-xs md:text-sm lg:text-base py-2 px-4 text-red-800 rounded border border-red-800 focus:outline-none"
-        >
-          delete my result
-        </button>
-      </Link>
-      <Link to="/">
-        <button
-          onClick={handleDeleteAccount}
-          className="text-xs md:text-sm lg:text-base bg-red-800 py-2 px-4 text-white rounded border focus:outline-none"
-        >
-          delete account
-        </button>
-      </Link> */}
     </div>
   );
 };
