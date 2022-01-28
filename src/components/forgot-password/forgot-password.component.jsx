@@ -5,15 +5,16 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
   const handleChange = (event) => {
+    event.preventDefault();
     const { value } = event.target;
     setEmail(() => value);
   };
 
-  const handleSubmit = async () => {
-    // need to check if email provided exist
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       await sendChangePasswordEmail(email);
-      alert("Password reset email sent to: ", email);
+      alert("Password reset email sent to: " + email);
     } catch (error) {
       console.error(error);
     }

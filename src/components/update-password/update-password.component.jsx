@@ -1,9 +1,11 @@
 import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
 const UpdatePassword = ({ currentUser }) => {
-  const handleClick = async () => {
+  const handleClick = async (event) => {
+    event.preventDefault();
     try {
-      await sendChangePasswordEmail(currentUser);
-      alert("Password reset email sent to: ", currentUser.displayName);
+      const { email } = currentUser;
+      await sendChangePasswordEmail(email);
+      alert("Password reset email sent to: " + email);
     } catch (error) {
       console.error("Error sending the email: ", error);
     }
