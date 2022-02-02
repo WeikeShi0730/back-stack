@@ -16,7 +16,7 @@ import { dbRef } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
 // import CustomButton from "../custom-button/custom-button.component";
 
-const Graph = ({ view }) => {
+const Graph = () => {
   // const [viewData, setViewData] = useState({
   //   view1: [],
   //   view2: [],
@@ -160,7 +160,7 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="left"
+                  value="Left"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -176,7 +176,7 @@ const Graph = ({ view }) => {
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="right"
+                  value="Right"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -209,7 +209,7 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="front"
+                  value="Front"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -225,7 +225,7 @@ const Graph = ({ view }) => {
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="back"
+                  value="Back"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
