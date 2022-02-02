@@ -140,9 +140,9 @@ const Graph = () => {
         <CustomButton onClick={getData}>stop</CustomButton> 
       </div> */}
       <div className="flex justify-center items-center">
-        <div className="w-10/12 h-full">
-          <ResponsiveContainer aspect={3}>
-            <LineChart>
+        <div className="w-11/12 h-full">
+          <ResponsiveContainer aspect={3} className="my-5">
+            <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 axisLine={false}
@@ -151,7 +151,13 @@ const Graph = () => {
                 name="Time"
                 tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
                 type="number"
-              />
+              >
+                <Label
+                  value="Time (HH:mm)"
+                  offset={-10}
+                  position="insideBottom"
+                />
+              </XAxis>
               <YAxis
                 tick={false}
                 type="number"
@@ -190,8 +196,8 @@ const Graph = () => {
               />
             </LineChart>
           </ResponsiveContainer>
-          <ResponsiveContainer aspect={3}>
-            <LineChart>
+          <ResponsiveContainer aspect={3} className="my-5">
+            <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 axisLine={false}
@@ -200,7 +206,13 @@ const Graph = () => {
                 name="Time"
                 tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
                 type="number"
-              />
+              >
+                <Label
+                  value="Time (HH:mm)"
+                  offset={-10}
+                  position="insideBottom"
+                />
+              </XAxis>
               <YAxis
                 tick={false}
                 type="number"
