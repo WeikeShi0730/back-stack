@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import { dbRef } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
+import { colors } from "../../config";
 // import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = () => {
@@ -119,12 +120,21 @@ const Graph = () => {
     return null;
   };
 
-  const chartData = [
-    { value: 15, time: 1503611308914 },
-    { value: 20, time: 1503613184594 },
-    { value: -15, time: 1503616882654 },
-    { value: 15, time: 1503616962277 },
-    { value: -8, time: 1503617297689 },
+  const chartDatas = [
+    [
+      { value: 15, time: 1503611308914 },
+      { value: 20, time: 1503613184594 },
+      { value: -15, time: 1503616882654 },
+      { value: 15, time: 1503616962277 },
+      { value: -8, time: 1503617297689 },
+    ],
+    [
+      { value: 18, time: 1503611308914 },
+      { value: 17, time: 1503613184594 },
+      { value: 15, time: 1503616882654 },
+      { value: 5, time: 1503616962277 },
+      { value: -18, time: 1503617297689 },
+    ],
   ];
 
   return (
@@ -183,12 +193,19 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              <Line
-                data={chartData}
-                type="monotone"
-                dataKey="value"
-                stroke="#8884d8"
-              />
+              {chartDatas.map((chartData, index) => {
+                return (
+                  <Line
+                    connectNulls
+                    key={index}
+                    strokeWidth={2}
+                    data={chartData}
+                    type="monotone"
+                    dataKey="value"
+                    stroke={colors[index]}
+                  />
+                );
+              })}
               <Tooltip content={<CustomTooltip />} />
               {/* <Legend verticalAlign="top" height={36} /> */}
             </LineChart>
@@ -240,12 +257,19 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              <Line
-                data={chartData}
-                type="monotone"
-                dataKey="value"
-                stroke="#8884d8"
-              />
+              {chartDatas.map((chartData, index) => {
+                return (
+                  <Line
+                    connectNulls
+                    key={index}
+                    strokeWidth={2}
+                    data={chartData}
+                    type="monotone"
+                    dataKey="value"
+                    stroke={colors[index]}
+                  />
+                );
+              })}
               <Tooltip content={<CustomTooltip />} />
               {/* <Legend verticalAlign="top" height={36} /> */}
             </LineChart>

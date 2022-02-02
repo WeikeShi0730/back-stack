@@ -34,6 +34,29 @@ const Selections = () => {
     ? startTimeOptions.filter(({ value }) => value > startTime.value)
     : [{ value: null, label: "Select start time first" }];
 
+  //********* custom styles for selection *********/
+  const customStyles = {
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(100, 116, 139, .1)",
+      backdropFilter: "blur(3px)",
+    }),
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(100, 116, 139, 0)",
+    }),
+  };
+  const theme = (theme) => ({
+    ...theme,
+    colors: {
+      ...theme.colors,
+      text: "black",
+      primary50: "rgba(100, 116, 139, 0.1)",
+      primary25: "rgba(100, 116, 139, 0.2)",
+      primary: "rgba(100, 116, 139, 0.3)",
+    },
+  });
+
   return (
     <div className="flex justify-center m-5">
       <Select
@@ -47,8 +70,8 @@ const Selections = () => {
         // isLoading={dateLoading}
         placeholder="Date..."
         className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-80"
-        // styles={customStyles}
-        // theme={theme}
+        styles={customStyles}
+        theme={theme}
       />
       <Select
         instanceId="session"
@@ -60,8 +83,8 @@ const Selections = () => {
         // isLoading={startTimeLoading}
         placeholder="Start time..."
         className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
-        // styles={customStyles}
-        // theme={theme}
+        styles={customStyles}
+        theme={theme}
       />
       <Select
         instanceId="driver"
@@ -73,8 +96,8 @@ const Selections = () => {
         // isLoading={endTimeLoading}
         placeholder="End time..."
         className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
-        // styles={customStyles}
-        // theme={theme}
+        styles={customStyles}
+        theme={theme}
       />
     </div>
   );

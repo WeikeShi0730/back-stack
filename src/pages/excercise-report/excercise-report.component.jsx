@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 // import Sidebar from "../../components/sidebar/sidebar.component";
 import Selections from "../../components/selections/selections.component";
 import Graph from "../../components/graph/graph.component";
+import Comparison from "../../components/comparison/comparison.component";
 
 export const SelectionsContext = createContext();
 
@@ -32,6 +33,9 @@ const ExcerciseReport = () => {
         </div>
         <div className="">
           <Graph />
+        </div>
+        <div className="">
+          <Comparison date={date} />
         </div>
       </SelectionsContext.Provider>
     </div>
