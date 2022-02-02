@@ -160,7 +160,7 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="leftward"
+                  value="left"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -176,7 +176,7 @@ const Graph = ({ view }) => {
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="rightward"
+                  value="right"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -209,7 +209,7 @@ const Graph = ({ view }) => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="forward"
+                  value="front"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
@@ -225,7 +225,7 @@ const Graph = ({ view }) => {
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="backward"
+                  value="back"
                   position="insideLeft"
                   offset={-20}
                   style={{ textAnchor: "middle" }}
