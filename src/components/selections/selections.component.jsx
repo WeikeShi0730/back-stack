@@ -31,10 +31,7 @@ const Selections = () => {
     : [{ value: null, label: "Select a date first" }];
 
   const endTimeOptions = startTime
-    ? startTimeOptions.filter(({ value }) => {
-        console.log(startTime);
-        return value > startTime.value;
-      })
+    ? startTimeOptions.filter(({ value }) => value > startTime.value)
     : [{ value: null, label: "Select start time first" }];
 
   return (

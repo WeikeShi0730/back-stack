@@ -20,28 +20,28 @@ const Header = () => {
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/">
             <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
-              Home
+              Home 🏠
             </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/measure">
             <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
-              Measure
+              Measure 📐
             </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/excercise-report">
             <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
-              Excercise report
+              Excercise report 📒
             </div>
           </Link>
         </div>
         <div className="flex flex-shrink-0 text-sm md:text-base lg:text-lg text-white mx-2">
           <Link to="/device-connection">
             <div className="px-4 py-2 leading-none rounded text-black hover:bg-gray-300">
-              Device connection
+              Device connection 📶
             </div>
           </Link>
         </div>

@@ -160,9 +160,9 @@ const Graph = () => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="Left"
+                  value="Left (°)"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -170,15 +170,15 @@ const Graph = () => {
                 <Label
                   value="0"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="Right"
+                  value="Right (°)"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -209,9 +209,9 @@ const Graph = () => {
               />
               <ReferenceLine y={80} stroke="white">
                 <Label
-                  value="Front"
+                  value="Front (°)"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
@@ -219,15 +219,15 @@ const Graph = () => {
                 <Label
                   value="0"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
               <ReferenceLine y={-80} stroke="white">
                 <Label
-                  value="Back"
+                  value="Back (°)"
                   position="insideLeft"
-                  offset={-20}
+                  offset={-30}
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
