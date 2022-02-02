@@ -8,7 +8,7 @@ import {
   YAxis,
   Label,
   ReferenceLine,
-  // Tooltip,
+  Tooltip,
   // Legend,
   Line,
 } from "recharts";
@@ -97,30 +97,27 @@ const Graph = () => {
   //   setLabel(label);
   // }, [view, list]);
 
-  // /*****************************************/
-  // const plotData = [
-  //     {
-  //       label: "# x",
-  //       data: viewData.view1,
-  //       fill: false,
-  //       backgroundColor: "rgb(255, 99, 132)",
-  //       borderColor: "rgba(255, 99, 132, 0.2)",
-  //     },
-  //     {
-  //       label: "# y",
-  //       data: viewData.view2,
-  //       fill: false,
-  //       backgroundColor: "rgb(54, 162, 235)",
-  //       borderColor: "rgba(54, 162, 235, 0.2)",
-  //     },
-  //     {
-  //       label: "# z",
-  //       data: viewData.view3,
-  //       fill: false,
-  //       backgroundColor: "rgb(1, 2, 3)",
-  //       borderColor: "rgba(1, 2, 3, 0.2)",
-  //     },
-  //   ]
+  const timeFormat = (unixTime) => {
+    return moment(unixTime).format("HH:mm");
+  };
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-slate-500 bg-opacity-20 backdrop-blur-sm p-2 rounded-md shadow-lg">
+          <p className="text-lg">{`Time : ${timeFormat(label)}`}</p>
+          {payload.map((eachPayload, index) => {
+            return (
+              <div key={index}>
+                <p className="text-lg">{`${eachPayload.payload.value} °`}</p>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
 
   const chartData = [
     { value: 15, time: 1503611308914 },
@@ -129,8 +126,6 @@ const Graph = () => {
     { value: 15, time: 1503616962277 },
     { value: -8, time: 1503617297689 },
   ];
-
-  /*****************************************/
 
   return (
     <div className="">
@@ -194,6 +189,8 @@ const Graph = () => {
                 dataKey="value"
                 stroke="#8884d8"
               />
+              <Tooltip content={<CustomTooltip />} />
+              {/* <Legend verticalAlign="top" height={36} /> */}
             </LineChart>
           </ResponsiveContainer>
           <ResponsiveContainer aspect={3} className="my-5">
@@ -249,6 +246,8 @@ const Graph = () => {
                 dataKey="value"
                 stroke="#8884d8"
               />
+              <Tooltip content={<CustomTooltip />} />
+              {/* <Legend verticalAlign="top" height={36} /> */}
             </LineChart>
           </ResponsiveContainer>
         </div>
