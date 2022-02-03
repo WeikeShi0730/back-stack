@@ -133,7 +133,6 @@ const Graph = () => {
         { value: -8, time: 1503617297689 },
       ],
     },
-
     {
       date: "2022-02-02",
       value: [
@@ -147,14 +146,10 @@ const Graph = () => {
   ];
 
   const dateValues = date ? date.map((eachDate) => eachDate.value) : [];
-  console.log(dateValues);
   const chartDatas = date
-    ? tempChartDatas.reduce((acc, current) => {
-        if (dateValues.includes(current.date)) {
-          acc.push(current);
-        }
-        return acc;
-      }, [])
+    ? tempChartDatas.filter((tempChartData) =>
+        dateValues.includes(tempChartData.date)
+      )
     : [];
 
   return (
