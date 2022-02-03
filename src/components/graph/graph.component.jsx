@@ -184,7 +184,6 @@ const Graph = () => {
           });
         })
       : dataWithSelectedDates;
-  console.log(graphDatas);
 
   return (
     <div className="">
