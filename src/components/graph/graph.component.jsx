@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import moment from "moment";
 import {
   ResponsiveContainer,
@@ -15,6 +15,7 @@ import {
 import { dbRef } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
 import { colors } from "../../config";
+import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 // import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = () => {
@@ -25,6 +26,7 @@ const Graph = () => {
   // });
   // const [label, setLabel] = useState([]);
   const [list] = useListVals(dbRef);
+  const { date } = useContext(SelectionsContext);
 
   // const [graphData, setGraphData] = useState();
 
@@ -120,22 +122,40 @@ const Graph = () => {
     return null;
   };
 
-  const chartDatas = [
-    [
-      { value: 15, time: 1503611308914 },
-      { value: 20, time: 1503613184594 },
-      { value: -15, time: 1503616882654 },
-      { value: 15, time: 1503616962277 },
-      { value: -8, time: 1503617297689 },
-    ],
-    [
-      { value: 18, time: 1503611308914 },
-      { value: 17, time: 1503613184594 },
-      { value: 15, time: 1503616882654 },
-      { value: 5, time: 1503616962277 },
-      { value: -18, time: 1503617297689 },
-    ],
+  const tempChartDatas = [
+    {
+      date: "2022-02-01",
+      value: [
+        { value: 15, time: 1503611308914 },
+        { value: 20, time: 1503613184594 },
+        { value: -15, time: 1503616882654 },
+        { value: 15, time: 1503616962277 },
+        { value: -8, time: 1503617297689 },
+      ],
+    },
+
+    {
+      date: "2022-02-02",
+      value: [
+        { value: 18, time: 1503611308914 },
+        { value: 17, time: 1503613184594 },
+        { value: 15, time: 1503616882654 },
+        { value: 5, time: 1503616962277 },
+        { value: -18, time: 1503617297689 },
+      ],
+    },
   ];
+
+  const dateValues = date ? date.map((eachDate) => eachDate.value) : [];
+  console.log(dateValues);
+  const chartDatas = date
+    ? tempChartDatas.reduce((acc, current) => {
+        if (dateValues.includes(current.date)) {
+          acc.push(current);
+        }
+        return acc;
+      }, [])
+    : [];
 
   return (
     <div className="">
@@ -199,7 +219,7 @@ const Graph = () => {
                     connectNulls
                     key={index}
                     strokeWidth={2}
-                    data={chartData}
+                    data={chartData.value}
                     type="monotone"
                     dataKey="value"
                     stroke={colors[index]}
@@ -263,7 +283,7 @@ const Graph = () => {
                     connectNulls
                     key={index}
                     strokeWidth={2}
-                    data={chartData}
+                    data={chartData.value}
                     type="monotone"
                     dataKey="value"
                     stroke={colors[index]}

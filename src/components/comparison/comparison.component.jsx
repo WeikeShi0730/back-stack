@@ -24,7 +24,7 @@ const Comparison = ({ date }) => {
   //     : [];
 
   const tempData = [
-    { id: "2022-02-01", name: "Feb 1, 2022", total: 8, upright: 2 },
+    { id: "2022-02-01", name: "Feb 1, 2022", total: 8, upright: 7 },
     { id: "2022-02-02", name: "Feb 2, 2022", total: 5, upright: 5 },
   ];
 
@@ -44,8 +44,8 @@ const Comparison = ({ date }) => {
             <YAxis dataKey="name" type="category" scale="band" />
             <Tooltip />
             {/* <Legend /> */}
-            <Bar dataKey="total" stackId="a" fill="#8884d8" />
             <Bar dataKey="upright" stackId="a" fill="#82ca9d" />
+            <Bar dataKey="total" stackId="a" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>
