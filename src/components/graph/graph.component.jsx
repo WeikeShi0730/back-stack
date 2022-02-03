@@ -26,7 +26,7 @@ const Graph = () => {
   // });
   // const [label, setLabel] = useState([]);
   const [list] = useListVals(dbRef);
-  const { date } = useContext(SelectionsContext);
+  const { date, startTime, endTime } = useContext(SelectionsContext);
 
   // const [graphData, setGraphData] = useState();
 
@@ -138,7 +138,7 @@ const Graph = () => {
         { value: 1, time: new Date("2022-01-01T17:11:38").getTime() },
         { value: 10, time: new Date("2022-01-01T18:11:38").getTime() },
         { value: 18, time: new Date("2022-01-01T19:11:38").getTime() },
-        { value: -15, time: new Date("2022-01-01T20:11:38").getTime() },
+        { value: -15, time: new Date("2022-01-01T20:00:00").getTime() },
       ],
     },
     {
@@ -156,17 +156,35 @@ const Graph = () => {
         { value: 17, time: new Date("2022-01-01T17:11:38").getTime() },
         { value: 17, time: new Date("2022-01-01T18:11:38").getTime() },
         { value: -18, time: new Date("2022-01-01T19:11:38").getTime() },
-        { value: -18, time: new Date("2022-01-01T20:11:38").getTime() },
+        { value: -18, time: new Date("2022-01-01T20:00:00").getTime() },
       ],
     },
   ];
 
-  const dateValues = date ? date.map((eachDate) => eachDate.value) : [];
-  const chartDatas = date
-    ? tempChartDatas.filter((tempChartData) =>
-        dateValues.includes(tempChartData.date)
-      )
+  const dates = date ? date.map((eachDate) => eachDate.value) : [];
+  const dataWithSelectedDates = date
+    ? tempChartDatas.reduce((acc, current) => {
+        if (dates.includes(current.date)) {
+          acc.push(current.value);
+        }
+        return acc;
+      }, [])
     : [];
+  const graphDatas =
+    startTime !== null &&
+    startTime !== undefined &&
+    endTime !== null &&
+    endTime !== undefined
+      ? dataWithSelectedDates.map((dataWithSelectedDate) => {
+          return dataWithSelectedDate.filter((eachdataWithSelectedDate) => {
+            return (
+              eachdataWithSelectedDate.time >= startTime.value &&
+              eachdataWithSelectedDate.time <= endTime.value
+            );
+          });
+        })
+      : dataWithSelectedDates;
+  console.log(graphDatas);
 
   return (
     <div className="">
@@ -224,13 +242,13 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              {chartDatas.map((chartData, index) => {
+              {graphDatas.map((graphData, index) => {
                 return (
                   <Line
                     connectNulls
                     key={index}
                     strokeWidth={2}
-                    data={chartData.value}
+                    data={graphData}
                     type="monotone"
                     dataKey="value"
                     stroke={colors[index]}
@@ -288,13 +306,13 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              {chartDatas.map((chartData, index) => {
+              {graphDatas.map((graphData, index) => {
                 return (
                   <Line
                     connectNulls
                     key={index}
                     strokeWidth={2}
-                    data={chartData.value}
+                    data={graphData}
                     type="monotone"
                     dataKey="value"
                     stroke={colors[index]}

@@ -14,19 +14,19 @@ const Selections = () => {
 
   const startTimeOptions = date
     ? [
-        { value: 8, label: "08:00" },
-        { value: 9, label: "09:00" },
-        { value: 10, label: "10:00" },
-        { value: 11, label: "11:00" },
-        { value: 12, label: "12:00" },
-        { value: 13, label: "13:00" },
-        { value: 14, label: "14:00" },
-        { value: 15, label: "15:00" },
-        { value: 16, label: "16:00" },
-        { value: 17, label: "17:00" },
-        { value: 18, label: "18:00" },
-        { value: 19, label: "19:00" },
-        { value: 20, label: "20:00" },
+        { value: new Date("2022-01-01T08:00:00").getTime(), label: "08:00" },
+        { value: new Date("2022-01-01T09:00:00").getTime(), label: "09:00" },
+        { value: new Date("2022-01-01T10:00:00").getTime(), label: "10:00" },
+        { value: new Date("2022-01-01T11:00:00").getTime(), label: "11:00" },
+        { value: new Date("2022-01-01T12:00:00").getTime(), label: "12:00" },
+        { value: new Date("2022-01-01T13:00:00").getTime(), label: "13:00" },
+        { value: new Date("2022-01-01T14:00:00").getTime(), label: "14:00" },
+        { value: new Date("2022-01-01T15:00:00").getTime(), label: "15:00" },
+        { value: new Date("2022-01-01T16:00:00").getTime(), label: "16:00" },
+        { value: new Date("2022-01-01T17:00:00").getTime(), label: "17:00" },
+        { value: new Date("2022-01-01T18:00:00").getTime(), label: "18:00" },
+        { value: new Date("2022-01-01T19:00:00").getTime(), label: "19:00" },
+        { value: new Date("2022-01-01T20:00:00").getTime(), label: "20:00" },
       ]
     : [{ value: null, label: "Select a date first" }];
 
