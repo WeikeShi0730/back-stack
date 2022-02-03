@@ -126,21 +126,37 @@ const Graph = () => {
     {
       date: "2022-02-01",
       value: [
-        { value: 15, time: 1503611308914 },
-        { value: 20, time: 1503613184594 },
-        { value: -15, time: 1503616882654 },
-        { value: 15, time: 1503616962277 },
-        { value: -8, time: 1503617297689 },
+        { value: 14, time: new Date("2022-01-01T08:11:38").getTime() },
+        { value: 11, time: new Date("2022-01-01T09:11:38").getTime() },
+        { value: 10, time: new Date("2022-01-01T10:11:38").getTime() },
+        { value: 7, time: new Date("2022-01-01T11:11:38").getTime() },
+        { value: 7, time: new Date("2022-01-01T12:11:38").getTime() },
+        { value: 1, time: new Date("2022-01-01T13:11:38").getTime() },
+        { value: -1, time: new Date("2022-01-01T14:11:38").getTime() },
+        { value: -5, time: new Date("2022-01-01T15:11:38").getTime() },
+        { value: 5, time: new Date("2022-01-01T16:11:38").getTime() },
+        { value: 1, time: new Date("2022-01-01T17:11:38").getTime() },
+        { value: 10, time: new Date("2022-01-01T18:11:38").getTime() },
+        { value: 18, time: new Date("2022-01-01T19:11:38").getTime() },
+        { value: -15, time: new Date("2022-01-01T20:11:38").getTime() },
       ],
     },
     {
       date: "2022-02-02",
       value: [
-        { value: 18, time: 1503611308914 },
-        { value: 17, time: 1503613184594 },
-        { value: 15, time: 1503616882654 },
-        { value: 5, time: 1503616962277 },
-        { value: -18, time: 1503617297689 },
+        { value: 18, time: new Date("2022-01-01T08:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T09:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T10:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T11:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T12:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T13:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T14:11:38").getTime() },
+        { value: 15, time: new Date("2022-01-01T15:11:38").getTime() },
+        { value: 5, time: new Date("2022-01-01T16:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T17:11:38").getTime() },
+        { value: 17, time: new Date("2022-01-01T18:11:38").getTime() },
+        { value: -18, time: new Date("2022-01-01T19:11:38").getTime() },
+        { value: -18, time: new Date("2022-01-01T20:11:38").getTime() },
       ],
     },
   ];
@@ -169,7 +185,7 @@ const Graph = () => {
                 dataKey="time"
                 domain={["auto", "auto"]}
                 name="Time"
-                tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
+                tickFormatter={(date) => moment(date).format("HH:mm")}
                 type="number"
               >
                 <Label
