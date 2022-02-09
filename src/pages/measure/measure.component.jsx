@@ -1,5 +1,11 @@
+import MeasureGraph from "../../components/measure-graph/measure-graph.component";
+
 const Measure = () => {
-  return <div></div>;
+  return (
+    <div>
+      <MeasureGraph />
+    </div>
+  );
 };
 
 export default Measure;
