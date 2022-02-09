@@ -1,29 +1,63 @@
 import { useState, useEffect } from "react";
-import GaugeChart from "react-gauge-chart";
-// import { Gauge } from "reaviz";
+import ReactSpeedometer from "react-d3-speedometer";
 
 const MeasureGraph = () => {
-  const [angle, setAngle] = useState();
+  const [lateralAngle, setLateralAngle] = useState(0.5);
+  const [medialAngle, setMedialAngle] = useState(0.5);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setAngle(Math.random() * 0.2 + 0.4);
-    }, 200);
+      setLateralAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
+      setMedialAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
+    }, 250);
     return () => clearTimeout(timer);
   });
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="relative w-3/4 m-10">
-        <GaugeChart
-          hideText={true}
-          animDelay={0}
-          animateDuration={1000}
-          colors={["red", "green", "red"]}
-          nrOfLevels={3}
-          percent={angle}
+      <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
+        <div>Lateral angle</div>
+        <ReactSpeedometer
+          height={200}
+          maxValue={1}
+          value={lateralAngle}
+          currentValueText={`${lateralAngle}`}
+          needleHeightRatio={0.7}
+          needleTransitionDuration={500}
+          segments={7}
+          ringWidth={47}
+          segmentColors={[
+            "#bf616a",
+            "#d08770",
+            "#ebcb8b",
+            "#a3be8c",
+            "#ebcb8b",
+            "#d08770",
+            "#bf616a",
+          ]}
         />
       </div>
-      <div className="relative w-3/4 m-10"></div>
+      <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
+        <div>Medial angle</div>
+        <ReactSpeedometer
+          height={200}
+          maxValue={1}
+          value={medialAngle}
+          currentValueText={`${medialAngle}`}
+          needleHeightRatio={0.7}
+          needleTransitionDuration={500}
+          segments={7}
+          ringWidth={47}
+          segmentColors={[
+            "#bf616a",
+            "#d08770",
+            "#ebcb8b",
+            "#a3be8c",
+            "#ebcb8b",
+            "#d08770",
+            "#bf616a",
+          ]}
+        />
+      </div>
     </div>
   );
 };
