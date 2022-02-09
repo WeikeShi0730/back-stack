@@ -13,18 +13,21 @@ const MeasureGraph = () => {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col w-full h-full justify-center items-center">
       <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
         <div>Lateral angle</div>
         <ReactSpeedometer
-          height={200}
+          width={400}
+          ringWidth={50}
           maxValue={1}
           value={lateralAngle}
           currentValueText={`${lateralAngle}`}
           needleHeightRatio={0.7}
           needleTransitionDuration={500}
           segments={7}
-          ringWidth={47}
+          valueTextFontWeight={"300"}
+          textColor={"black"}
+          labelFontSize={"12px"}
           segmentColors={[
             "#bf616a",
             "#d08770",
@@ -34,12 +37,34 @@ const MeasureGraph = () => {
             "#d08770",
             "#bf616a",
           ]}
+          customSegmentStops={[0, 1 / 7, 2 / 7, 3 / 7, 4 / 7, 5 / 7, 6 / 7, 1]}
+          customSegmentLabels={[
+            {
+              text: "Left",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
+            {},
+            {},
+            {
+              text: "Center",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
+            {},
+            {},
+            {
+              text: "Right",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
+          ]}
         />
       </div>
       <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
         <div>Medial angle</div>
         <ReactSpeedometer
-          height={200}
+          width={400}
           maxValue={1}
           value={medialAngle}
           currentValueText={`${medialAngle}`}
@@ -47,6 +72,8 @@ const MeasureGraph = () => {
           needleTransitionDuration={500}
           segments={7}
           ringWidth={47}
+          valueTextFontWeight={"300"}
+          textColor={"black"}
           segmentColors={[
             "#bf616a",
             "#d08770",
@@ -55,6 +82,28 @@ const MeasureGraph = () => {
             "#ebcb8b",
             "#d08770",
             "#bf616a",
+          ]}
+          customSegmentStops={[0, 1 / 7, 2 / 7, 3 / 7, 4 / 7, 5 / 7, 6 / 7, 1]}
+          customSegmentLabels={[
+            {
+              text: "Back",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
+            {},
+            {},
+            {
+              text: "Center",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
+            {},
+            {},
+            {
+              text: "Front",
+              position: "INSIDE",
+              color: "#d8dee9",
+            },
           ]}
         />
       </div>
