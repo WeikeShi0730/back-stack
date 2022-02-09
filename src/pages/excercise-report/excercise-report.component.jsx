@@ -1,7 +1,7 @@
 import { useState, createContext } from "react";
 // import Sidebar from "../../components/sidebar/sidebar.component";
 import Selections from "../../components/selections/selections.component";
-import Graph from "../../components/graph/graph.component";
+import Graph from "../../components/excercise-report-graph/excercise-report-graph.component";
 import Comparison from "../../components/comparison/comparison.component";
 
 export const SelectionsContext = createContext();
