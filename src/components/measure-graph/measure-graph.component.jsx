@@ -5,11 +5,11 @@ const MeasureGraph = () => {
   const [lateralAngle, setLateralAngle] = useState(0.5);
   const [medialAngle, setMedialAngle] = useState(0.5);
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       setLateralAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
       setMedialAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
     }, 250);
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   });
 
   return (
