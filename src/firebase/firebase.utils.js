@@ -16,6 +16,13 @@ import {
   reauthenticateWithCredential,
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
+import {
+  getFirestore,
+  getDoc,
+  setDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCUKBUwf1bnrxDEyOwO7I7IvTIGOK0zxwY",
@@ -34,15 +41,24 @@ export const auth = getAuth();
 // Initialize database
 export const db = getDatabase(app);
 export const dbRef = ref(db, "IMU_LSM6DS3/2-pushJSON");
+// Initialize firebase
+const fs = getFirestore();
 
-// Auth
+//********************Auth ********************/
 export const onAuthChange = onAuthStateChanged;
 
 export const signInWithGoogle = async () => {
   try {
     await setPersistence(auth, browserLocalPersistence);
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    // check if firestore already have this uid, if not create a new doc
+    const { uid } = result.user;
+    const exist = await getUserInFirestore(uid);
+    if (!exist) {
+      const { displayName, email } = result.user;
+      await createUserInFirestore(displayName, email);
+    }
   } catch (error) {
     throw error;
   }
@@ -58,9 +74,7 @@ export const signUpWithEmailAndPassword = async (signUpInfo) => {
     await updateProfile(auth.currentUser, {
       displayName: signUpInfo.displayName,
     });
-    // const { password, ...signUpInfoWithoutPassword } = signUpInfo;
-    // await createUserFirestore(signUpInfoWithoutPassword);
-    // return signUpInfoWithoutPassword;
+    await createUserInFirestore(signUpInfo.displayName, signUpInfo.email);
   } catch (error) {
     console.error("Error creating the profile: ", error);
     throw error;
@@ -94,6 +108,37 @@ export const sendChangePasswordEmail = async (email) => {
     await sendPasswordResetEmail(auth, email);
   } catch (error) {
     console.error("Error updating password: ", error);
+    throw error;
+  }
+};
+
+//********************DB ********************/
+const sendDataToFirestore = () => {};
+
+//********************Firestore ********************/
+const createUserInFirestore = async (displayName, email) => {
+  try {
+    // await setDoc(doc(fs, "users", auth.currentUser.uid), {
+    //   user: { displayName: displayName, email: email },
+    // });
+    await setDoc(doc(fs, "users", auth.currentUser.uid, "dates", "hello"), {});
+    await setDoc(doc(fs, "users", auth.currentUser.uid), {
+      user: { displayName: displayName, email: email },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getUserInFirestore = async (uid) => {
+  try {
+    const docRef = doc(fs, "users", uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return true;
+    }
+    return false;
+  } catch (error) {
     throw error;
   }
 };
