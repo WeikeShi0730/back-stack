@@ -22,6 +22,7 @@ import {
   setDoc,
   doc,
   updateDoc,
+  collection,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -113,16 +114,25 @@ export const sendChangePasswordEmail = async (email) => {
 };
 
 //********************DB ********************/
-const sendDataToFirestore = () => {};
+const date = "2022-02-22";
+const sendDataToFirestore = async (data) => {
+  const { uid } = auth.currentUser;
+  const docRef = doc(fs, "users", uid, "dates", date);
+  console.log(data);
+  await setDoc(docRef, data);
+};
+
+onValue(ref(db, "/IMU_LSM6DS3/" + date), async (snapshot) => {
+  const data = snapshot.val();
+  await sendDataToFirestore(data);
+});
 
 //********************Firestore ********************/
 const createUserInFirestore = async (displayName, email) => {
   try {
-    // await setDoc(doc(fs, "users", auth.currentUser.uid), {
-    //   user: { displayName: displayName, email: email },
-    // });
-    await setDoc(doc(fs, "users", auth.currentUser.uid, "dates", "hello"), {});
-    await setDoc(doc(fs, "users", auth.currentUser.uid), {
+    const { uid } = auth.currentUser;
+    await setDoc(doc(fs, "users", uid, "dates", date), {});
+    await setDoc(doc(fs, "users", uid), {
       user: { displayName: displayName, email: email },
     });
   } catch (error) {
