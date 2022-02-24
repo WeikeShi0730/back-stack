@@ -23,6 +23,7 @@ import {
   doc,
   updateDoc,
   collection,
+  onSnapshot,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -113,25 +114,28 @@ export const sendChangePasswordEmail = async (email) => {
   }
 };
 
+export const subscribeToAuthState = (cb) => {
+  return onAuthStateChanged(auth, cb);
+};
+
 //********************DB ********************/
 const date = "2022-02-22";
-const sendDataToFirestore = async (data) => {
+const sendDataToFirestore = async (dataArray) => {
   const { uid } = auth.currentUser;
   const docRef = doc(fs, "users", uid, "dates", date);
-  console.log(data);
-  await setDoc(docRef, data);
+  await setDoc(docRef, { dataArray });
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/" + date), async (snapshot) => {
-  const data = snapshot.val();
-  await sendDataToFirestore(data);
+  const dataArray = Object.values(snapshot.val());
+  await sendDataToFirestore(dataArray);
 });
 
 //********************Firestore ********************/
 const createUserInFirestore = async (displayName, email) => {
   try {
     const { uid } = auth.currentUser;
-    await setDoc(doc(fs, "users", uid, "dates", date), {});
+    await setDoc(doc(fs, "users", uid, "dates", "hello"), {});
     await setDoc(doc(fs, "users", uid), {
       user: { displayName: displayName, email: email },
     });
@@ -151,4 +155,9 @@ const getUserInFirestore = async (uid) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const subscribeToFirestore = (uid, snapshot) => {
+  const dataRef = doc(fs, "users", uid, "dates", date);
+  return onSnapshot(dataRef, snapshot);
 };

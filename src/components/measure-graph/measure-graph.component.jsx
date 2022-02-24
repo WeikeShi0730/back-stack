@@ -1,15 +1,34 @@
 import { useState, useEffect } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
+import {
+  subscribeToFirestore,
+  subscribeToAuthState,
+  auth,
+} from "../../firebase/firebase.utils";
 
 const MeasureGraph = () => {
   const [lateralAngle, setLateralAngle] = useState(0.5);
   const [medialAngle, setMedialAngle] = useState(0.5);
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  
   useEffect(() => {
-    const timer = setInterval(() => {
-      setLateralAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
-      setMedialAngle(parseFloat((Math.random() * 0.2 + 0.4).toFixed(2)));
-    }, 250);
-    return () => clearInterval(timer);
+    const unsubscribe = subscribeToAuthState((user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  });
+
+  useEffect(() => {
+    const unsubscribe = currentUser
+      ? subscribeToFirestore(currentUser.uid, (snapshot) => {
+          const { dataArray } = snapshot.data();
+          const lastDataPoint = dataArray[dataArray.length - 1];
+          const { Ax, Ay } = lastDataPoint;
+          setLateralAngle(Ax);
+          setMedialAngle(Ay);
+        })
+      : () => {};
+    return () => unsubscribe();
   });
 
   return (
