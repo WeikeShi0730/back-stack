@@ -123,7 +123,7 @@ const date = "2022-02-22";
 const sendDataToFirestore = async (dataArray) => {
   const { uid } = auth.currentUser;
   const docRef = doc(fs, "users", uid, "dates", date);
-  await setDoc(docRef, { dataArray });
+  await setDoc(docRef, { [date]: dataArray });
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/" + date), async (snapshot) => {
@@ -152,6 +152,22 @@ const getUserInFirestore = async (uid) => {
       return true;
     }
     return false;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserData = async () => {
+  try {
+    const { uid } = auth.currentUser;
+    const docRef = doc(fs, "users", uid, "dates", date);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return data;
+    } else {
+      throw Error("No documents found");
+    }
   } catch (error) {
     throw error;
   }

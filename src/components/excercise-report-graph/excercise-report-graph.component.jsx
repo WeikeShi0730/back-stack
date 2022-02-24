@@ -12,7 +12,7 @@ import {
   // Legend,
   Line,
 } from "recharts";
-import { dbRef } from "../../firebase/firebase.utils";
+import { dbRef, getUserData } from "../../firebase/firebase.utils";
 import { useListVals } from "react-firebase-hooks/database";
 import { colors } from "../../config";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
@@ -27,6 +27,14 @@ const Graph = () => {
   // const [label, setLabel] = useState([]);
   const [list] = useListVals(dbRef);
   const { date, startTime, endTime } = useContext(SelectionsContext);
+
+  const handleClick = async () => {
+    const res = await getUserData();
+    const date = Object.keys(res);
+    const dataArray = res[date];
+    console.log(dataArray);
+
+  };
 
   // const [graphData, setGraphData] = useState();
 
@@ -192,6 +200,7 @@ const Graph = () => {
 
         <CustomButton onClick={getData}>stop</CustomButton> 
       </div> */}
+      <button onClick={handleClick}>click</button>
       <div className="flex justify-center items-center">
         <div className="w-11/12 h-full">
           <ResponsiveContainer aspect={3} className="my-5">
