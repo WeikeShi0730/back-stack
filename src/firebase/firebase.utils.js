@@ -23,6 +23,7 @@ import {
   updateDoc,
   collection,
   onSnapshot,
+  arrayUnion,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -122,8 +123,10 @@ const sendDataToFirestore = async (dataObjects, dates) => {
   const { uid } = auth.currentUser;
   for (var date of dates) {
     const dataArray = Object.values(dataObjects[date]);
-    const docRef = doc(fs, "users", uid, "dates", date);
-    await setDoc(docRef, { [date]: dataArray });
+    const docRef = doc(fs, "users", uid);
+    await updateDoc(docRef, {
+      data: arrayUnion({ [date]: dataArray }),
+    });
   }
 };
 
@@ -138,9 +141,10 @@ onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
 const createUserInFirestore = async (displayName, email) => {
   try {
     const { uid } = auth.currentUser;
-    await setDoc(doc(fs, "users", uid, "dates", "hello"), {});
+    // await setDoc(doc(fs, "users", uid, "dates", "hello"), {});
     await setDoc(doc(fs, "users", uid), {
       user: { displayName: displayName, email: email },
+      data: [],
     });
   } catch (error) {
     throw error;
@@ -160,16 +164,18 @@ const getUserInFirestore = async (uid) => {
   }
 };
 
-export const getUserData = async (date) => {
+export const getUserData = async (uid) => {
   try {
-    const { uid } = auth.currentUser;
-    const docRef = doc(fs, "users", uid, "dates", date);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      return data;
-    } else {
-      throw Error("No documents found");
+    // const { uid } = auth.currentUser;
+    if (auth.currentUser) {
+      const docRef = doc(fs, "users", uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        return data;
+      } else {
+        throw Error("No documents found");
+      }
     }
   } catch (error) {
     throw error;
@@ -177,9 +183,6 @@ export const getUserData = async (date) => {
 };
 
 export const subscribeToFirestore = (uid, snapshot) => {
-  // console.log(updatingDate);
-  // const temp = collection(fs, "users", uid, "dates");
-  // const test =
-  const dataRef = doc(fs, "users", uid, "dates");
+  const dataRef = doc(fs, "users", uid);
   return onSnapshot(dataRef, snapshot);
 };

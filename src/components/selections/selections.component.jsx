@@ -1,31 +1,41 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import Select from "react-select";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
-import { getUserData } from "../../firebase/firebase.utils";
-import { useEffect } from "react";
+import { getUserData, auth } from "../../firebase/firebase.utils";
 
 const Selections = () => {
   const { date, setDate, startTime, setStartTime, endTime, setEndTime } =
     useContext(SelectionsContext);
+  const [dateOptions, setDateOptions] = useState([]);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const res = await getUserData();
-  //       const date = Object.keys(res);
-  //       const dataArray = res[date];
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        if (auth.currentUser) {
+          const { uid } = auth.currentUser;
+          const res = await getUserData(uid);
+          const { data } = res;
+          let dateOptions = [];
+          data.forEach((eachData) => {
+            dateOptions.push({
+              value: Object.keys(eachData)[0],
+              label: Object.keys(eachData)[0],
+            });
+          });
+          setDateOptions(dateOptions);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
 
-  const dateOptions = [
-    // test dates!!!
-    { value: "2022-02-01", label: "Feb 1, 2022" },
-    { value: "2022-02-02", label: "Feb 2, 2022" },
-  ];
+  // const dateOptions = [
+  //   // test dates!!!
+  //   { value: "2022-02-01", label: "Feb 1, 2022" },
+  //   { value: "2022-02-02", label: "Feb 2, 2022" },
+  // ];
 
   const startTimeOptions = date
     ? [

@@ -28,84 +28,6 @@ const Graph = () => {
   const [list] = useListVals(dbRef);
   const { date, startTime, endTime } = useContext(SelectionsContext);
 
-  const handleClick = async () => {
-    const res = await getUserData();
-    const date = Object.keys(res);
-    const dataArray = res[date];
-  };
-
-  // const [graphData, setGraphData] = useState();
-
-  // const parseData = async () => {
-  //   try {
-  //     const res = await fetch("data/Data_tests_oct27_21/acc_803_test.csv");
-  //     const reader = res.body.getReader();
-  //     const result = await reader.read(); // raw array
-  //     const decoder = new TextDecoder("utf-8");
-  //     const csv = decoder.decode(result.value); // the csv text
-  //     const results = Papa.parse(csv, {
-  //       header: true,
-  //     }); // object with { data, errors, meta }
-  //     const rows = results.data; // array of objects
-  //     return rows;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const getStartId = async () => {
-  //   const rows = await parseData();
-  //   const id = rows[rows.length - 2].id;
-  //   localStorage.setItem("startId", id);
-  // };
-
-  // const getEndId = async () => {
-  //   const rows = await parseData();
-  //   const id = rows[rows.length - 2].id;
-  //   localStorage.setItem("endId", id);
-  //   return rows;
-  // };
-
-  // const getData = async () => {
-  //   const rows = await getEndId();
-  //   var startId = parseInt(localStorage.getItem("startId"));
-  //   var endId = parseInt(localStorage.getItem("endId"));
-  //   let data = [];
-  //   let label = [];
-  //   rows.forEach((row) => {
-  //     var rowId = parseInt(row.id);
-  //     if (rowId >= startId && rowId <= endId) {
-  //       data.push([row.acc_x, row.acc_y, row.acc_z]);
-  //       label.push(row.id);
-  //     }
-  //   });
-  //   setData(data);
-  //   setLabel(label);
-  // };
-
-  // useEffect(() => {
-  //   const temp = list;
-  //   // setGraphData(temp);
-  //   let view1 = [];
-  //   let view2 = [];
-  //   let view3 = [];
-  //   let label = [0];
-  //   temp.forEach((row) => {
-  //     label.push(label[label.length - 1] + 1);
-  //     if (view.view1) {
-  //       view1.push(row.Ax);
-  //     }
-  //     if (view.view2) {
-  //       view2.push(row.Ay);
-  //     }
-  //     if (view.view3) {
-  //       view3.push(row.Az);
-  //     }
-  //   });
-  //   setViewData({ view1, view2, view3 });
-  //   setLabel(label);
-  // }, [view, list]);
-
   const timeFormat = (unixTime) => {
     return moment(unixTime).format("HH:mm");
   };
@@ -198,7 +120,6 @@ const Graph = () => {
 
         <CustomButton onClick={getData}>stop</CustomButton> 
       </div> */}
-      <button onClick={handleClick}>click</button>
       <div className="flex justify-center items-center">
         <div className="w-11/12 h-full">
           <ResponsiveContainer aspect={3} className="my-5">

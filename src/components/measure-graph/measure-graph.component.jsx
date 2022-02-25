@@ -22,14 +22,14 @@ const MeasureGraph = () => {
     const unsubscribe = currentUser
       ? subscribeToFirestore(currentUser.uid, (snapshot) => {
           // Ax Ay to be determined depending on name of new variable
-            const data = snapshot.data();
-            const date = Object.keys(data);
-            const dataArray = data[date];
-            // console.log(dataArray);
-            const lastDataPoint = dataArray.pop();
-            const { kalAngleX, kalAngleY } = lastDataPoint;
-            setLateralAngle(kalAngleX);
-            setMedialAngle(kalAngleY);
+          const { data } = snapshot.data();
+          const lastData = data.pop(); // need to change!!
+          const date = Object.keys(lastData);
+          const dataArray = lastData[date[0]];
+          const lastDataPoint = dataArray.pop();
+          const { kalAngleX, kalAngleY } = lastDataPoint;
+          setLateralAngle(kalAngleX);
+          setMedialAngle(kalAngleY);
         })
       : () => {};
     return () => unsubscribe();
