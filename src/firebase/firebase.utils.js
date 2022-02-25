@@ -121,13 +121,15 @@ export const subscribeToAuthState = (cb) => {
 //********************DB ********************/
 const sendDataToFirestore = async (dataObjects, dates) => {
   const { uid } = auth.currentUser;
+  let temp = []
   for (var date of dates) {
     const dataArray = Object.values(dataObjects[date]);
-    const docRef = doc(fs, "users", uid);
-    await updateDoc(docRef, {
-      data: arrayUnion({ [date]: dataArray }),
-    });
+    temp.push({[date]:dataArray});
   }
+  const docRef = doc(fs, "users", uid);
+  await updateDoc(docRef, { // ???!?!??!?!!??!!?!??!!!?!?!?!?!?!?!?!?!??!?!?!?!?
+    data: temp,
+  });
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
