@@ -132,12 +132,16 @@ const sendDataToFirestore = async (dataObjects, dates) => {
   });
 };
 
-onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
-  // Set to default,
-  const dataObjects = snapshot.val();
-  const dates = Object.keys(snapshot.val());
-  await sendDataToFirestore(dataObjects, dates);
-});
+export const subscribeToDb = (snapshot) => {
+  return onValue(ref(db, "/IMU_LSM6DS3/"), snapshot);
+}
+
+// onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
+//   // Set to default,
+//   const dataObjects = snapshot.val();
+//   const dates = Object.keys(snapshot.val());
+//   await sendDataToFirestore(dataObjects, dates);
+// });
 
 //********************Firestore ********************/
 const createUserInFirestore = async (displayName, email) => {

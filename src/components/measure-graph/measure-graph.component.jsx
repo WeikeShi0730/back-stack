@@ -3,6 +3,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import {
   subscribeToFirestore,
   subscribeToAuthState,
+  subscribeToDb,
   auth,
 } from "../../firebase/firebase.utils";
 
@@ -18,21 +19,36 @@ const MeasureGraph = () => {
     return () => unsubscribe();
   });
 
+  // useEffect(() => {
+  //   const unsubscribe = currentUser
+  //     ? subscribeToFirestore(currentUser.uid, (snapshot) => {
+  //         // Ax Ay to be determined depending on name of new variable
+  //         const { data } = snapshot.data();
+  //         const lastData = data.pop(); // need to change!!
+  //         const date = Object.keys(lastData);
+  //         const dataArray = lastData[date[0]];
+  //         const lastDataPoint = dataArray.pop();
+  //         const { kalAngleX, kalAngleY } = lastDataPoint;
+  //         setLateralAngle(kalAngleX);
+  //         setMedialAngle(kalAngleY);
+  //       })
+  //     : () => {};
+  //   return () => unsubscribe();
+  // });
+
   useEffect(() => {
-    const unsubscribe = currentUser
-      ? subscribeToFirestore(currentUser.uid, (snapshot) => {
-          // Ax Ay to be determined depending on name of new variable
-          const { data } = snapshot.data();
-          const lastData = data.pop(); // need to change!!
-          const date = Object.keys(lastData);
-          const dataArray = lastData[date[0]];
-          const lastDataPoint = dataArray.pop();
-          const { kalAngleX, kalAngleY } = lastDataPoint;
-          setLateralAngle(kalAngleX);
-          setMedialAngle(kalAngleY);
-        })
-      : () => {};
-    return () => unsubscribe();
+    const subscribe = subscribeToDb(async (snapshot) => {
+      // Set to default,
+      const dataObjects = snapshot.val();
+      const dates = Object.keys(snapshot.val());
+      const lastDate = dates.pop();
+      const dataObject = dataObjects[lastDate];
+      const lastDataPoint = Object.values(dataObject).pop();
+      const { kalAngleX, kalAngleY } = lastDataPoint;
+      setLateralAngle(kalAngleX);
+      setMedialAngle(kalAngleY);
+    });
+    return () => subscribe();
   });
 
   return (
