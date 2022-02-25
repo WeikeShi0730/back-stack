@@ -21,11 +21,15 @@ const MeasureGraph = () => {
   useEffect(() => {
     const unsubscribe = currentUser
       ? subscribeToFirestore(currentUser.uid, (snapshot) => {
-          const { dataArray } = snapshot.data();
-          const lastDataPoint = dataArray.pop();
-          const { Ax, Ay } = lastDataPoint;
-          setLateralAngle(Ax);
-          setMedialAngle(Ay);
+          // Ax Ay to be determined depending on name of new variable
+            const data = snapshot.data();
+            const date = Object.keys(data);
+            const dataArray = data[date];
+            // console.log(dataArray);
+            const lastDataPoint = dataArray.pop();
+            const { kalAngleX, kalAngleY } = lastDataPoint;
+            setLateralAngle(kalAngleX);
+            setMedialAngle(kalAngleY);
         })
       : () => {};
     return () => unsubscribe();

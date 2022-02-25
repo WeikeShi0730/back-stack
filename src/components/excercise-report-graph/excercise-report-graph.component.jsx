@@ -32,8 +32,6 @@ const Graph = () => {
     const res = await getUserData();
     const date = Object.keys(res);
     const dataArray = res[date];
-    console.log(dataArray);
-
   };
 
   // const [graphData, setGraphData] = useState();

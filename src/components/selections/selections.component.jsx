@@ -1,10 +1,25 @@
 import { useContext } from "react";
 import Select from "react-select";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
+import { getUserData } from "../../firebase/firebase.utils";
+import { useEffect } from "react";
 
 const Selections = () => {
   const { date, setDate, startTime, setStartTime, endTime, setEndTime } =
     useContext(SelectionsContext);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const res = await getUserData();
+  //       const date = Object.keys(res);
+  //       const dataArray = res[date];
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
 
   const dateOptions = [
     // test dates!!!
@@ -14,6 +29,14 @@ const Selections = () => {
 
   const startTimeOptions = date
     ? [
+        { value: new Date("2022-01-01T00:00:00").getTime(), label: "00:00" },
+        { value: new Date("2022-01-01T01:00:00").getTime(), label: "01:00" },
+        { value: new Date("2022-01-01T02:00:00").getTime(), label: "02:00" },
+        { value: new Date("2022-01-01T03:00:00").getTime(), label: "03:00" },
+        { value: new Date("2022-01-01T04:00:00").getTime(), label: "04:00" },
+        { value: new Date("2022-01-01T05:00:00").getTime(), label: "05:00" },
+        { value: new Date("2022-01-01T06:00:00").getTime(), label: "06:00" },
+        { value: new Date("2022-01-01T07:00:00").getTime(), label: "07:00" },
         { value: new Date("2022-01-01T08:00:00").getTime(), label: "08:00" },
         { value: new Date("2022-01-01T09:00:00").getTime(), label: "09:00" },
         { value: new Date("2022-01-01T10:00:00").getTime(), label: "10:00" },
@@ -27,6 +50,9 @@ const Selections = () => {
         { value: new Date("2022-01-01T18:00:00").getTime(), label: "18:00" },
         { value: new Date("2022-01-01T19:00:00").getTime(), label: "19:00" },
         { value: new Date("2022-01-01T20:00:00").getTime(), label: "20:00" },
+        { value: new Date("2022-01-01T21:00:00").getTime(), label: "21:00" },
+        { value: new Date("2022-01-01T22:00:00").getTime(), label: "22:00" },
+        { value: new Date("2022-01-01T23:00:00").getTime(), label: "23:00" },
       ]
     : [{ value: null, label: "Select a date first" }];
 

@@ -13,7 +13,6 @@ import {
   signOut,
   sendPasswordResetEmail,
   updatePassword,
-  reauthenticateWithCredential,
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
 import {
@@ -119,16 +118,20 @@ export const subscribeToAuthState = (cb) => {
 };
 
 //********************DB ********************/
-const date = "2022-02-22";
-const sendDataToFirestore = async (dataArray) => {
+const sendDataToFirestore = async (dataObjects, dates) => {
   const { uid } = auth.currentUser;
-  const docRef = doc(fs, "users", uid, "dates", date);
-  await setDoc(docRef, { [date]: dataArray });
+  for (var date of dates) {
+    const dataArray = Object.values(dataObjects[date]);
+    const docRef = doc(fs, "users", uid, "dates", date);
+    await setDoc(docRef, { [date]: dataArray });
+  }
 };
 
-onValue(ref(db, "/IMU_LSM6DS3/" + date), async (snapshot) => {
-  const dataArray = Object.values(snapshot.val());
-  await sendDataToFirestore(dataArray);
+onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
+  // Set to default,
+  const dataObjects = snapshot.val();
+  const dates = Object.keys(snapshot.val());
+  await sendDataToFirestore(dataObjects, dates);
 });
 
 //********************Firestore ********************/
@@ -157,7 +160,7 @@ const getUserInFirestore = async (uid) => {
   }
 };
 
-export const getUserData = async () => {
+export const getUserData = async (date) => {
   try {
     const { uid } = auth.currentUser;
     const docRef = doc(fs, "users", uid, "dates", date);
@@ -174,6 +177,8 @@ export const getUserData = async () => {
 };
 
 export const subscribeToFirestore = (uid, snapshot) => {
-  const dataRef = doc(fs, "users", uid, "dates", date);
+  // const dataObjects = snapshot.val();
+  // console.log(dataObjects);
+  const dataRef = doc(fs, "users", uid, "dates", "22-2-25");
   return onSnapshot(dataRef, snapshot);
 };
