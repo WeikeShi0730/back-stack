@@ -1,20 +1,24 @@
-import { useState, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 // import Sidebar from "../../components/sidebar/sidebar.component";
 import Selections from "../../components/selections/selections.component";
 import Graph from "../../components/excercise-report-graph/excercise-report-graph.component";
 import Comparison from "../../components/comparison/comparison.component";
+import { auth, subscribeToAuthState } from "../../firebase/firebase.utils";
 
 export const SelectionsContext = createContext();
 
 const ExcerciseReport = () => {
-  //   const [view, setView] = useState({
-  //     view1: false,
-  //     view2: false,
-  //     view3: false,
-  //   });
   const [date, setDate] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthState((user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  });
 
   const value = {
     date,
@@ -23,6 +27,7 @@ const ExcerciseReport = () => {
     setStartTime,
     endTime,
     setEndTime,
+    currentUser,
   };
 
   return (

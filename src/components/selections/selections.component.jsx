@@ -4,8 +4,15 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 import { getUserData, auth } from "../../firebase/firebase.utils";
 
 const Selections = () => {
-  const { date, setDate, startTime, setStartTime, endTime, setEndTime } =
-    useContext(SelectionsContext);
+  const {
+    date,
+    setDate,
+    startTime,
+    setStartTime,
+    endTime,
+    setEndTime,
+    currentUser,
+  } = useContext(SelectionsContext);
   const [dateOptions, setDateOptions] = useState([]);
 
   useEffect(() => {
@@ -17,9 +24,10 @@ const Selections = () => {
           const { data } = res;
           let dateOptions = [];
           data.forEach((eachData) => {
+            const date = Object.keys(eachData)[0];
             dateOptions.push({
-              value: Object.keys(eachData)[0],
-              label: Object.keys(eachData)[0],
+              value: date,
+              label: date,
             });
           });
           setDateOptions(dateOptions);
@@ -29,7 +37,7 @@ const Selections = () => {
       }
     };
     getData();
-  }, []);
+  }, [currentUser]);
 
   // const dateOptions = [
   //   // test dates!!!

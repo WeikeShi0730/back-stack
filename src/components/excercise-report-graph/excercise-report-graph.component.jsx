@@ -26,7 +26,7 @@ const Graph = () => {
   // });
   // const [label, setLabel] = useState([]);
   const [list] = useListVals(dbRef);
-  const { date, startTime, endTime } = useContext(SelectionsContext);
+  const { date, startTime, endTime, currentUser } = useContext(SelectionsContext);
 
   const timeFormat = (unixTime) => {
     return moment(unixTime).format("HH:mm");
