@@ -177,8 +177,9 @@ export const getUserData = async (date) => {
 };
 
 export const subscribeToFirestore = (uid, snapshot) => {
-  // const dataObjects = snapshot.val();
-  // console.log(dataObjects);
-  const dataRef = doc(fs, "users", uid, "dates", "22-2-25");
+  // console.log(updatingDate);
+  // const temp = collection(fs, "users", uid, "dates");
+  // const test =
+  const dataRef = doc(fs, "users", uid, "dates");
   return onSnapshot(dataRef, snapshot);
 };

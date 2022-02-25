@@ -7,8 +7,8 @@ import {
 } from "../../firebase/firebase.utils";
 
 const MeasureGraph = () => {
-  const [lateralAngle, setLateralAngle] = useState(0.5);
-  const [medialAngle, setMedialAngle] = useState(0.5);
+  const [lateralAngle, setLateralAngle] = useState(0);
+  const [medialAngle, setMedialAngle] = useState(0);
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const MeasureGraph = () => {
           width={400}
           ringWidth={50}
           maxValue={1}
-          value={lateralAngle}
-          currentValueText={`${lateralAngle}`}
+          value={(lateralAngle + 90) / 180}
+          currentValueText={`${lateralAngle.toFixed(0)}°`}
           needleHeightRatio={0.7}
           needleTransitionDuration={500}
           segments={7}
@@ -89,8 +89,8 @@ const MeasureGraph = () => {
         <ReactSpeedometer
           width={400}
           maxValue={1}
-          value={medialAngle}
-          currentValueText={`${medialAngle}`}
+          value={(medialAngle + 90) / 180}
+          currentValueText={`${medialAngle.toFixed(0)}°`}
           needleHeightRatio={0.7}
           needleTransitionDuration={500}
           segments={7}
