@@ -37,16 +37,12 @@ const MeasureGraph = () => {
   // });
 
   useEffect(() => {
-    const subscribe = subscribeToDb(async (snapshot) => {
+    const subscribe = subscribeToDb((snapshot) => {
       // Set to default,
       const dataObjects = snapshot.val();
-      const dates = Object.keys(snapshot.val());
-      const lastDate = dates.pop();
-      const dataObject = dataObjects[lastDate];
-      const lastDataPoint = Object.values(dataObject).pop();
-      const { kalAngleX, kalAngleY } = lastDataPoint;
-      setLateralAngle(kalAngleX);
-      setMedialAngle(kalAngleY);
+      const { kalmanAngleX, kalmanAngleY } = dataObjects;
+      setLateralAngle(kalmanAngleX);
+      setMedialAngle(kalmanAngleY);
     });
     return () => subscribe();
   });

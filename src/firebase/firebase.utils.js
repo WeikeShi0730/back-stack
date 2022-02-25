@@ -133,7 +133,7 @@ const sendDataToFirestore = async (dataObjects, dates) => {
 };
 
 export const subscribeToDb = (snapshot) => {
-  return onValue(ref(db, "/IMU_LSM6DS3/"), snapshot);
+  return onValue(ref(db, "/IMU_LSM6DS3/1-setDouble"), snapshot);
 }
 
 // onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
