@@ -119,38 +119,39 @@ export const subscribeToAuthState = (cb) => {
 };
 
 //********************DB ********************/
-const sendDataToFirestore = async (dataObjects, dates) => {
+const sendDataToFirestore = async (dates) => {
   const { uid } = auth.currentUser;
-  let temp = []
-  for (var date of dates) {
-    const dataArray = Object.values(dataObjects[date]);
-    temp.push({[date]:dataArray});
-  }
+  // let temp = []
+  // for (var date of dates) {
+  //   const dataArray = Object.values(dataObjects[date]);
+  //   temp.push({[date]:dataArray});
+  // }
+  const filteredDates = dates.filter((date) => date !== "1-setDouble");
+  console.log("filteredDates", filteredDates);
   const docRef = doc(fs, "users", uid);
-  await updateDoc(docRef, { // ???!?!??!?!!??!!?!??!!!?!?!?!?!?!?!?!?!??!?!?!?!?
-    data: temp,
+  await updateDoc(docRef, {
+    // ???!?!??!?!!??!!?!??!!!?!?!?!?!?!?!?!?!??!?!?!?!?
+    dates: filteredDates,
   });
 };
 
 export const subscribeToDb = (snapshot) => {
   return onValue(ref(db, "/IMU_LSM6DS3/1-setDouble"), snapshot);
-}
+};
 
-// onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
-//   // Set to default,
-//   const dataObjects = snapshot.val();
-//   const dates = Object.keys(snapshot.val());
-//   await sendDataToFirestore(dataObjects, dates);
-// });
+onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
+  // const dataObjects = snapshot.val();
+  const dates = Object.keys(snapshot.val());
+  await sendDataToFirestore(dates);
+});
 
 //********************Firestore ********************/
 const createUserInFirestore = async (displayName, email) => {
   try {
     const { uid } = auth.currentUser;
-    // await setDoc(doc(fs, "users", uid, "dates", "hello"), {});
     await setDoc(doc(fs, "users", uid), {
       user: { displayName: displayName, email: email },
-      data: [],
+      dates: [],
     });
   } catch (error) {
     throw error;

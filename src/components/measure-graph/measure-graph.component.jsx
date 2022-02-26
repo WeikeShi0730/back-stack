@@ -19,31 +19,16 @@ const MeasureGraph = () => {
     return () => unsubscribe();
   });
 
-  // useEffect(() => {
-  //   const unsubscribe = currentUser
-  //     ? subscribeToFirestore(currentUser.uid, (snapshot) => {
-  //         // Ax Ay to be determined depending on name of new variable
-  //         const { data } = snapshot.data();
-  //         const lastData = data.pop(); // need to change!!
-  //         const date = Object.keys(lastData);
-  //         const dataArray = lastData[date[0]];
-  //         const lastDataPoint = dataArray.pop();
-  //         const { kalAngleX, kalAngleY } = lastDataPoint;
-  //         setLateralAngle(kalAngleX);
-  //         setMedialAngle(kalAngleY);
-  //       })
-  //     : () => {};
-  //   return () => unsubscribe();
-  // });
-
   useEffect(() => {
-    const subscribe = subscribeToDb((snapshot) => {
-      // Set to default,
-      const dataObjects = snapshot.val();
-      const { kalmanAngleX, kalmanAngleY } = dataObjects;
-      setLateralAngle(kalmanAngleX);
-      setMedialAngle(kalmanAngleY);
-    });
+    const subscribe = currentUser
+      ? subscribeToDb((snapshot) => {
+          // Set to default,
+          const dataObjects = snapshot.val();
+          const { kalmanAngleX, kalmanAngleY } = dataObjects;
+          setLateralAngle(kalmanAngleX);
+          setMedialAngle(kalmanAngleY);
+        })
+      : () => subscribe();
     return () => subscribe();
   });
 

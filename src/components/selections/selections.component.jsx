@@ -21,10 +21,10 @@ const Selections = () => {
         if (auth.currentUser) {
           const { uid } = auth.currentUser;
           const res = await getUserData(uid);
-          const { data } = res;
+          console.log(res)
+          const { dates } = res;
           let dateOptions = [];
-          data.forEach((eachData) => {
-            const date = Object.keys(eachData)[0];
+          dates.forEach((date) => {
             dateOptions.push({
               value: date,
               label: date,
@@ -82,8 +82,8 @@ const Selections = () => {
   const customStyles = {
     menu: (provided) => ({
       ...provided,
-      backgroundColor: "rgba(100, 116, 139, .1)",
-      backdropFilter: "blur(3px)",
+      backgroundColor: "rgba(100, 116, 139, 0.2)",
+      backdropFilter: "blur(10px)",
     }),
     control: (provided) => ({
       ...provided,
