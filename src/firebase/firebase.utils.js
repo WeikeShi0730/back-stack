@@ -127,10 +127,9 @@ const sendDataToFirestore = async (dates) => {
   //   temp.push({[date]:dataArray});
   // }
   const filteredDates = dates.filter((date) => date !== "1-setDouble");
-  console.log("filteredDates", filteredDates);
+
   const docRef = doc(fs, "users", uid);
   await updateDoc(docRef, {
-    // ???!?!??!?!!??!!?!??!!!?!?!?!?!?!?!?!?!??!?!?!?!?
     dates: filteredDates,
   });
 };
@@ -140,7 +139,6 @@ export const subscribeToDb = (snapshot) => {
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
-  // const dataObjects = snapshot.val();
   const dates = Object.keys(snapshot.val());
   await sendDataToFirestore(dates);
 });

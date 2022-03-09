@@ -19,14 +19,8 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 // import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = () => {
-  // const [viewData, setViewData] = useState({
-  //   view1: [],
-  //   view2: [],
-  //   view3: [],
-  // });
-  // const [label, setLabel] = useState([]);
-  const [list] = useListVals(dbRef);
-  const { date, startTime, endTime, currentUser } = useContext(SelectionsContext);
+  const { date, startTime, endTime, currentUser } =
+    useContext(SelectionsContext);
 
   const timeFormat = (unixTime) => {
     return moment(unixTime).format("HH:mm");

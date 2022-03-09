@@ -13,9 +13,11 @@ const MeasureGraph = () => {
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthState((user) => {
-      setCurrentUser(user);
-    });
+    const unsubscribe = currentUser
+      ? subscribeToAuthState((user) => {
+          setCurrentUser(user);
+        })
+      : () => {};
     return () => unsubscribe();
   });
 
@@ -28,7 +30,7 @@ const MeasureGraph = () => {
           setLateralAngle(kalmanAngleX);
           setMedialAngle(kalmanAngleY);
         })
-      : () => subscribe();
+      : () => {};
     return () => subscribe();
   });
 

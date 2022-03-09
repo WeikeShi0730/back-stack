@@ -21,7 +21,6 @@ const Selections = () => {
         if (auth.currentUser) {
           const { uid } = auth.currentUser;
           const res = await getUserData(uid);
-          console.log(res)
           const { dates } = res;
           let dateOptions = [];
           dates.forEach((date) => {

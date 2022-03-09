@@ -14,9 +14,11 @@ const ExcerciseReport = () => {
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthState((user) => {
-      setCurrentUser(user);
-    });
+    const unsubscribe = currentUser
+      ? subscribeToAuthState((user) => {
+          setCurrentUser(user);
+        })
+      : () => {};
     return () => unsubscribe();
   });
 
@@ -29,6 +31,10 @@ const ExcerciseReport = () => {
     setEndTime,
     currentUser,
   };
+
+  useEffect(() => {
+    console.log(date);
+  }, [date]);
 
   return (
     <div className="h-full">
@@ -44,15 +50,6 @@ const ExcerciseReport = () => {
         </div>
       </SelectionsContext.Provider>
     </div>
-    // <div className="grid grid-cols-12 h-full">
-    //   {/* <div className="col-span-10 place-self-center"> */}
-    //   <div className="col-span-12">
-    //     <Graph view={view} />
-    //   </div>
-    //   <div className="col-span-2">
-    //         <Sidebar setView={setView} view={view} />
-    //       </div>
-    // </div>
   );
 };
 
