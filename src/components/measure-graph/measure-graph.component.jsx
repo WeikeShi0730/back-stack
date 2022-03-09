@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import {
-  subscribeToFirestore,
   subscribeToAuthState,
   subscribeToDb,
   auth,

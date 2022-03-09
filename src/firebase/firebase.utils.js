@@ -14,7 +14,7 @@ import {
   sendPasswordResetEmail,
   updatePassword,
 } from "firebase/auth";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, get, child } from "firebase/database";
 import {
   getFirestore,
   getDoc,
@@ -133,6 +133,20 @@ const sendDataToFirestore = async (dates) => {
     await updateDoc(docRef, {
       dates: filteredDates,
     });
+  }
+};
+
+export const getDateData = async (date) => {
+  try {
+    const dbRef = ref(db);
+    const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date}`));
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      throw Error("DB doc not found.");
+    }
+  } catch (error) {
+    throw error;
   }
 };
 

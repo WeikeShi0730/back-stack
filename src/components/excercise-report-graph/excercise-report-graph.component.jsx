@@ -12,8 +12,7 @@ import {
   // Legend,
   Line,
 } from "recharts";
-import { dbRef, getUserData } from "../../firebase/firebase.utils";
-import { useListVals } from "react-firebase-hooks/database";
+import { getDateData } from "../../firebase/firebase.utils";
 import { colors } from "../../config";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 // import CustomButton from "../custom-button/custom-button.component";
@@ -22,27 +21,40 @@ const Graph = () => {
   const { date, startTime, endTime, currentUser } =
     useContext(SelectionsContext);
 
-  const timeFormat = (unixTime) => {
-    return moment(unixTime).format("HH:mm");
-  };
+  const [datas, setDatas] = useState();
+  const [filteredDatas, setFilteredDatas] = useState();
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-slate-500 bg-opacity-20 backdrop-blur-sm p-2 rounded-md shadow-lg">
-          <p className="text-lg">{`Time : ${timeFormat(label)}`}</p>
-          {payload.map((eachPayload, index) => {
-            return (
-              <div key={index}>
-                <p className="text-lg">{`${eachPayload.payload.value} °`}</p>
-              </div>
-            );
-          })}
-        </div>
-      );
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await getDateData(date[0].value);
+        // console.log(Object.values(data));
+        setDatas(Object.values(data));
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    if (date !== undefined && date !== null && date.length > 0) {
+      getData();
     }
-    return null;
-  };
+  }, [date]);
+
+  useEffect(() => {
+    const filteredDatas =
+      datas &&
+      startTime &&
+      endTime &&
+      datas.filter((data) => {
+        return data.Hours >= startTime.value && data.Hours < endTime.value;
+      });
+    console.log(filteredDatas);
+    setFilteredDatas(filteredDatas);
+    // datas &&
+    //   datas.forEach((data) => {
+    //     console.log(data.Hours);
+    //   });
+  }, [startTime, endTime, datas]);
 
   const tempChartDatas = [
     {
@@ -106,6 +118,28 @@ const Graph = () => {
           });
         })
       : dataWithSelectedDates;
+
+  const timeFormat = (unixTime) => {
+    return moment(unixTime).format("HH:mm");
+  };
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-slate-500 bg-opacity-20 backdrop-blur-sm p-2 rounded-md shadow-lg">
+          <p className="text-lg">{`Time : ${timeFormat(label)}`}</p>
+          {payload.map((eachPayload, index) => {
+            return (
+              <div key={index}>
+                <p className="text-lg">{`${eachPayload.payload.value} °`}</p>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="">
