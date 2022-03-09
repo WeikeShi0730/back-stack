@@ -22,7 +22,7 @@ const Graph = () => {
     useContext(SelectionsContext);
 
   const [datas, setDatas] = useState();
-  const [filteredDatas, setFilteredDatas] = useState();
+  const [graphDatas, setGraphDatas] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -41,83 +41,53 @@ const Graph = () => {
   }, [date]);
 
   useEffect(() => {
+    let graphData = [];
     const filteredDatas =
-      datas &&
-      startTime &&
-      endTime &&
-      datas.filter((data) => {
-        return data.Hours >= startTime.value && data.Hours < endTime.value;
-      });
-    console.log(filteredDatas);
-    setFilteredDatas(filteredDatas);
+      datas && startTime && endTime
+        ? datas.filter((data) => {
+            return data.Hours >= startTime.value && data.Hours < endTime.value;
+          })
+        : [];
+
+    // const interval = 1;
+    if (filteredDatas.length > 0) {
+      let compressedDatas = [];
+      let timeMin = filteredDatas[0].Minutes;
+      // let timeMax = timeMin + interval;
+      let valueX,
+        valueY,
+        avgX,
+        avgY,
+        count = 0;
+      for (let data of filteredDatas) {
+        // need to be able to adjust interval to 10 minutes
+        if (data.Minutes > timeMin) {
+          // console.log(valueX);
+          avgX = valueX / count;
+          avgY = valueY / count;
+          compressedDatas.push({ time: data.Minutes, avgX: avgX, avgY: avgY });
+          valueX = valueY = avgX = avgY = count = 0;
+          timeMin = data.Minutes;
+        }
+        valueX += data.kalAngleX;
+        valueY += data.kalAngleY;
+        count++;
+      }
+      console.log(compressedDatas);
+      // setCompressedDatas(compressedDatas);
+      graphData.push(compressedDatas);
+      setGraphDatas(graphData);
+    }
+
+    // filteredDatas.push({ date: "", value: filteredData });
+
+    // console.log(filteredDatas);
+    // setFilteredDatas(filteredDatas);
     // datas &&
     //   datas.forEach((data) => {
     //     console.log(data.Hours);
     //   });
   }, [startTime, endTime, datas]);
-
-  const tempChartDatas = [
-    {
-      date: "2022-02-01",
-      value: [
-        { value: 14, time: new Date("2022-01-01T08:11:38").getTime() },
-        { value: 11, time: new Date("2022-01-01T09:11:38").getTime() },
-        { value: 10, time: new Date("2022-01-01T10:11:38").getTime() },
-        { value: 7, time: new Date("2022-01-01T11:11:38").getTime() },
-        { value: 7, time: new Date("2022-01-01T12:11:38").getTime() },
-        { value: 1, time: new Date("2022-01-01T13:11:38").getTime() },
-        { value: -1, time: new Date("2022-01-01T14:11:38").getTime() },
-        { value: -5, time: new Date("2022-01-01T15:11:38").getTime() },
-        { value: 5, time: new Date("2022-01-01T16:11:38").getTime() },
-        { value: 1, time: new Date("2022-01-01T17:11:38").getTime() },
-        { value: 10, time: new Date("2022-01-01T18:11:38").getTime() },
-        { value: 18, time: new Date("2022-01-01T19:11:38").getTime() },
-        { value: -15, time: new Date("2022-01-01T20:00:00").getTime() },
-      ],
-    },
-    {
-      date: "2022-02-02",
-      value: [
-        { value: 18, time: new Date("2022-01-01T08:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T09:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T10:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T11:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T12:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T13:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T14:11:38").getTime() },
-        { value: 15, time: new Date("2022-01-01T15:11:38").getTime() },
-        { value: 5, time: new Date("2022-01-01T16:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T17:11:38").getTime() },
-        { value: 17, time: new Date("2022-01-01T18:11:38").getTime() },
-        { value: -18, time: new Date("2022-01-01T19:11:38").getTime() },
-        { value: -18, time: new Date("2022-01-01T20:00:00").getTime() },
-      ],
-    },
-  ];
-
-  const dates = date ? date.map((eachDate) => eachDate.value) : [];
-  const dataWithSelectedDates = date
-    ? tempChartDatas.reduce((acc, current) => {
-        if (dates.includes(current.date)) {
-          acc.push(current.value);
-        }
-        return acc;
-      }, [])
-    : [];
-  const graphDatas =
-    startTime !== null &&
-    startTime !== undefined &&
-    endTime !== null &&
-    endTime !== undefined
-      ? dataWithSelectedDates.map((dataWithSelectedDate) => {
-          return dataWithSelectedDate.filter((eachdataWithSelectedDate) => {
-            return (
-              eachdataWithSelectedDate.time >= startTime.value &&
-              eachdataWithSelectedDate.time <= endTime.value
-            );
-          });
-        })
-      : dataWithSelectedDates;
 
   const timeFormat = (unixTime) => {
     return moment(unixTime).format("HH:mm");
@@ -205,7 +175,7 @@ const Graph = () => {
                     strokeWidth={2}
                     data={graphData}
                     type="monotone"
-                    dataKey="value"
+                    dataKey="avgX"
                     stroke={colors[index]}
                   />
                 );
@@ -269,7 +239,7 @@ const Graph = () => {
                     strokeWidth={2}
                     data={graphData}
                     type="monotone"
-                    dataKey="value"
+                    dataKey="avgY"
                     stroke={colors[index]}
                   />
                 );
