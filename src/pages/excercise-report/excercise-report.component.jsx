@@ -14,11 +14,9 @@ const ExcerciseReport = () => {
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
 
   useEffect(() => {
-    const unsubscribe = currentUser
-      ? subscribeToAuthState((user) => {
-          setCurrentUser(user);
-        })
-      : () => {};
+    const unsubscribe = subscribeToAuthState((user) => {
+      setCurrentUser(user);
+    });
     return () => unsubscribe();
   });
 
@@ -32,9 +30,9 @@ const ExcerciseReport = () => {
     currentUser,
   };
 
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
+  // useEffect(() => {
+  //   console.log(date);
+  // }, [date]);
 
   return (
     <div className="h-full">

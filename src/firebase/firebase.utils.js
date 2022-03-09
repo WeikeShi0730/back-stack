@@ -120,18 +120,20 @@ export const subscribeToAuthState = (cb) => {
 
 //********************DB ********************/
 const sendDataToFirestore = async (dates) => {
-  const { uid } = auth.currentUser;
-  // let temp = []
-  // for (var date of dates) {
-  //   const dataArray = Object.values(dataObjects[date]);
-  //   temp.push({[date]:dataArray});
-  // }
-  const filteredDates = dates.filter((date) => date !== "1-setDouble");
+  if (auth.currentUser !== undefined && auth.currentUser !== null) {
+    const { uid } = auth.currentUser;
+    // let temp = []
+    // for (var date of dates) {
+    //   const dataArray = Object.values(dataObjects[date]);
+    //   temp.push({[date]:dataArray});
+    // }
+    const filteredDates = dates.filter((date) => date !== "1-setDouble");
 
-  const docRef = doc(fs, "users", uid);
-  await updateDoc(docRef, {
-    dates: filteredDates,
-  });
+    const docRef = doc(fs, "users", uid);
+    await updateDoc(docRef, {
+      dates: filteredDates,
+    });
+  }
 };
 
 export const subscribeToDb = (snapshot) => {

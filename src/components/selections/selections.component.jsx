@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
+import moment from "moment";
 import Select from "react-select";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
-import { getUserData, auth } from "../../firebase/firebase.utils";
+import { getUserData } from "../../firebase/firebase.utils";
 
 const Selections = () => {
   const {
@@ -18,15 +19,15 @@ const Selections = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        if (auth.currentUser) {
-          const { uid } = auth.currentUser;
+        if (currentUser) {
+          const { uid } = currentUser;
           const res = await getUserData(uid);
           const { dates } = res;
           let dateOptions = [];
           dates.forEach((date) => {
             dateOptions.push({
               value: date,
-              label: date,
+              label: moment(date).format("ll"),
             });
           });
           setDateOptions(dateOptions);
