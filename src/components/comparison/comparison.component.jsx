@@ -23,6 +23,8 @@ const Comparison = () => {
       startTime &&
       endTime
     ) {
+      console.log(dates.length);
+
       let plotDatas = [];
       for (const data of datas) {
         let total = data.data.length;
@@ -69,10 +71,18 @@ const Comparison = () => {
     return null;
   };
 
+  // aspect ratio   bars
+  // 8              1
+  // 7              2
+  // ...            ...
+  // 2              7
+  // 2              ...
+  const aspectRatio = 9 - dates.length >= 2 ? 9 - dates.length : 2;
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-11/12 h-full">
-        <ResponsiveContainer width="100%" aspect={8} className="my-5">
+        <ResponsiveContainer width="100%" aspect={aspectRatio} className="my-5">
           <BarChart
             data={plotDatas}
             layout="vertical"
