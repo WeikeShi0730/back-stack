@@ -14,6 +14,7 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 const Comparison = () => {
   const { dates, startTime, endTime, datas } = useContext(SelectionsContext);
   const [plotDatas, setPlotDatas] = useState([]);
+  const [aspectRatio, setAspectRatio] = useState(8);
 
   useEffect(() => {
     if (
@@ -23,7 +24,6 @@ const Comparison = () => {
       startTime &&
       endTime
     ) {
-
       let plotDatas = [];
       for (const data of datas) {
         let total = data.data.length;
@@ -44,6 +44,9 @@ const Comparison = () => {
         });
       }
       setPlotDatas(plotDatas);
+
+      const aspectRatio = 9 - dates.length >= 2 ? 9 - dates.length : 2;
+      setAspectRatio(aspectRatio);
     }
   }, [dates, startTime, endTime, datas]);
 
@@ -76,7 +79,6 @@ const Comparison = () => {
   // ...            ...
   // 2              7
   // 2              ...
-  const aspectRatio = 9 - dates.length >= 2 ? 9 - dates.length : 2;
 
   return (
     <div className="flex flex-col justify-center items-center">
