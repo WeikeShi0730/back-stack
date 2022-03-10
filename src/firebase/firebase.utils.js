@@ -25,6 +25,7 @@ import {
   onSnapshot,
   arrayUnion,
 } from "firebase/firestore";
+import moment from "moment";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCUKBUwf1bnrxDEyOwO7I7IvTIGOK0zxwY",
@@ -159,16 +160,32 @@ export const getDateData = async (dates, startTime, endTime) => {
             valueY,
             avgX,
             avgY,
-            count,
-            minCount = 0;
+            count = 0;
           for (let data of filteredDatas) {
             // need to be able to adjust interval to 10 minutes
             if (data.Minutes !== currentMin) {
               avgX = valueX / count;
               avgY = valueY / count;
-              averagedData.push({ time: minCount, avgX: avgX, avgY: avgY });
+              averagedData.push({
+                time: moment(
+                  `2022-01-01-${data.Hours}:${data.Minutes}:${data.Seconds}`,
+                  "YYYY-MM-DD-k:m:s"
+                ).unix(),
+                avgX: avgX,
+                avgY: avgY,
+              });
+              // console.log(
+              //   moment(
+              //     `2022-01-01-${data.Hours}:${data.Minutes}:${data.Seconds}`,
+              //     "YYYY-MM-DD-k:m:s"
+              //   ).unix()
+              // );
+              // console.log(
+              //   new Date(
+              //     `2022-01-01T${data.Hours}:${data.Minutes}:${data.Seconds}`
+              //   ).getTime()
+              // );
               valueX = valueY = avgX = avgY = count = 0;
-              minCount += 1;
               currentMin = data.Minutes;
             }
             valueX += data.kalAngleX;

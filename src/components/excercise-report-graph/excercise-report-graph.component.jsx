@@ -24,6 +24,8 @@ const Graph = () => {
 
   useEffect(() => {
     const getData = async () => {
+      // console.log(new Date(`2022-01-01T20:2:2`).getTime());
+      // console.log("20".length)
       try {
         const graphDatas = await getDateData(dates, startTime, endTime);
         setGraphDatas(graphDatas);
@@ -48,7 +50,7 @@ const Graph = () => {
   // }, [startTime, endTime, datas]);
 
   const timeFormat = (unixTime) => {
-    return moment(unixTime).format("HH:mm");
+    return moment.unix(unixTime).format("HH:mm");
   };
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -86,7 +88,7 @@ const Graph = () => {
                 dataKey="time"
                 domain={["auto", "auto"]}
                 name="Time"
-                tickFormatter={(date) => moment(date).format("HH:mm")}
+                tickFormatter={(unixTime) => timeFormat(unixTime)}
                 type="number"
               >
                 <Label
@@ -150,7 +152,7 @@ const Graph = () => {
                 dataKey="time"
                 domain={["auto", "auto"]}
                 name="Time"
-                tickFormatter={(unixTime) => moment(unixTime).format("HH:mm")}
+                tickFormatter={(unixTime) => timeFormat(unixTime)}
                 type="number"
               >
                 <Label
