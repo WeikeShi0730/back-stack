@@ -23,7 +23,6 @@ const Comparison = () => {
       startTime &&
       endTime
     ) {
-      console.log(dates.length);
 
       let plotDatas = [];
       for (const data of datas) {
