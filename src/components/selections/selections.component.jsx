@@ -6,8 +6,8 @@ import { getUserData } from "../../firebase/firebase.utils";
 
 const Selections = () => {
   const {
-    date,
-    setDate,
+    dates,
+    setDates,
     startTime,
     setStartTime,
     endTime,
@@ -68,7 +68,7 @@ const Selections = () => {
   //     ]
   //   : [{ value: null, label: "Select a date first" }];
 
-  const startTimeOptions = date
+  const startTimeOptions = dates
     ? [
         { value: 0, label: "00:00" },
         { value: 1, label: "01:00" },
@@ -129,9 +129,9 @@ const Selections = () => {
       <Select
         isMulti
         instanceId="data"
-        value={date}
-        onChange={(date) => {
-          setDate(date);
+        value={dates}
+        onChange={(dates) => {
+          setDates(dates);
         }}
         options={dateOptions}
         // isLoading={dateLoading}

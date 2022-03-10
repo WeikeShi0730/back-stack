@@ -8,7 +8,7 @@ import { auth, subscribeToAuthState } from "../../firebase/firebase.utils";
 export const SelectionsContext = createContext();
 
 const ExcerciseReport = () => {
-  const [date, setDate] = useState();
+  const [dates, setDates] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
@@ -21,8 +21,8 @@ const ExcerciseReport = () => {
   });
 
   const value = {
-    date,
-    setDate,
+    dates,
+    setDates,
     startTime,
     setStartTime,
     endTime,
@@ -44,7 +44,7 @@ const ExcerciseReport = () => {
           <Graph />
         </div>
         <div className="">
-          <Comparison date={date} />
+          <Comparison date={dates} />
         </div>
       </SelectionsContext.Provider>
     </div>

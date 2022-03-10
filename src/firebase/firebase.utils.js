@@ -136,15 +136,52 @@ const sendDataToFirestore = async (dates) => {
   }
 };
 
-export const getDateData = async (date) => {
+export const getDateData = async (dates, startTime, endTime) => {
   try {
-    const dbRef = ref(db);
-    const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date}`));
-    if (snapshot.exists()) {
-      return snapshot.val();
-    } else {
-      throw Error("DB doc not found.");
+    let graphDatas = [];
+    for (const date of dates) {
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date.value}`));
+      if (snapshot.exists()) {
+        const datas = Object.values(snapshot.val());
+        const filteredDatas =
+          datas && startTime && endTime
+            ? datas.filter((data) => {
+                return (
+                  data.Hours >= startTime.value && data.Hours < endTime.value
+                );
+              })
+            : [];
+        if (filteredDatas.length > 0) {
+          let averagedData = [];
+          let currentMin = filteredDatas[0].Minutes;
+          let valueX,
+            valueY,
+            avgX,
+            avgY,
+            count,
+            minCount = 0;
+          for (let data of filteredDatas) {
+            // need to be able to adjust interval to 10 minutes
+            if (data.Minutes !== currentMin) {
+              avgX = valueX / count;
+              avgY = valueY / count;
+              averagedData.push({ time: minCount, avgX: avgX, avgY: avgY });
+              valueX = valueY = avgX = avgY = count = 0;
+              minCount += 1;
+              currentMin = data.Minutes;
+            }
+            valueX += data.kalAngleX;
+            valueY += data.kalAngleY;
+            count++;
+          }
+          graphDatas.push(averagedData);
+        }
+      } else {
+        throw Error("DB doc not found.");
+      }
     }
+    return graphDatas;
   } catch (error) {
     throw error;
   }

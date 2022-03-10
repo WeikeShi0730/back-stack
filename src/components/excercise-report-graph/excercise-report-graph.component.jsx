@@ -18,76 +18,34 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 // import CustomButton from "../custom-button/custom-button.component";
 
 const Graph = () => {
-  const { date, startTime, endTime, currentUser } =
-    useContext(SelectionsContext);
+  const { dates, startTime, endTime } = useContext(SelectionsContext);
 
-  const [datas, setDatas] = useState();
   const [graphDatas, setGraphDatas] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getDateData(date[0].value);
-        // console.log(Object.values(data));
-        setDatas(Object.values(data));
+        const graphDatas = await getDateData(dates, startTime, endTime);
+        setGraphDatas(graphDatas);
       } catch (error) {
         console.error(error.message);
       }
     };
 
-    if (date !== undefined && date !== null && date.length > 0) {
+    if (
+      dates !== undefined &&
+      dates !== null &&
+      dates.length > 0 &&
+      startTime &&
+      endTime
+    ) {
       getData();
     }
-  }, [date]);
+  }, [dates, startTime, endTime]);
 
-  useEffect(() => {
-    let graphData = [];
-    const filteredDatas =
-      datas && startTime && endTime
-        ? datas.filter((data) => {
-            return data.Hours >= startTime.value && data.Hours < endTime.value;
-          })
-        : [];
+  // useEffect(() => {
 
-    // const interval = 1;
-    if (filteredDatas.length > 0) {
-      let compressedDatas = [];
-      let timeMin = filteredDatas[0].Minutes;
-      // let timeMax = timeMin + interval;
-      let valueX,
-        valueY,
-        avgX,
-        avgY,
-        count = 0;
-      for (let data of filteredDatas) {
-        // need to be able to adjust interval to 10 minutes
-        if (data.Minutes > timeMin) {
-          // console.log(valueX);
-          avgX = valueX / count;
-          avgY = valueY / count;
-          compressedDatas.push({ time: data.Minutes, avgX: avgX, avgY: avgY });
-          valueX = valueY = avgX = avgY = count = 0;
-          timeMin = data.Minutes;
-        }
-        valueX += data.kalAngleX;
-        valueY += data.kalAngleY;
-        count++;
-      }
-      console.log(compressedDatas);
-      // setCompressedDatas(compressedDatas);
-      graphData.push(compressedDatas);
-      setGraphDatas(graphData);
-    }
-
-    // filteredDatas.push({ date: "", value: filteredData });
-
-    // console.log(filteredDatas);
-    // setFilteredDatas(filteredDatas);
-    // datas &&
-    //   datas.forEach((data) => {
-    //     console.log(data.Hours);
-    //   });
-  }, [startTime, endTime, datas]);
+  // }, [startTime, endTime, datas]);
 
   const timeFormat = (unixTime) => {
     return moment(unixTime).format("HH:mm");
