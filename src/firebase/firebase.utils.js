@@ -12,7 +12,6 @@ import {
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
-  updatePassword,
 } from "firebase/auth";
 import { getDatabase, ref, onValue, get, child } from "firebase/database";
 import {
@@ -21,9 +20,7 @@ import {
   setDoc,
   doc,
   updateDoc,
-  collection,
   onSnapshot,
-  arrayUnion,
 } from "firebase/firestore";
 import moment from "moment";
 
@@ -123,11 +120,6 @@ export const subscribeToAuthState = (cb) => {
 const sendDataToFirestore = async (dates) => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     const { uid } = auth.currentUser;
-    // let temp = []
-    // for (var date of dates) {
-    //   const dataArray = Object.values(dataObjects[date]);
-    //   temp.push({[date]:dataArray});
-    // }
     const filteredDates = dates.filter((date) => date !== "1-setDouble");
 
     const docRef = doc(fs, "users", uid);
@@ -174,17 +166,6 @@ export const getDateData = async (dates, startTime, endTime) => {
                 avgX: avgX,
                 avgY: avgY,
               });
-              // console.log(
-              //   moment(
-              //     `2022-01-01-${data.Hours}:${data.Minutes}:${data.Seconds}`,
-              //     "YYYY-MM-DD-k:m:s"
-              //   ).unix()
-              // );
-              // console.log(
-              //   new Date(
-              //     `2022-01-01T${data.Hours}:${data.Minutes}:${data.Seconds}`
-              //   ).getTime()
-              // );
               valueX = valueY = avgX = avgY = count = 0;
               currentMin = data.Minutes;
             }
@@ -192,7 +173,7 @@ export const getDateData = async (dates, startTime, endTime) => {
             valueY += data.kalAngleY;
             count++;
           }
-          graphDatas.push(averagedData);
+          graphDatas.push({ date: date, data: averagedData });
         }
       } else {
         throw Error("DB doc not found.");

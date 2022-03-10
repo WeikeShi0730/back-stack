@@ -12,6 +12,7 @@ const ExcerciseReport = () => {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  const [datas, setDatas] = useState([])
 
   useEffect(() => {
     const unsubscribe = subscribeToAuthState((user) => {
@@ -28,6 +29,8 @@ const ExcerciseReport = () => {
     endTime,
     setEndTime,
     currentUser,
+    datas,
+    setDatas,
   };
 
   // useEffect(() => {
@@ -44,7 +47,7 @@ const ExcerciseReport = () => {
           <Graph />
         </div>
         <div className="">
-          <Comparison date={dates} />
+          <Comparison />
         </div>
       </SelectionsContext.Provider>
     </div>

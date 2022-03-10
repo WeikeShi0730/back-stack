@@ -1,3 +1,4 @@
+import { useState, useEffect, useContext } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -8,44 +9,82 @@ import {
   Tooltip,
   // Legend,
 } from "recharts";
+import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 
-const Comparison = ({ date }) => {
-  const condition = date !== undefined && date !== null && date.length > 0;
+const Comparison = () => {
+  const { dates, startTime, endTime, datas } = useContext(SelectionsContext);
+  const [plotDatas, setPlotDatas] = useState([]);
 
-  //   const data = condition
-  //     ? date.map((eachDate) => {
-  //         return {
-  //           id: eachDate.value,
-  //           name: eachDate.label,
-  //           total: 8,
-  //           upright: 2,
-  //         };
-  //       })
-  //     : [];
+  useEffect(() => {
+    if (
+      dates !== undefined &&
+      dates !== null &&
+      dates.length > 0 &&
+      startTime &&
+      endTime
+    ) {
+      let plotDatas = [];
+      for (const data of datas) {
+        let total = data.data.length;
+        let upright = 0;
+        for (const eachMinute of data.data) {
+          if (
+            Math.abs(eachMinute.avgX) <= 15 &&
+            Math.abs(eachMinute.avgY) <= 15
+          ) {
+            upright++;
+          }
+        }
+        plotDatas.push({
+          value: data.date.value,
+          label: data.date.label,
+          bad: total,
+          upright: upright,
+        });
+      }
+      setPlotDatas(plotDatas);
+    }
+  }, [dates, startTime, endTime, datas]);
 
-  const tempData = [
-    { id: "2022-02-01", name: "Feb 1, 2022", total: 8, upright: 7 },
-    { id: "2022-02-02", name: "Feb 2, 2022", total: 5, upright: 5 },
-  ];
-
-  const data = condition ? tempData.slice(0, date.length) : [];
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const bad =
+        payload[0].dataKey === "bad" ? payload[0].value : payload[1].value;
+      const upright =
+        payload[0].dataKey === "upright" ? payload[0].value : payload[1].value;
+      return (
+        <div className="bg-slate-50 bg-opacity-80 backdrop-blur-md p-2 rounded-md shadow-lg">
+          <div>
+            Total: <span className="text-[#d08770]">{bad + upright} min</span>
+          </div>
+          <div>
+            Upright:{" "}
+            <span className="text-[#a3be8c]">
+              {upright} min, {((upright * 100) / (bad + upright)).toFixed(0)}%
+            </span>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-11/12 h-full">
         <ResponsiveContainer width="100%" aspect={8} className="my-5">
           <BarChart
-            data={data}
+            data={plotDatas}
             layout="vertical"
             margin={{ top: 5, right: 5, bottom: 15, left: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" />
-            <YAxis dataKey="name" type="category" scale="band" />
-            <Tooltip />
+            <YAxis dataKey="label" type="category" scale="band" />
+            <Tooltip content={<CustomTooltip />} />
             {/* <Legend /> */}
-            <Bar dataKey="upright" stackId="a" fill="#82ca9d" />
-            <Bar dataKey="total" stackId="a" fill="#8884d8" />
+            <Bar dataKey="bad" stackId="a" fill="#d08770" />
+            <Bar dataKey="upright" stackId="a" fill="#a3be8c" />
           </BarChart>
         </ResponsiveContainer>
       </div>
