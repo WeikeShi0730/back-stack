@@ -93,7 +93,7 @@ const Graph = () => {
                 domain={[-100, 100]}
                 axisLine={false}
               />
-              <ReferenceLine y={80} stroke="white">
+              <ReferenceLine y={80} stroke="">
                 <Label
                   value="Left (°)"
                   position="insideLeft"
@@ -109,7 +109,7 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              <ReferenceLine y={-80} stroke="white">
+              <ReferenceLine y={-80} stroke="">
                 <Label
                   value="Right (°)"
                   position="insideLeft"
@@ -157,7 +157,7 @@ const Graph = () => {
                 domain={[-100, 100]}
                 axisLine={false}
               />
-              <ReferenceLine y={80} stroke="white">
+              <ReferenceLine y={80} stroke="">
                 <Label
                   value="Front (°)"
                   position="insideLeft"
@@ -173,7 +173,7 @@ const Graph = () => {
                   style={{ textAnchor: "middle" }}
                 />
               </ReferenceLine>
-              <ReferenceLine y={-80} stroke="white">
+              <ReferenceLine y={-80} stroke="">
                 <Label
                   value="Back (°)"
                   position="insideLeft"
