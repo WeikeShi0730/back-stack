@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
 import {
   signInWithGoogle,
@@ -44,7 +43,7 @@ const SignIn = () => {
   };
 
   const handleClickForgotPassword = () => {
-    history.push("/reset-password")
+    history.push("/reset-password");
   };
 
   return (
@@ -101,7 +100,6 @@ const SignIn = () => {
         </div>
 
         <div className="">
-        
           <button onClick={handleClickForgotPassword} className="font-light">
             Forgot password?
           </button>

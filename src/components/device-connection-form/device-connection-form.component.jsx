@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { addDevice } from "../../firebase/firebase.utils";
+import { useHistory } from "react-router-dom";
 
 const DeviceConnectionForm = () => {
+  const history = useHistory();
   const [serialNumber, setSerialNumber] = useState("");
 
   const handleChange = (event) => {
@@ -14,7 +16,9 @@ const DeviceConnectionForm = () => {
     event.preventDefault();
     try {
       await addDevice(serialNumber);
+      history.push("/");
     } catch (error) {
+      alert(error.message);
       console.error(error.message);
     }
   };

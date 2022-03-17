@@ -12,16 +12,16 @@ const UpdatePassword = ({ currentUser }) => {
   };
 
   return (
-    <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
-      <div className="text-center m-5">Update my password?</div>
-      <span>
+    <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+      <div className="flex flex-col items-center">
+        <div className="text-center m-5">Update my password?</div>
         <button
           onClick={handleClick}
           className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
         >
           Send a password update email
         </button>
-      </span>
+      </div>
     </div>
   );
 };

@@ -228,6 +228,7 @@ export const addDevice = async (serialNumber) => {
         const docSnap = await getDoc(currentUserRef);
         if (docSnap.exists()) {
           let deviceList = docSnap.data().devices;
+          if (deviceList.includes(serialNumber)) return;
           deviceList.push(serialNumber);
           await updateDoc(currentUserRef, {
             devices: deviceList,
@@ -243,6 +244,20 @@ export const addDevice = async (serialNumber) => {
     }
   } else {
     throw Error("Please login first");
+  }
+};
+
+export const getDiviceList = async () => {
+  if (auth.currentUser !== undefined && auth.currentUser !== null) {
+    try {
+      const currentUserRef = doc(fs, "users", auth.currentUser?.uid);
+      const docSnap = await getDoc(currentUserRef);
+      if (docSnap.exists()) {
+        return docSnap.data().devices;
+      }
+    } catch (error) {
+      throw Error;
+    }
   }
 };
 
