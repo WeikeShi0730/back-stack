@@ -121,7 +121,6 @@ const sendDataToFirestore = async (dates) => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     const { uid } = auth.currentUser;
     const filteredDates = dates.filter((date) => date !== "1-setDouble");
-
     const docRef = doc(fs, "users", uid);
     await updateDoc(docRef, {
       dates: filteredDates,
@@ -134,7 +133,7 @@ export const getDateData = async (dates, startTime, endTime) => {
     let graphDatas = [];
     for (const date of dates) {
       const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date.value}`));
+      const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date.value}`)); // !?!?!??? change
       if (snapshot.exists()) {
         const datas = Object.values(snapshot.val());
         const filteredDatas =
@@ -204,6 +203,7 @@ export const subscribeToDb = (device, snapshot) => {
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
+  // ??? change to a funcion call getDatas when selecting date
   const dates = Object.keys(snapshot.val());
   await sendDataToFirestore(dates);
 });
@@ -277,15 +277,25 @@ const getUserInFirestore = async (uid) => {
   }
 };
 
-export const getUserData = async (uid) => {
+export const getUserData = async () => {
   try {
     // const { uid } = auth.currentUser;
     if (auth.currentUser) {
+      const { uid } = auth.currentUser;
       const docRef = doc(fs, "users", uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        const data = docSnap.data();
-        return data;
+        // get dates of specific device from db
+        const device = docSnap.data().devices[0];
+        const dbRef = ref(db);
+        const dbSnapshot = await get(child(dbRef, device));
+        if (dbSnapshot.exists()) {
+          const dates = Object.keys(dbSnapshot.val());
+          await sendDataToFirestore(dates);
+        } else {
+          throw Error("Didn't find device data.");
+        }
+        return docSnap.data().dates;
       } else {
         throw Error("No documents found");
       }

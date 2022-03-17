@@ -20,9 +20,8 @@ const Selections = () => {
     const getData = async () => {
       try {
         if (currentUser) {
-          const { uid } = currentUser;
-          const res = await getUserData(uid);
-          const { dates } = res;
+          // const { uid } = currentUser;
+          const dates = await getUserData();
           let dateOptions = [];
           dates.forEach((date) => {
             dateOptions.push({
