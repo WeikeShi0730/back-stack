@@ -23,9 +23,13 @@ const MeasureGraph = () => {
   useEffect(() => {
     let isSubscribed = true;
     const getData = async () => {
-      const deviceList = await getDiviceList();
-      if (isSubscribed) {
-        setDeviceList(deviceList);
+      try {
+        const deviceList = await getDiviceList();
+        if (isSubscribed) {
+          setDeviceList(deviceList);
+        }
+      } catch (error) {
+        console.error(error.message);
       }
     };
     if (currentUser) {
