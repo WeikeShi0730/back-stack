@@ -15,20 +15,24 @@ import {
 import { getDateData } from "../../firebase/firebase.utils";
 import { colors } from "../../config";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
+import Loading from "../loading/loading.component";
 
 const Graph = () => {
   const { dates, startTime, endTime, setDatas } = useContext(SelectionsContext);
-
   const [graphDatas, setGraphDatas] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const datas = await getDateData(dates, startTime, endTime);
+        setLoading(false);
         const graphDatas = datas.map((data) => data.data);
         setDatas(datas);
         setGraphDatas(graphDatas);
       } catch (error) {
+        setLoading(false);
         console.error(error.message);
       }
     };
@@ -67,140 +71,143 @@ const Graph = () => {
   };
 
   return (
-    <div className="">
-      <div className="flex justify-center items-center">
-        <div className="w-11/12 h-full">
-          <ResponsiveContainer aspect={3} className="my-5">
-            <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                axisLine={false}
-                dataKey="time"
-                domain={["auto", "auto"]}
-                name="Time"
-                tickFormatter={(unixTime) => timeFormat(unixTime)}
-                type="number"
-              >
-                <Label
-                  value="Time (HH:mm)"
-                  offset={-10}
-                  position="insideBottom"
-                />
-              </XAxis>
-              <YAxis
-                tick={false}
-                type="number"
-                domain={[-100, 100]}
-                axisLine={false}
-              />
-              <ReferenceLine y={80} stroke="">
-                <Label
-                  value="Left (°)"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              <ReferenceLine y={0} stroke="black">
-                <Label
-                  value="0"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              <ReferenceLine y={-80} stroke="">
-                <Label
-                  value="Right (°)"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              {graphDatas.map((graphData, index) => {
-                return (
-                  <Line
-                    connectNulls
-                    key={index}
-                    strokeWidth={2}
-                    data={graphData}
-                    type="monotone"
-                    dataKey="avgX"
-                    stroke={colors[index]}
+    <>
+      {loading && <Loading />}
+      <div className="">
+        <div className="flex justify-center items-center">
+          <div className="w-11/12 h-full">
+            <ResponsiveContainer aspect={3} className="my-5">
+              <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  axisLine={false}
+                  dataKey="time"
+                  domain={["auto", "auto"]}
+                  name="Time"
+                  tickFormatter={(unixTime) => timeFormat(unixTime)}
+                  type="number"
+                >
+                  <Label
+                    value="Time (HH:mm)"
+                    offset={-10}
+                    position="insideBottom"
                   />
-                );
-              })}
-              <Tooltip content={<CustomTooltip />} />
-              {/* <Legend verticalAlign="top" height={36} /> */}
-            </LineChart>
-          </ResponsiveContainer>
-          <ResponsiveContainer aspect={3} className="my-5">
-            <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                axisLine={false}
-                dataKey="time"
-                domain={["auto", "auto"]}
-                name="Time"
-                tickFormatter={(unixTime) => timeFormat(unixTime)}
-                type="number"
-              >
-                <Label
-                  value="Time (HH:mm)"
-                  offset={-10}
-                  position="insideBottom"
+                </XAxis>
+                <YAxis
+                  tick={false}
+                  type="number"
+                  domain={[-100, 100]}
+                  axisLine={false}
                 />
-              </XAxis>
-              <YAxis
-                tick={false}
-                type="number"
-                domain={[-100, 100]}
-                axisLine={false}
-              />
-              <ReferenceLine y={80} stroke="">
-                <Label
-                  value="Front (°)"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              <ReferenceLine y={0} stroke="black">
-                <Label
-                  value="0"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              <ReferenceLine y={-80} stroke="">
-                <Label
-                  value="Back (°)"
-                  position="insideLeft"
-                  offset={-30}
-                  style={{ textAnchor: "middle" }}
-                />
-              </ReferenceLine>
-              {graphDatas.map((graphData, index) => {
-                return (
-                  <Line
-                    connectNulls
-                    key={index}
-                    strokeWidth={2}
-                    data={graphData}
-                    type="monotone"
-                    dataKey="avgY"
-                    stroke={colors[index]}
+                <ReferenceLine y={80} stroke="">
+                  <Label
+                    value="Left (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
                   />
-                );
-              })}
-              <Tooltip content={<CustomTooltip />} />
-              {/* <Legend verticalAlign="top" height={36} /> */}
-            </LineChart>
-          </ResponsiveContainer>
+                </ReferenceLine>
+                <ReferenceLine y={0} stroke="black">
+                  <Label
+                    value="0"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={-80} stroke="">
+                  <Label
+                    value="Right (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                {graphDatas.map((graphData, index) => {
+                  return (
+                    <Line
+                      connectNulls
+                      key={index}
+                      strokeWidth={2}
+                      data={graphData}
+                      type="monotone"
+                      dataKey="avgX"
+                      stroke={colors[index]}
+                    />
+                  );
+                })}
+                <Tooltip content={<CustomTooltip />} />
+                {/* <Legend verticalAlign="top" height={36} /> */}
+              </LineChart>
+            </ResponsiveContainer>
+            <ResponsiveContainer aspect={3} className="my-5">
+              <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  axisLine={false}
+                  dataKey="time"
+                  domain={["auto", "auto"]}
+                  name="Time"
+                  tickFormatter={(unixTime) => timeFormat(unixTime)}
+                  type="number"
+                >
+                  <Label
+                    value="Time (HH:mm)"
+                    offset={-10}
+                    position="insideBottom"
+                  />
+                </XAxis>
+                <YAxis
+                  tick={false}
+                  type="number"
+                  domain={[-100, 100]}
+                  axisLine={false}
+                />
+                <ReferenceLine y={80} stroke="">
+                  <Label
+                    value="Front (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={0} stroke="black">
+                  <Label
+                    value="0"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={-80} stroke="">
+                  <Label
+                    value="Back (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                {graphDatas.map((graphData, index) => {
+                  return (
+                    <Line
+                      connectNulls
+                      key={index}
+                      strokeWidth={2}
+                      data={graphData}
+                      type="monotone"
+                      dataKey="avgY"
+                      stroke={colors[index]}
+                    />
+                  );
+                })}
+                <Tooltip content={<CustomTooltip />} />
+                {/* <Legend verticalAlign="top" height={36} /> */}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { getDiviceList } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
 
 const DeviceList = () => {
   const [deviceList, setDeviceList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     let isSubscribed = true;
     const getData = async () => {
-      const deviceList = await getDiviceList();
-      console.log(deviceList);
-      if (isSubscribed) {
-        setDeviceList(deviceList);
+      try {
+        setLoading(true);
+        const deviceList = await getDiviceList();
+        setLoading(false);
+        if (isSubscribed) {
+          setDeviceList(deviceList);
+        }
+      } catch (error) {
+        setLoading(false);
+        console.error(error.message);
       }
     };
     getData();
@@ -19,18 +28,24 @@ const DeviceList = () => {
   }, []);
 
   return (
-    <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
-      <div className="flex flex-col">
-        <div className="text-center">My devices</div>
-        {deviceList.map((device, index) => {
-          return (
-            <div key={index} className="bg-slate-100 p-3 my-3 rounded-lg break-all">
-              {device}
-            </div>
-          );
-        })}
+    <>
+      {loading && <Loading />}
+      <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+        <div className="flex flex-col">
+          <div className="text-center">My devices</div>
+          {deviceList.map((device, index) => {
+            return (
+              <div
+                key={index}
+                className="bg-slate-100 p-3 my-3 rounded-lg break-all"
+              >
+                {device}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

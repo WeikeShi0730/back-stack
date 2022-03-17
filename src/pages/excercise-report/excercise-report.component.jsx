@@ -33,10 +33,6 @@ const ExcerciseReport = () => {
     setDatas,
   };
 
-  // useEffect(() => {
-  //   console.log(date);
-  // }, [date]);
-
   return (
     <div className="h-full">
       <SelectionsContext.Provider value={value}>

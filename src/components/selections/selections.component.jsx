@@ -3,6 +3,7 @@ import moment from "moment";
 import Select from "react-select";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 import { getUserData } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
 
 const Selections = () => {
   const {
@@ -15,13 +16,15 @@ const Selections = () => {
     currentUser,
   } = useContext(SelectionsContext);
   const [dateOptions, setDateOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
         if (currentUser) {
-          // const { uid } = currentUser;
+          setLoading(true);
           const dates = await getUserData();
+          setLoading(false);
           let dateOptions = [];
           dates.forEach((date) => {
             dateOptions.push({
@@ -32,6 +35,7 @@ const Selections = () => {
           setDateOptions(dateOptions);
         }
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     };
@@ -124,48 +128,51 @@ const Selections = () => {
   });
 
   return (
-    <div className="flex justify-center m-5">
-      <Select
-        isMulti
-        instanceId="data"
-        value={dates}
-        onChange={(dates) => {
-          setDates(dates);
-        }}
-        options={dateOptions}
-        // isLoading={dateLoading}
-        placeholder="Date..."
-        className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-80"
-        styles={customStyles}
-        theme={theme}
-      />
-      <Select
-        instanceId="session"
-        value={startTime}
-        onChange={(startTime) => {
-          setStartTime(startTime);
-        }}
-        options={startTimeOptions}
-        // isLoading={startTimeLoading}
-        placeholder="Start time..."
-        className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
-        styles={customStyles}
-        theme={theme}
-      />
-      <Select
-        instanceId="driver"
-        value={endTime}
-        onChange={(endTime) => {
-          setEndTime(endTime);
-        }}
-        options={endTimeOptions}
-        // isLoading={endTimeLoading}
-        placeholder="End time..."
-        className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
-        styles={customStyles}
-        theme={theme}
-      />
-    </div>
+    <>
+      {loading && <Loading />}
+      <div className="flex justify-center m-5">
+        <Select
+          isMulti
+          instanceId="data"
+          value={dates}
+          onChange={(dates) => {
+            setDates(dates);
+          }}
+          options={dateOptions}
+          // isLoading={dateLoading}
+          placeholder="Date..."
+          className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-80"
+          styles={customStyles}
+          theme={theme}
+        />
+        <Select
+          instanceId="session"
+          value={startTime}
+          onChange={(startTime) => {
+            setStartTime(startTime);
+          }}
+          options={startTimeOptions}
+          // isLoading={startTimeLoading}
+          placeholder="Start time..."
+          className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
+          styles={customStyles}
+          theme={theme}
+        />
+        <Select
+          instanceId="driver"
+          value={endTime}
+          onChange={(endTime) => {
+            setEndTime(endTime);
+          }}
+          options={endTimeOptions}
+          // isLoading={endTimeLoading}
+          placeholder="End time..."
+          className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
+          styles={customStyles}
+          theme={theme}
+        />
+      </div>
+    </>
   );
 };
 

@@ -1,15 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { auth, signOutGoogle } from "../../firebase/firebase.utils";
-// import { toast } from "react-toastify";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { signOutGoogle } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
 
 const SignOut = () => {
-  const clearCurrentUser = async () => {
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
+  const clearCurrentUser = async (event) => {
+    event.preventDefault();
     try {
-      if (auth.currentUser) {
-        await signOutGoogle();
-      }
+      setLoading(true);
+      await signOutGoogle();
+      setLoading(false);
+      history.push("/");
     } catch (error) {
+      setLoading(false);
       console.error("error clear current user", error);
     }
   };
@@ -49,18 +55,20 @@ const SignOut = () => {
   //   };
 
   return (
-    <div className="grid grid-rows-5 grid-flow-col gap-4 justify-items-center mt-10">
-      <Link to="/">
+    <>
+      {loading && <Loading />}
+      <div className="grid grid-rows-5 grid-flow-col gap-4 justify-items-center mt-10">
         <button
           onClick={clearCurrentUser}
           className="text-xs md:text-sm lg:text-base  py-2 px-4 text-red-500 rounded border border-red-500 font-light"
         >
           Sign out
         </button>
-      </Link>
-      <div />
-      <div />
-    </div>
+
+        <div />
+        <div />
+      </div>
+    </>
   );
 };
 

@@ -96,7 +96,9 @@ export const signInWithEmail = async (signInInfo) => {
 
 export const signOutGoogle = async () => {
   try {
-    await signOut(auth);
+    if (auth.currentUser) {
+      await signOut(auth);
+    }
   } catch (error) {
     console.error("Error signing out: ", error);
     throw error;

@@ -4,6 +4,7 @@ import {
   signInWithGoogle,
   signInWithEmail,
 } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
 
 const SignIn = () => {
   const history = useHistory();
@@ -11,25 +12,32 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
     try {
+      setLoading(true);
       await signInWithGoogle();
+      setLoading(false);
       history.push("/");
     } catch (error) {
+      setLoading(false);
       console.error("error signing in with google: ", error);
     }
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setLoading(true);
       await signInWithEmail(signInInfo);
+      setLoading(false);
       history.push("/");
     } catch (error) {
       //   toast.error("error signing in: " + error.message, {
       //     position: toast.POSITION.TOP_CENTER,
       //     theme: "dark",
       //   });
+      setLoading(false);
       console.error("error signing in with email: ", error);
     }
   };
@@ -47,7 +55,8 @@ const SignIn = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
+      {loading && <Loading />}
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
         <div className="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center">
           Alrady have an account? Sign in 🔐
@@ -105,7 +114,7 @@ const SignIn = () => {
           </button>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

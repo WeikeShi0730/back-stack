@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-// import Select from "react-select";
-import { Link, useHistory } from "react-router-dom";
-// import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import { signUpWithEmailAndPassword } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
 
 const SignUp = () => {
-  //   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const [signUpInfo, setSignUpInfo] = useState({
@@ -25,24 +24,19 @@ const SignUp = () => {
   const handleSignUpFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      setLoading(true);
       await signUpWithEmailAndPassword(signUpInfo);
+      setLoading(false);
       history.push("/");
-      //   toast.success("success ✅", {
-      //     position: toast.POSITION.TOP_CENTER,
-      //     theme: "dark",
-      //     autoClose: 2000,
-      //   });
     } catch (error) {
-      //   toast.error("error creating the profile: " + error.message, {
-      //     position: toast.POSITION.TOP_CENTER,
-      //     theme: "dark",
-      //   });
+      setLoading(false);
       console.error("Error creating the profile: ", error.message);
     }
   };
 
   return (
-    <React.Fragment>
+    <>
+      {loading && <Loading />}
       <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
         <h1 className="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center">
           Don't have an account? Sign up 🔐
@@ -93,7 +87,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

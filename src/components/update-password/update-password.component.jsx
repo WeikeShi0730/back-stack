@@ -1,28 +1,38 @@
+import { useState } from "react";
 import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
+import Loading from "../loading/loading.component";
+
 const UpdatePassword = ({ currentUser }) => {
+  const [loading, setLoading] = useState(false);
   const handleClick = async (event) => {
     event.preventDefault();
     try {
       const { email } = currentUser;
+      setLoading(true);
       await sendChangePasswordEmail(email);
+      setLoading(false);
       alert("Password reset email sent to: " + email);
     } catch (error) {
+      setLoading(false);
       console.error("Error sending the email: ", error);
     }
   };
 
   return (
-    <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
-      <div className="flex flex-col items-center">
-        <div className="text-center m-5">Update my password?</div>
-        <button
-          onClick={handleClick}
-          className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
-        >
-          Send a password update email
-        </button>
+    <>
+      {loading && <Loading />}
+      <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+        <div className="flex flex-col items-center">
+          <div className="text-center m-5">Update my password?</div>
+          <button
+            onClick={handleClick}
+            className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
+          >
+            Send a password update email
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
