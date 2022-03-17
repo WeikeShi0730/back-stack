@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { addDevice } from "../../firebase/firebase.utils";
+
 const DeviceConnectionForm = () => {
   const [serialNumber, setSerialNumber] = useState("");
 
@@ -8,8 +10,13 @@ const DeviceConnectionForm = () => {
     setSerialNumber(() => value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      await addDevice(serialNumber);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -20,6 +27,7 @@ const DeviceConnectionForm = () => {
           <label className="text-sm md:text-base">Serial number</label>
           <input
             required
+            autoComplete="off"
             name="serialNumber"
             type="text"
             className="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"

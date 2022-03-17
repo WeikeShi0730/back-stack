@@ -185,6 +185,17 @@ export const getDateData = async (dates, startTime, endTime) => {
   }
 };
 
+const checkDbDevices = async (serialNumber) => {
+  const dbRef = ref(db);
+  const snapshot = await get(child(dbRef, "Devices"));
+  if (snapshot.exists()) {
+    const deviceList = Object.keys(snapshot.val());
+    return deviceList.includes(serialNumber);
+  } else {
+    throw Error("Devices list not avaliable now.");
+  }
+};
+
 export const subscribeToDb = (snapshot) => {
   return onValue(ref(db, "/IMU_LSM6DS3/1-setDouble"), snapshot);
 };
@@ -201,9 +212,37 @@ const createUserInFirestore = async (displayName, email) => {
     await setDoc(doc(fs, "users", uid), {
       user: { displayName: displayName, email: email },
       dates: [],
+      devices: [],
     });
   } catch (error) {
     throw error;
+  }
+};
+
+export const addDevice = async (serialNumber) => {
+  if (auth.currentUser !== undefined && auth.currentUser !== null) {
+    try {
+      const found = await checkDbDevices(serialNumber);
+      if (found) {
+        const currentUserRef = doc(fs, "users", auth.currentUser?.uid);
+        const docSnap = await getDoc(currentUserRef);
+        if (docSnap.exists()) {
+          let deviceList = docSnap.data().devices;
+          deviceList.push(serialNumber);
+          await updateDoc(currentUserRef, {
+            devices: deviceList,
+          });
+        } else {
+          throw Error("No doc found!");
+        }
+      } else {
+        throw Error("Invalid serial number.");
+      }
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw Error("Please login first");
   }
 };
 
