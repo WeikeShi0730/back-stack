@@ -4,32 +4,50 @@ import {
   subscribeToAuthState,
   subscribeToDb,
   auth,
+  getDiviceList,
 } from "../../firebase/firebase.utils";
 
 const MeasureGraph = () => {
   const [lateralAngle, setLateralAngle] = useState(0);
   const [medialAngle, setMedialAngle] = useState(0);
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  const [deviceList, setDeviceList] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = currentUser
-      ? subscribeToAuthState((user) => {
-          setCurrentUser(user);
-        })
-      : () => {};
+    const unsubscribe = subscribeToAuthState((user) => {
+      setCurrentUser(user);
+    });
     return () => unsubscribe();
   });
 
   useEffect(() => {
-    const subscribe = currentUser
-      ? subscribeToDb((snapshot) => {
-          // Set to default,
-          const dataObjects = snapshot.val();
-          const { kalmanAngleX, kalmanAngleY } = dataObjects;
-          setLateralAngle(kalmanAngleX);
-          setMedialAngle(kalmanAngleY);
-        })
-      : () => {};
+    let isSubscribed = true;
+    const getData = async () => {
+      const deviceList = await getDiviceList();
+      if (isSubscribed) {
+        setDeviceList(deviceList);
+      }
+    };
+    if (currentUser) {
+      getData();
+    }
+    return () => {
+      isSubscribed = false;
+    };
+  }, [currentUser]);
+
+  useEffect(() => {
+    const subscribe =
+      currentUser && deviceList.length > 0
+        ? subscribeToDb(deviceList[0], (snapshot) => {
+            const dataObjects = snapshot.val();
+            if (dataObjects) {
+              const { kalmanAngleX, kalmanAngleY } = dataObjects;
+              setLateralAngle(kalmanAngleX);
+              setMedialAngle(kalmanAngleY);
+            }
+          })
+        : () => {};
     return () => subscribe();
   });
 

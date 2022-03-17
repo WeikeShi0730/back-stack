@@ -196,8 +196,11 @@ const checkDbDevices = async (serialNumber) => {
   }
 };
 
-export const subscribeToDb = (snapshot) => {
-  return onValue(ref(db, "/IMU_LSM6DS3/1-setDouble"), snapshot);
+export const subscribeToDb = (device, snapshot) => {
+  // const devices = await getDiviceList();
+  // const device = devices[0];
+  // console.log(`/${device}/1-setDouble`);
+  return onValue(ref(db, `/${device}/1-setDouble`), snapshot);
 };
 
 onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
