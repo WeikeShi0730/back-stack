@@ -99,7 +99,7 @@ const MeasureGraph = () => {
             ]}
             customSegmentLabels={[
               {
-                text: "Left",
+                text: "Front",
                 position: "INSIDE",
                 color: "#d8dee9",
               },
@@ -113,7 +113,7 @@ const MeasureGraph = () => {
               {},
               {},
               {
-                text: "Right",
+                text: "Back",
                 position: "INSIDE",
                 color: "#d8dee9",
               },
@@ -154,7 +154,7 @@ const MeasureGraph = () => {
             ]}
             customSegmentLabels={[
               {
-                text: "Back",
+                text: "Left",
                 position: "INSIDE",
                 color: "#d8dee9",
               },
@@ -168,7 +168,7 @@ const MeasureGraph = () => {
               {},
               {},
               {
-                text: "Front",
+                text: "Right",
                 position: "INSIDE",
                 color: "#d8dee9",
               },
