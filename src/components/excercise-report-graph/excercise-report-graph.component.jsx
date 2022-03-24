@@ -96,12 +96,20 @@ const Graph = () => {
                 <YAxis
                   tick={false}
                   type="number"
-                  domain={[-100, 100]}
+                  domain={[-45, 45]}
                   axisLine={false}
                 />
-                <ReferenceLine y={80} stroke="">
+                <ReferenceLine y={40} stroke="">
                   <Label
                     value="Left (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={15} stroke="#bf616a" strokeDasharray="3 3">
+                  <Label
+                    value="15°"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
@@ -115,7 +123,15 @@ const Graph = () => {
                     style={{ textAnchor: "middle" }}
                   />
                 </ReferenceLine>
-                <ReferenceLine y={-80} stroke="">
+                <ReferenceLine y={-15} stroke="#bf616a" strokeDasharray="3 3">
+                  <Label
+                    value="-15°"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={-40} stroke="">
                   <Label
                     value="Right (°)"
                     position="insideLeft"
@@ -160,12 +176,20 @@ const Graph = () => {
                 <YAxis
                   tick={false}
                   type="number"
-                  domain={[-100, 100]}
+                  domain={[-45, 45]}
                   axisLine={false}
                 />
-                <ReferenceLine y={80} stroke="">
+                <ReferenceLine y={40} stroke="">
                   <Label
                     value="Front (°)"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={15} stroke="#bf616a" strokeDasharray="3 3">
+                  <Label
+                    value="15°"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
@@ -179,7 +203,15 @@ const Graph = () => {
                     style={{ textAnchor: "middle" }}
                   />
                 </ReferenceLine>
-                <ReferenceLine y={-80} stroke="">
+                <ReferenceLine y={-15} stroke="#bf616a" strokeDasharray="3 3">
+                  <Label
+                    value="-15°"
+                    position="insideLeft"
+                    offset={-30}
+                    style={{ textAnchor: "middle" }}
+                  />
+                </ReferenceLine>
+                <ReferenceLine y={-40} stroke="">
                   <Label
                     value="Back (°)"
                     position="insideLeft"
