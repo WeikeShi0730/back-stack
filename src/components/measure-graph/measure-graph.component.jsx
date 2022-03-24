@@ -51,7 +51,9 @@ const MeasureGraph = () => {
         ? subscribeToDb(deviceList[0], (snapshot) => {
             const dataObjects = snapshot.val();
             if (dataObjects) {
-              const { kalmanAngleX, kalmanAngleY } = dataObjects;
+              let { kalmanAngleX, kalmanAngleY } = dataObjects;
+              kalmanAngleX = Math.min(Math.max(kalmanAngleX, -30), 30);
+              kalmanAngleY = Math.min(Math.max(kalmanAngleY, -30), 30);
               setLateralAngle(kalmanAngleX);
               setMedialAngle(kalmanAngleY);
             }
@@ -70,7 +72,7 @@ const MeasureGraph = () => {
             width={400}
             ringWidth={50}
             maxValue={1}
-            value={(lateralAngle + 90) / 180}
+            value={(lateralAngle + 30) / 60}
             currentValueText={`${lateralAngle.toFixed(0)}°`}
             needleHeightRatio={0.7}
             needleTransitionDuration={500}
@@ -125,7 +127,7 @@ const MeasureGraph = () => {
           <ReactSpeedometer
             width={400}
             maxValue={1}
-            value={(medialAngle + 90) / 180}
+            value={(medialAngle + 30) / 60}
             currentValueText={`${medialAngle.toFixed(0)}°`}
             needleHeightRatio={0.7}
             needleTransitionDuration={500}
