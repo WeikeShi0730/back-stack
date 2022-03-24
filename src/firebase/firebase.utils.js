@@ -204,12 +204,6 @@ export const subscribeToDb = (device, snapshot) => {
   return onValue(ref(db, `/${device}/1-setDouble`), snapshot);
 };
 
-onValue(ref(db, "/IMU_LSM6DS3/"), async (snapshot) => {
-  // ??? change to a funcion call getDatas when selecting date
-  const dates = Object.keys(snapshot.val());
-  await sendDataToFirestore(dates);
-});
-
 //********************Firestore ********************/
 const createUserInFirestore = async (displayName, email) => {
   try {
