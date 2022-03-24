@@ -54,8 +54,8 @@ const MeasureGraph = () => {
               let { kalmanAngleX, kalmanAngleY } = dataObjects;
               kalmanAngleX = Math.min(Math.max(kalmanAngleX, -30), 30);
               kalmanAngleY = Math.min(Math.max(kalmanAngleY, -30), 30);
-              setLateralAngle(kalmanAngleX);
-              setMedialAngle(kalmanAngleY);
+              setLateralAngle(kalmanAngleY);
+              setMedialAngle(kalmanAngleX);
             }
           })
         : () => {};
@@ -67,13 +67,13 @@ const MeasureGraph = () => {
       {loading && <Loading />}
       <div className="flex flex-col w-full h-full justify-center items-center">
         <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
-          <div>Lateral angle</div>
+          <div>Medial angle</div>
           <ReactSpeedometer
             width={400}
             ringWidth={50}
             maxValue={1}
-            value={(lateralAngle + 30) / 60}
-            currentValueText={`${lateralAngle.toFixed(0)}°`}
+            value={(medialAngle + 30) / 60}
+            currentValueText={`${medialAngle.toFixed(0)}°`}
             needleHeightRatio={0.7}
             needleTransitionDuration={500}
             segments={7}
@@ -123,18 +123,19 @@ const MeasureGraph = () => {
           />
         </div>
         <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
-          <div>Medial angle</div>
+          <div>Lateral angle</div>
           <ReactSpeedometer
             width={400}
             maxValue={1}
-            value={(medialAngle + 30) / 60}
-            currentValueText={`${medialAngle.toFixed(0)}°`}
+            value={(lateralAngle + 30) / 60}
+            currentValueText={`${lateralAngle.toFixed(0)}°`}
             needleHeightRatio={0.7}
             needleTransitionDuration={500}
             segments={7}
             ringWidth={47}
             valueTextFontWeight={"300"}
             textColor={"black"}
+            labelFontSize={"12px"}
             segmentColors={[
               "#bf616a",
               "#d08770",
