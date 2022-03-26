@@ -46,7 +46,7 @@ const MeasureGraph = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    const subscribe =
+    const unsubscribe =
       currentUser && deviceList.length > 0
         ? subscribeToDb(deviceList[0], (snapshot) => {
             const dataObjects = snapshot.val();
@@ -59,7 +59,7 @@ const MeasureGraph = () => {
             }
           })
         : () => {};
-    return () => subscribe();
+    return () => unsubscribe();
   });
 
   return (

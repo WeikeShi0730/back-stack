@@ -29,6 +29,7 @@ const Graph = () => {
         const datas = await getDateData(dates, startTime, endTime);
         setLoading(false);
         const graphDatas = datas.map((data) => data.data);
+        console.log(graphDatas);
         setDatas(datas);
         setGraphDatas(graphDatas);
       } catch (error) {
@@ -101,7 +102,7 @@ const Graph = () => {
                 />
                 <ReferenceLine y={40} stroke="">
                   <Label
-                    value="Left (°)"
+                    value="Back (°)"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
@@ -133,7 +134,7 @@ const Graph = () => {
                 </ReferenceLine>
                 <ReferenceLine y={-40} stroke="">
                   <Label
-                    value="Right (°)"
+                    value="Front (°)"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
@@ -181,7 +182,7 @@ const Graph = () => {
                 />
                 <ReferenceLine y={40} stroke="">
                   <Label
-                    value="Front (°)"
+                    value="Right (°)"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
@@ -213,7 +214,7 @@ const Graph = () => {
                 </ReferenceLine>
                 <ReferenceLine y={-40} stroke="">
                   <Label
-                    value="Back (°)"
+                    value="Left (°)"
                     position="insideLeft"
                     offset={-30}
                     style={{ textAnchor: "middle" }}
