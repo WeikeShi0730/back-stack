@@ -42,35 +42,6 @@ const Selections = () => {
     getData();
   }, [currentUser]);
 
-  // const startTimeOptions = date
-  //   ? [
-  //       { value: new Date("2022-01-01T00:00:00").getTime(), label: "00:00" },
-  //       { value: new Date("2022-01-01T01:00:00").getTime(), label: "01:00" },
-  //       { value: new Date("2022-01-01T02:00:00").getTime(), label: "02:00" },
-  //       { value: new Date("2022-01-01T03:00:00").getTime(), label: "03:00" },
-  //       { value: new Date("2022-01-01T04:00:00").getTime(), label: "04:00" },
-  //       { value: new Date("2022-01-01T05:00:00").getTime(), label: "05:00" },
-  //       { value: new Date("2022-01-01T06:00:00").getTime(), label: "06:00" },
-  //       { value: new Date("2022-01-01T07:00:00").getTime(), label: "07:00" },
-  //       { value: new Date("2022-01-01T08:00:00").getTime(), label: "08:00" },
-  //       { value: new Date("2022-01-01T09:00:00").getTime(), label: "09:00" },
-  //       { value: new Date("2022-01-01T10:00:00").getTime(), label: "10:00" },
-  //       { value: new Date("2022-01-01T11:00:00").getTime(), label: "11:00" },
-  //       { value: new Date("2022-01-01T12:00:00").getTime(), label: "12:00" },
-  //       { value: new Date("2022-01-01T13:00:00").getTime(), label: "13:00" },
-  //       { value: new Date("2022-01-01T14:00:00").getTime(), label: "14:00" },
-  //       { value: new Date("2022-01-01T15:00:00").getTime(), label: "15:00" },
-  //       { value: new Date("2022-01-01T16:00:00").getTime(), label: "16:00" },
-  //       { value: new Date("2022-01-01T17:00:00").getTime(), label: "17:00" },
-  //       { value: new Date("2022-01-01T18:00:00").getTime(), label: "18:00" },
-  //       { value: new Date("2022-01-01T19:00:00").getTime(), label: "19:00" },
-  //       { value: new Date("2022-01-01T20:00:00").getTime(), label: "20:00" },
-  //       { value: new Date("2022-01-01T21:00:00").getTime(), label: "21:00" },
-  //       { value: new Date("2022-01-01T22:00:00").getTime(), label: "22:00" },
-  //       { value: new Date("2022-01-01T23:00:00").getTime(), label: "23:00" },
-  //     ]
-  //   : [{ value: null, label: "Select a date first" }];
-
   const startTimeOptions = dates
     ? [
         { value: 0, label: "00:00" },
@@ -139,7 +110,7 @@ const Selections = () => {
             setDates(dates);
           }}
           options={dateOptions}
-          // isLoading={dateLoading}
+          isLoading={loading}
           placeholder="Date..."
           className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-80"
           styles={customStyles}
