@@ -123,9 +123,21 @@ const sendDataToFirestore = async (dates) => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     const { uid } = auth.currentUser;
     const filteredDates = dates.filter((date) => date !== "1-setDouble");
+    let formattedDates = [];
+    for (let date of filteredDates) {
+      const info = date.split("-");
+      let year = info[0];
+      let month = info[1];
+      let day = info[2];
+      month = month.length === 2 ? month : "0" + month;
+      day = day.length === 2 ? day : "0" + day;
+      const newDate = year + "-" + month + "-" + day;
+      formattedDates.push(newDate);
+      // console.log(typeof date);
+    }
     const docRef = doc(fs, "users", uid);
     await updateDoc(docRef, {
-      dates: filteredDates,
+      dates: formattedDates,
     });
   }
 };

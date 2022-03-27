@@ -29,7 +29,7 @@ const Selections = () => {
           dates.forEach((date) => {
             dateOptions.push({
               value: date,
-              label: moment(date).format("ll"),
+              label: moment(date, "YYYY-MM-DD").format("LL"),
             });
           });
           setDateOptions(dateOptions);
