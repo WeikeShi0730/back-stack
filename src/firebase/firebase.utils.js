@@ -123,31 +123,20 @@ const sendDataToFirestore = async (dates) => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     const { uid } = auth.currentUser;
     const filteredDates = dates.filter((date) => date !== "1-setDouble");
-    let formattedDates = [];
-    for (let date of filteredDates) {
-      const info = date.split("-");
-      let year = info[0];
-      let month = info[1];
-      let day = info[2];
-      month = month.length === 2 ? month : "0" + month;
-      day = day.length === 2 ? day : "0" + day;
-      const newDate = year + "-" + month + "-" + day;
-      formattedDates.push(newDate);
-      // console.log(typeof date);
-    }
     const docRef = doc(fs, "users", uid);
     await updateDoc(docRef, {
-      dates: formattedDates,
+      dates: filteredDates,
     });
   }
 };
 
 export const getDateData = async (dates, startTime, endTime) => {
   try {
+    const devices = await getDiviceList();
     let graphDatas = [];
     for (const date of dates) {
       const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, `IMU_LSM6DS3/${date.value}`)); // !?!?!??? change
+      const snapshot = await get(child(dbRef, `${devices[0]}/${date.value}`));
       if (snapshot.exists()) {
         const datas = Object.values(snapshot.val());
         const filteredDatas =
@@ -189,7 +178,7 @@ export const getDateData = async (dates, startTime, endTime) => {
           graphDatas.push({ date: date, data: averagedData });
         }
       } else {
-        throw Error("DB doc not found.");
+        throw Error("DB doc not found.tgdsfgfdg");
       }
     }
     return graphDatas;

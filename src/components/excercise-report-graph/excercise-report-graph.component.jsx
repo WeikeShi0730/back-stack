@@ -29,7 +29,6 @@ const Graph = () => {
         const datas = await getDateData(dates, startTime, endTime);
         setLoading(false);
         const graphDatas = datas.map((data) => data.data);
-        console.log(graphDatas);
         setDatas(datas);
         setGraphDatas(graphDatas);
       } catch (error) {

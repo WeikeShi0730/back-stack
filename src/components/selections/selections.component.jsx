@@ -152,7 +152,6 @@ const Selections = () => {
             setStartTime(startTime);
           }}
           options={startTimeOptions}
-          // isLoading={startTimeLoading}
           placeholder="Start time..."
           className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
           styles={customStyles}
@@ -165,7 +164,6 @@ const Selections = () => {
             setEndTime(endTime);
           }}
           options={endTimeOptions}
-          // isLoading={endTimeLoading}
           placeholder="End time..."
           className="mx-3 my-1 w-2/3 md:w-1/3 lg:w-48"
           styles={customStyles}
