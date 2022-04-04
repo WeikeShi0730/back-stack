@@ -9,7 +9,7 @@ import {
   Label,
   ReferenceLine,
   Tooltip,
-  // Legend,
+  Legend,
   Line,
 } from "recharts";
 import { getDateData } from "../../firebase/firebase.utils";
@@ -18,8 +18,8 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 import Loading from "../loading/loading.component";
 
 const Graph = () => {
-  const { dates, startTime, endTime, setDatas } = useContext(SelectionsContext);
-  const [graphDatas, setGraphDatas] = useState([]);
+  const { dates, datas, startTime, endTime, setDatas } =
+    useContext(SelectionsContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,9 +28,7 @@ const Graph = () => {
         setLoading(true);
         const datas = await getDateData(dates, startTime, endTime);
         setLoading(false);
-        const graphDatas = datas.map((data) => data.data);
         setDatas(datas);
-        setGraphDatas(graphDatas);
       } catch (error) {
         setLoading(false);
         console.error(error.message);
@@ -139,13 +137,14 @@ const Graph = () => {
                     style={{ textAnchor: "middle" }}
                   />
                 </ReferenceLine>
-                {graphDatas.map((graphData, index) => {
+                {datas.map((data, index) => {
                   return (
                     <Line
                       connectNulls
                       key={index}
                       strokeWidth={2}
-                      data={graphData}
+                      name={data.date.label}
+                      data={data.data}
                       type="monotone"
                       dataKey="avgX"
                       stroke={colors[index]}
@@ -153,7 +152,7 @@ const Graph = () => {
                   );
                 })}
                 <Tooltip content={<CustomTooltip />} />
-                {/* <Legend verticalAlign="top" height={36} /> */}
+                <Legend verticalAlign="top" height={36} />
               </LineChart>
             </ResponsiveContainer>
             <ResponsiveContainer aspect={3} className="my-5">
@@ -219,13 +218,14 @@ const Graph = () => {
                     style={{ textAnchor: "middle" }}
                   />
                 </ReferenceLine>
-                {graphDatas.map((graphData, index) => {
+                {datas.map((data, index) => {
                   return (
                     <Line
                       connectNulls
                       key={index}
                       strokeWidth={2}
-                      data={graphData}
+                      name={data.date.label}
+                      data={data.data}
                       type="monotone"
                       dataKey="avgY"
                       stroke={colors[index]}
@@ -233,7 +233,7 @@ const Graph = () => {
                   );
                 })}
                 <Tooltip content={<CustomTooltip />} />
-                {/* <Legend verticalAlign="top" height={36} /> */}
+                <Legend verticalAlign="top" height={36} />
               </LineChart>
             </ResponsiveContainer>
           </div>
