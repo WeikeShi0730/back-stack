@@ -34,14 +34,8 @@ const Graph = () => {
         console.error(error.message);
       }
     };
-
-    if (
-      dates !== undefined &&
-      dates !== null &&
-      dates.length > 0 &&
-      startTime &&
-      endTime
-    ) {
+    console.log(dates);
+    if (dates !== undefined && dates !== null && startTime && endTime) {
       getData();
     }
   }, [dates, startTime, endTime, setDatas]);
