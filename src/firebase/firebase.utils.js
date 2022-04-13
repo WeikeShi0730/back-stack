@@ -272,7 +272,6 @@ const getUserInFirestore = async (uid) => {
 
 export const getUserData = async () => {
   try {
-    // const { uid } = auth.currentUser;
     if (auth.currentUser) {
       const { uid } = auth.currentUser;
       const docRef = doc(fs, "users", uid);
