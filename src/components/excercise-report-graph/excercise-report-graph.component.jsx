@@ -8,7 +8,6 @@ import {
   YAxis,
   Label,
   ReferenceLine,
-  Tooltip,
   Legend,
   Line,
 } from "recharts";
@@ -34,7 +33,6 @@ const Graph = () => {
         console.error(error.message);
       }
     };
-    console.log(dates);
     if (dates !== undefined && dates !== null && startTime && endTime) {
       getData();
     }

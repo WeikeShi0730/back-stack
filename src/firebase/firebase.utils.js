@@ -156,7 +156,6 @@ export const getDateData = async (dates, startTime, endTime) => {
             avgY,
             count = 0;
           for (let data of filteredDatas) {
-            // need to be able to adjust interval to 10 minutes
             if (data.Minutes !== currentMin) {
               avgX = valueX / count;
               avgY = valueY / count;
@@ -199,9 +198,6 @@ const checkDbDevices = async (serialNumber) => {
 };
 
 export const subscribeToDb = (device, snapshot) => {
-  // const devices = await getDiviceList();
-  // const device = devices[0];
-  // console.log(`/${device}/1-setDouble`);
   return onValue(ref(db, `/${device}/1-setDouble`), snapshot);
 };
 
