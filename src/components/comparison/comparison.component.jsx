@@ -7,7 +7,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  // Legend,
 } from "recharts";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 
