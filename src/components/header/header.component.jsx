@@ -1,10 +1,18 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase.utils";
+import { subscribeToAuthState, auth } from "../../firebase/firebase.utils";
 
 const Header = () => {
-  const [currentUser] = useAuthState(auth);
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  useEffect(() => {
+    let isSubscribed = true;
+    subscribeToAuthState((user) => {
+      if (isSubscribed) {
+        setCurrentUser(user);
+      }
+    });
+    return () => (isSubscribed = false);
+  });
   return (
     <div>
       <nav className="flex items-center flex-wrap bg-gray-300 bg-opacity-70 backdrop-blur-lg p-3">

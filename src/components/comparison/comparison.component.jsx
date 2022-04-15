@@ -16,7 +16,9 @@ const Comparison = () => {
   const [aspectRatio, setAspectRatio] = useState(8);
 
   useEffect(() => {
+    let isSubscribed = true;
     if (
+      isSubscribed &&
       dates !== undefined &&
       dates !== null &&
       dates.length > 0 &&
@@ -47,6 +49,7 @@ const Comparison = () => {
       const aspectRatio = 9 - dates.length >= 2 ? 9 - dates.length : 2;
       setAspectRatio(aspectRatio);
     }
+    return () => (isSubscribed = false);
   }, [dates, startTime, endTime, datas]);
 
   const CustomTooltip = ({ active, payload }) => {

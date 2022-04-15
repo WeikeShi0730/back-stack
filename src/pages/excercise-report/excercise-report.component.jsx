@@ -11,13 +11,16 @@ const ExcerciseReport = () => {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [currentUser, setCurrentUser] = useState();
-  const [datas, setDatas] = useState([])
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthState((user) => {
-      setCurrentUser(user);
+    let isSubscribed = true;
+    subscribeToAuthState((user) => {
+      if (isSubscribed) {
+        setCurrentUser(user);
+      }
     });
-    return () => unsubscribe();
+    return () => (isSubscribed = false);
   });
 
   const value = {

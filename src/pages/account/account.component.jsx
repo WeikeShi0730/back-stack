@@ -1,11 +1,21 @@
+import { useEffect, useState } from "react";
 import SignOut from "../../components/sign-out/sign-out.component";
 import UpdatePassword from "../../components/update-password/update-password.component";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase.utils";
+import { subscribeToAuthState, auth } from "../../firebase/firebase.utils";
 import DeviceList from "../../components/device-list/device-list.component";
 
 const Account = () => {
-  const [currentUser] = useAuthState(auth);
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    let isSubscribed = true;
+    subscribeToAuthState((user) => {
+      if (isSubscribed) {
+        setCurrentUser(user);
+      }
+    });
+    return () => (isSubscribed = false);
+  });
   return (
     <>
       {currentUser ? (
@@ -15,11 +25,9 @@ const Account = () => {
           </div>
           <DeviceList />
           <UpdatePassword currentUser={currentUser} />
-          <SignOut  />
         </div>
-      ) : (
-        <div>Please login first</div>
-      )}
+      ) : null}
+      <SignOut />
     </>
   );
 };

@@ -10,10 +10,10 @@ const DeviceList = () => {
     let isSubscribed = true;
     const getData = async () => {
       try {
-        setLoading(true);
-        const deviceList = await getDiviceList();
-        setLoading(false);
         if (isSubscribed) {
+          setLoading(true);
+          const deviceList = await getDiviceList();
+          setLoading(false);
           setDeviceList(deviceList);
         }
       } catch (error) {
@@ -22,9 +22,7 @@ const DeviceList = () => {
       }
     };
     getData();
-    return () => {
-      isSubscribed = false;
-    };
+    return () => (isSubscribed = false);
   }, []);
 
   return (

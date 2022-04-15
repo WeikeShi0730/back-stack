@@ -19,20 +19,23 @@ const Selections = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let isSubscribed = true;
     const getData = async () => {
       try {
         if (currentUser) {
           setLoading(true);
           const dates = await getUserData();
           setLoading(false);
-          let dateOptions = [];
-          dates.forEach((date) => {
-            dateOptions.push({
-              value: date,
-              label: moment(date, "YYYY-MM-DD").format("LL"),
+          if (isSubscribed) {
+            let dateOptions = [];
+            dates.forEach((date) => {
+              dateOptions.push({
+                value: date,
+                label: moment(date, "YYYY-MM-DD").format("LL"),
+              });
             });
-          });
-          setDateOptions(dateOptions);
+            setDateOptions(dateOptions);
+          }
         }
       } catch (error) {
         setLoading(false);
@@ -40,6 +43,7 @@ const Selections = () => {
       }
     };
     getData();
+    return () => (isSubscribed = false);
   }, [currentUser]);
 
   const startTimeOptions = dates

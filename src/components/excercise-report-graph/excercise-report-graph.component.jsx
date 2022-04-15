@@ -22,12 +22,15 @@ const Graph = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let isSubscribed = true;
     const getData = async () => {
       try {
         setLoading(true);
         const datas = await getDateData(dates, startTime, endTime);
         setLoading(false);
-        setDatas(datas);
+        if (isSubscribed) {
+          setDatas(datas);
+        }
       } catch (error) {
         setLoading(false);
         console.error(error.message);
@@ -36,6 +39,7 @@ const Graph = () => {
     if (dates !== undefined && dates !== null && startTime && endTime) {
       getData();
     }
+    return () => (isSubscribed = false);
   }, [dates, startTime, endTime, setDatas]);
 
   const timeFormat = (unixTime) => {

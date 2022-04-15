@@ -16,10 +16,13 @@ const MeasureGraph = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthState((user) => {
-      setCurrentUser(user);
+    let isSubscribed = true;
+    subscribeToAuthState((user) => {
+      if (isSubscribed) {
+        setCurrentUser(user);
+      }
     });
-    return () => unsubscribe();
+    return () => (isSubscribed = false);
   });
 
   useEffect(() => {
@@ -37,29 +40,25 @@ const MeasureGraph = () => {
         console.error(error.message);
       }
     };
-    if (currentUser) {
-      getData();
-    }
-    return () => {
-      isSubscribed = false;
-    };
+    getData();
+    return () => (isSubscribed = false);
   }, [currentUser]);
 
   useEffect(() => {
-    const unsubscribe =
-      currentUser && deviceList.length > 0
-        ? subscribeToDb(deviceList[0], (snapshot) => {
-            const dataObjects = snapshot.val();
-            if (dataObjects) {
-              let { kalmanAngleX, kalmanAngleY } = dataObjects;
-              kalmanAngleX = Math.min(Math.max(kalmanAngleX, -30), 30);
-              kalmanAngleY = Math.min(Math.max(kalmanAngleY, -30), 30);
-              setLateralAngle(kalmanAngleY);
-              setMedialAngle(kalmanAngleX);
-            }
-          })
-        : () => {};
-    return () => unsubscribe();
+    let isSubscribed = true;
+    if (currentUser && deviceList.length > 0) {
+      subscribeToDb(deviceList[0], (snapshot) => {
+        const dataObjects = snapshot.val();
+        if (dataObjects && isSubscribed) {
+          let { kalmanAngleX, kalmanAngleY } = dataObjects;
+          kalmanAngleX = Math.min(Math.max(kalmanAngleX, -30), 30);
+          kalmanAngleY = Math.min(Math.max(kalmanAngleY, -30), 30);
+          setLateralAngle(kalmanAngleY);
+          setMedialAngle(kalmanAngleX);
+        }
+      });
+    }
+    return () => (isSubscribed = false);
   });
 
   return (
