@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { signUpWithEmailAndPassword } from "../../firebase/firebase.utils";
 import Loading from "../loading/loading.component";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -28,8 +29,28 @@ const SignUp = () => {
       await signUpWithEmailAndPassword(signUpInfo);
       setLoading(false);
       history.push("/");
+      toast.success("🥳 Signed up successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       setLoading(false);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       console.error("Error creating the profile: ", error.message);
     }
   };
@@ -49,7 +70,6 @@ const SignUp = () => {
               name="displayName"
               type="text"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              // id="displayName"
               placeholder="Your username"
               onChange={handleChange}
               maxLength="10"
@@ -62,7 +82,6 @@ const SignUp = () => {
               name="email"
               type="email"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              // id="email"
               placeholder="Your email"
               onChange={handleChange}
             />
@@ -74,7 +93,6 @@ const SignUp = () => {
               name="password"
               type="password"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              // id="password"
               placeholder="Your password"
               autoComplete="off"
               minLength="6"
