@@ -1,5 +1,7 @@
 import "./App.css";
 import { Switch, Route, withRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/header/header.component";
 import Home from "./pages/home/home.component";
@@ -14,6 +16,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen font-light">
       <Header />
+      <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/measure" component={Measure} />

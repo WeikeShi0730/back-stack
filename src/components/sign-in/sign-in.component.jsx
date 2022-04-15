@@ -5,6 +5,7 @@ import {
   signInWithEmail,
 } from "../../firebase/firebase.utils";
 import Loading from "../loading/loading.component";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const history = useHistory();
@@ -14,30 +15,40 @@ const SignIn = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleClick = async () => {
-    try {
-      setLoading(true);
-      await signInWithGoogle();
-      setLoading(false);
-      history.push("/");
-    } catch (error) {
-      setLoading(false);
-      console.error("error signing in with google: ", error);
-    }
-  };
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const { name } = event.nativeEvent.submitter;
     try {
       setLoading(true);
-      await signInWithEmail(signInInfo);
+      if (name === "signInWithGoogle") {
+        await signInWithGoogle();
+      } else if (name === "signInWithEmail") {
+        await signInWithEmail(signInInfo);
+      }
       setLoading(false);
       history.push("/");
+      toast.success("🥳 Signed in successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
-      //   toast.error("error signing in: " + error.message, {
-      //     position: toast.POSITION.TOP_CENTER,
-      //     theme: "dark",
-      //   });
       setLoading(false);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       console.error("error signing in with email: ", error);
     }
   };
@@ -69,7 +80,7 @@ const SignIn = () => {
               name="email"
               type="email"
               className="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              id="email"
+              // id="email"
               placeholder="Your email"
               onChange={handleChange}
             />
@@ -81,8 +92,9 @@ const SignIn = () => {
               name="password"
               type="password"
               className="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              id="password"
+              // id="password"
               placeholder="Your password"
+              autoComplete="off"
               onChange={handleChange}
             />
           </div>
@@ -90,24 +102,34 @@ const SignIn = () => {
             <button
               type="submit"
               className="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
+              name="signInWithEmail"
             >
               Sign In
             </button>
           </div>
+          <div className="flex justify-center items-center mt-6">
+            <button
+              type="submit"
+              className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
+              name="signInWithGoogle"
+            >
+              Sign in with Google
+            </button>
+          </div>
         </form>
-        <div className="w-full max-w-md mx-auto mt-4">
+        {/* <div className="w-full max-w-md mx-auto mt-4">
           <div className="flex justify-center">
             <div>
               <button
                 className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
                 onClick={handleClick}
+                name="signInWithGoogle"
               >
                 Sign in with Google
               </button>
             </div>
           </div>
-        </div>
-
+        </div> */}
         <div className="">
           <button onClick={handleClickForgotPassword} className="font-light">
             Forgot password?

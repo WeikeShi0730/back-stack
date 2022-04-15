@@ -49,7 +49,7 @@ const SignUp = () => {
               name="displayName"
               type="text"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              id="displayName"
+              // id="displayName"
               placeholder="Your username"
               onChange={handleChange}
               maxLength="10"
@@ -62,7 +62,7 @@ const SignUp = () => {
               name="email"
               type="email"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              id="email"
+              // id="email"
               placeholder="Your email"
               onChange={handleChange}
             />
@@ -74,8 +74,9 @@ const SignUp = () => {
               name="password"
               type="password"
               className="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              id="password"
+              // id="password"
               placeholder="Your password"
+              autoComplete="off"
               minLength="6"
               onChange={handleChange}
             />
