@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendChangePasswordEmail } from "../../firebase/firebase.utils";
 import Loading from "../loading/loading.component";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -18,10 +19,29 @@ const ForgotPassword = () => {
       setLoading(true);
       await sendChangePasswordEmail(email);
       setLoading(false);
-      alert("Password reset email sent to: " + email);
+      toast.success(`Password reset email sent to: ${email}`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      toast.error(`Error sending the email: ${error.message}`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      console.error(`Error sending the email: ${error.message}`);
     }
   };
 
