@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { signOutGoogle } from "../../firebase/firebase.utils";
 import Loading from "../loading/loading.component";
+import { toast } from "react-toastify";
 
 const SignOut = () => {
   const history = useHistory();
@@ -14,29 +15,31 @@ const SignOut = () => {
       await signOutGoogle();
       setLoading(false);
       history.push("/");
+      toast.info("Signed out successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       setLoading(false);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       console.error("error clear current user", error);
     }
   };
-  //   const handleDeleteAccount = async () => {
-  //     clearCurrentUser();
-  //     try {
-  //       await deleteUserAccount();
-  //       //   toast.info("deleted 🏁", {
-  //       //     position: toast.POSITION.TOP_CENTER,
-  //       //     theme: "dark",
-  //       //     autoClose: 2000,
-  //       //   });
-  //     } catch (error) {
-  //       //   toast.error("error deleting account: " + error.message, {
-  //       //     position: toast.POSITION.TOP_CENTER,
-  //       //     theme: "dark",
-  //       //   });
-  //       console.error("error deleting account", error.message);
-  //     }
-  //   };
-
   //   const handleDeleteRecord = async () => {
   //     try {
   //       await deleteUserRecord();
