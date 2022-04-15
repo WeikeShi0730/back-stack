@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { addDevice } from "../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
 import Loading from "../loading/loading.component";
+import { toast } from "react-toastify";
 
 const DeviceConnectionForm = () => {
   const history = useHistory();
@@ -21,9 +22,28 @@ const DeviceConnectionForm = () => {
       await addDevice(serialNumber);
       setLoading(false);
       history.push("/");
+      toast.success("🥳 Signed up successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       setLoading(false);
-      alert(error.message);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       console.error(error.message);
     }
   };
