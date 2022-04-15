@@ -80,7 +80,6 @@ const SignIn = () => {
               name="email"
               type="email"
               className="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              // id="email"
               placeholder="Your email"
               onChange={handleChange}
             />
@@ -92,7 +91,6 @@ const SignIn = () => {
               name="password"
               type="password"
               className="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
-              // id="password"
               placeholder="Your password"
               autoComplete="off"
               onChange={handleChange}
@@ -117,20 +115,7 @@ const SignIn = () => {
             </button>
           </div>
         </form>
-        {/* <div className="w-full max-w-md mx-auto mt-4">
-          <div className="flex justify-center">
-            <div>
-              <button
-                className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
-                onClick={handleClick}
-                name="signInWithGoogle"
-              >
-                Sign in with Google
-              </button>
-            </div>
-          </div>
-        </div> */}
-        <div className="">
+        <div>
           <button onClick={handleClickForgotPassword} className="font-light">
             Forgot password?
           </button>
