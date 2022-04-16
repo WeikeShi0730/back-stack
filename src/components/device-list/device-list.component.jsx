@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDiviceList } from "../../firebase/firebase.utils";
 import Loading from "../loading/loading.component";
+import Device from "../device/device.component";
 
 const DeviceList = () => {
   const [deviceList, setDeviceList] = useState([]);
@@ -28,7 +29,7 @@ const DeviceList = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="w-80 m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+      <div className="m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
         <div className="flex flex-col">
           <div className="text-center">My devices</div>
           {deviceList.map((device, index) => {
@@ -37,7 +38,7 @@ const DeviceList = () => {
                 key={index}
                 className="bg-slate-100 p-3 my-3 rounded-lg break-all"
               >
-                {device}
+                <Device device={device} />
               </div>
             );
           })}
