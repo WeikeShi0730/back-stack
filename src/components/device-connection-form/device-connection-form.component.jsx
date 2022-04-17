@@ -22,7 +22,7 @@ const DeviceConnectionForm = () => {
       await addDevice(serialNumber);
       setLoading(false);
       history.push("/");
-      toast.success("🥳 Signed up successfully!", {
+      toast.success("🥳 Device connected successfully!", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: true,

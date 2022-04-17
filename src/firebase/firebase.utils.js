@@ -225,7 +225,10 @@ export const addDevice = async (serialNumber) => {
         if (docSnap.exists()) {
           let deviceList = docSnap.data().devices;
           if (deviceList.includes(serialNumber)) return;
-          deviceList.push(serialNumber);
+          //IMU_LSM6DS3
+          //a396203550573738352e3120ff122e2e
+          deviceList.forEach((device) => (device.activate = false));
+          deviceList.push({ name: serialNumber, activate: true });
           await updateDoc(currentUserRef, {
             devices: deviceList,
           });
