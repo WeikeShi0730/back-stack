@@ -229,6 +229,7 @@ export const addDevice = async (serialNumber) => {
           //a396203550573738352e3120ff122e2e
           deviceList.forEach((device) => (device.activate = false));
           deviceList.push({ name: serialNumber, activate: true });
+          deviceList.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
           await updateDoc(currentUserRef, {
             devices: deviceList,
           });
@@ -260,10 +261,11 @@ export const switchDevice = async (device) => {
             (e) => e.name === device.name
           );
           deviceList[foundIndex] = { name: device.name, activate: true };
+          deviceList.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
           await updateDoc(currentUserRef, {
             devices: deviceList,
           });
-          return deviceList
+          return deviceList;
         } else {
           throw Error("No doc found!");
         }
