@@ -1,7 +1,23 @@
+import {
+  switchDevice,
+  subscribeToFirestore,
+} from "../../firebase/firebase.utils";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Device = ({ device }) => {
-  const handleOnClick = () => {};
+    
+  const handleOnClick = async () => {
+    try {
+      const newList = await switchDevice(device);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const subscribeToFirestore = () => {
+
+  }
+
   return (
     <div
       className={`flex gap-x-5 items-center justify-start p-3 rounded-lg h-16 ${

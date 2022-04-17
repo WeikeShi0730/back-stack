@@ -246,6 +246,38 @@ export const addDevice = async (serialNumber) => {
   }
 };
 
+export const switchDevice = async (device) => {
+  if (auth.currentUser !== undefined && auth.currentUser !== null) {
+    try {
+      const found = await checkDbDevices(device.name);
+      if (found) {
+        const currentUserRef = doc(fs, "users", auth.currentUser?.uid);
+        const docSnap = await getDoc(currentUserRef);
+        if (docSnap.exists()) {
+          let deviceList = docSnap.data().devices;
+          deviceList.forEach((device) => (device.activate = false));
+          const foundIndex = deviceList.findIndex(
+            (e) => e.name === device.name
+          );
+          deviceList[foundIndex] = { name: device.name, activate: true };
+          await updateDoc(currentUserRef, {
+            devices: deviceList,
+          });
+          return deviceList
+        } else {
+          throw Error("No doc found!");
+        }
+      } else {
+        throw Error("Invalid serial number.");
+      }
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw Error("Please login first");
+  }
+};
+
 export const getDiviceList = async () => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     try {
