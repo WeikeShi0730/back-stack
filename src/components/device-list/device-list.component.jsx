@@ -36,7 +36,7 @@ const DeviceList = () => {
             return (
               <div
                 key={index}
-                className="bg-slate-100 p-3 my-3 rounded-lg break-all"
+                className="bg-slate-100 my-3 rounded-lg break-all"
               >
                 <Device device={device} />
               </div>
