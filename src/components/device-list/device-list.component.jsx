@@ -38,7 +38,7 @@ const DeviceList = () => {
                 key={index}
                 className="bg-slate-100 my-3 rounded-lg break-all"
               >
-                <Device device={device} />
+                <Device device={device} setDeviceList={setDeviceList}/>
               </div>
             );
           })}

@@ -1,22 +1,15 @@
-import {
-  switchDevice,
-  subscribeToFirestore,
-} from "../../firebase/firebase.utils";
+import { switchDevice } from "../../firebase/firebase.utils";
 import { FaCheckCircle } from "react-icons/fa";
 
-const Device = ({ device }) => {
-    
+const Device = ({ device, setDeviceList }) => {
   const handleOnClick = async () => {
     try {
       const newList = await switchDevice(device);
+      setDeviceList(newList);
     } catch (error) {
       console.error(error.message);
     }
   };
-
-  const subscribeToFirestore = () => {
-
-  }
 
   return (
     <div
