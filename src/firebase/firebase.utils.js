@@ -127,6 +127,7 @@ const sendDataToFirestore = async (dates) => {
     await updateDoc(docRef, {
       dates: filteredDates,
     });
+    return filteredDates;
   }
 };
 
@@ -136,7 +137,8 @@ export const getDateData = async (dates, startTime, endTime) => {
     let graphDatas = [];
     for (const date of dates) {
       const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, `${devices[0]}/${date.value}`));
+      const device = devices.find((device) => device.activate === true).name;
+      const snapshot = await get(child(dbRef, `${device}/${date.value}`));
       if (snapshot.exists()) {
         const datas = Object.values(snapshot.val());
         const filteredDatas =
@@ -309,19 +311,22 @@ export const getUserData = async () => {
     if (auth.currentUser) {
       const { uid } = auth.currentUser;
       const docRef = doc(fs, "users", uid);
-      const docSnap = await getDoc(docRef);
+      let docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         // get dates of specific device from db
-        const device = docSnap.data().devices[0];
+        const device = docSnap
+          .data()
+          .devices.find((device) => device.activate === true).name;
         const dbRef = ref(db);
         const dbSnapshot = await get(child(dbRef, device));
         if (dbSnapshot.exists()) {
           const dates = Object.keys(dbSnapshot.val());
-          await sendDataToFirestore(dates);
+          console.log(dates);
+          const storedDates = await sendDataToFirestore(dates);
+          return storedDates;
         } else {
           throw Error("Didn't find device data.");
         }
-        return docSnap.data().dates;
       } else {
         throw Error("No documents found");
       }
