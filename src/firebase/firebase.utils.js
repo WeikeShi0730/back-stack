@@ -279,6 +279,37 @@ export const switchDevice = async (device) => {
   }
 };
 
+export const removeDevice = async (device) => {
+  if (auth.currentUser !== undefined && auth.currentUser !== null) {
+    try {
+      const found = await checkDbDevices(device.name);
+      if (found) {
+        const currentUserRef = doc(fs, "users", auth.currentUser?.uid);
+        const docSnap = await getDoc(currentUserRef);
+        if (docSnap.exists()) {
+          let deviceList = docSnap.data().devices;
+          const foundIndex = deviceList.findIndex(
+            (e) => e.name === device.name
+          );
+          deviceList.splice(foundIndex, 1);
+          await updateDoc(currentUserRef, {
+            devices: deviceList,
+          });
+          return deviceList;
+        } else {
+          throw Error("No doc found!");
+        }
+      } else {
+        throw Error("Invalid serial number.");
+      }
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw Error("Please login first");
+  }
+};
+
 export const getDiviceList = async () => {
   if (auth.currentUser !== undefined && auth.currentUser !== null) {
     try {
@@ -321,7 +352,6 @@ export const getUserData = async () => {
         const dbSnapshot = await get(child(dbRef, device));
         if (dbSnapshot.exists()) {
           const dates = Object.keys(dbSnapshot.val());
-          console.log(dates);
           const storedDates = await sendDataToFirestore(dates);
           return storedDates;
         } else {

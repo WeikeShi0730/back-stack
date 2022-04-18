@@ -1,10 +1,16 @@
-import { switchDevice } from "../../firebase/firebase.utils";
+import { switchDevice, removeDevice } from "../../firebase/firebase.utils";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Device = ({ device, setDeviceList }) => {
-  const handleOnClick = async () => {
+  const handleOnClick = async (event) => {
+    const { name } = event.target;
     try {
-      const newList = await switchDevice(device);
+      let newList;
+      if (name === "activate") {
+        newList = await switchDevice(device);
+      } else if (name === "remove") {
+        newList = await removeDevice(device);
+      }
       setDeviceList(newList);
     } catch (error) {
       console.error(error.message);
@@ -27,10 +33,15 @@ const Device = ({ device, setDeviceList }) => {
           <button
             className="font-light border-2 border-blue-500 p-2 rounded-md hover:bg-blue-500 hover:text-white transition duration-200"
             onClick={handleOnClick}
+            name="activate"
           >
             Activate
           </button>
-          <button className="font-light border-2 border-red-500 p-2 rounded-md hover:bg-red-500 hover:text-white transition duration-200">
+          <button
+            className="font-light border-2 border-red-500 p-2 rounded-md hover:bg-red-500 hover:text-white transition duration-200"
+            onClick={handleOnClick}
+            name="remove"
+          >
             Remove
           </button>
         </>
