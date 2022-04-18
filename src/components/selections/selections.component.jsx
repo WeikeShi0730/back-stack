@@ -26,7 +26,7 @@ const Selections = () => {
           setLoading(true);
           const dates = await getUserData();
           setLoading(false);
-          if (isSubscribed) {
+          if (isSubscribed && dates) {
             let dateOptions = [];
             dates.forEach((date) => {
               dateOptions.push({

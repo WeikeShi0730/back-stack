@@ -137,49 +137,53 @@ export const getDateData = async (dates, startTime, endTime) => {
     let graphDatas = [];
     for (const date of dates) {
       const dbRef = ref(db);
-      const device = devices.find((device) => device.activate === true).name;
-      const snapshot = await get(child(dbRef, `${device}/${date.value}`));
-      if (snapshot.exists()) {
-        const datas = Object.values(snapshot.val());
-        const filteredDatas =
-          datas && startTime && endTime
-            ? datas.filter((data) => {
-                return (
-                  data.Hours >= startTime.value && data.Hours < endTime.value
-                );
-              })
-            : [];
-        if (filteredDatas.length > 0) {
-          let averagedData = [];
-          let currentMin = filteredDatas[0].Minutes;
-          let valueX,
-            valueY,
-            avgX,
-            avgY,
-            count = 0;
-          for (let data of filteredDatas) {
-            if (data.Minutes !== currentMin) {
-              avgX = valueX / count;
-              avgY = valueY / count;
-              averagedData.push({
-                time: moment(
-                  `2022-01-01-${data.Hours}:${data.Minutes}:${data.Seconds}`,
-                  "YYYY-MM-DD-k:m:s"
-                ).unix(),
-                avgX: avgX,
-                avgY: avgY,
-              });
-              valueX = valueY = avgX = avgY = count = 0;
-              currentMin = data.Minutes;
+      const device = devices.find((device) => device.activate === true);
+      if (device) {
+        const snapshot = await get(
+          child(dbRef, `${device.name}/${date.value}`)
+        );
+        if (snapshot.exists()) {
+          const datas = Object.values(snapshot.val());
+          const filteredDatas =
+            datas && startTime && endTime
+              ? datas.filter((data) => {
+                  return (
+                    data.Hours >= startTime.value && data.Hours < endTime.value
+                  );
+                })
+              : [];
+          if (filteredDatas.length > 0) {
+            let averagedData = [];
+            let currentMin = filteredDatas[0].Minutes;
+            let valueX,
+              valueY,
+              avgX,
+              avgY,
+              count = 0;
+            for (let data of filteredDatas) {
+              if (data.Minutes !== currentMin) {
+                avgX = valueX / count;
+                avgY = valueY / count;
+                averagedData.push({
+                  time: moment(
+                    `2022-01-01-${data.Hours}:${data.Minutes}:${data.Seconds}`,
+                    "YYYY-MM-DD-k:m:s"
+                  ).unix(),
+                  avgX: avgX,
+                  avgY: avgY,
+                });
+                valueX = valueY = avgX = avgY = count = 0;
+                currentMin = data.Minutes;
+              }
+              valueX += data.kalAngleX;
+              valueY += data.kalAngleY;
+              count++;
             }
-            valueX += data.kalAngleX;
-            valueY += data.kalAngleY;
-            count++;
+            graphDatas.push({ date: date, data: averagedData });
           }
-          graphDatas.push({ date: date, data: averagedData });
+        } else {
+          throw Error("DB doc not found.tgdsfgfdg");
         }
-      } else {
-        throw Error("DB doc not found.tgdsfgfdg");
       }
     }
     return graphDatas;
@@ -347,15 +351,17 @@ export const getUserData = async () => {
         // get dates of specific device from db
         const device = docSnap
           .data()
-          .devices.find((device) => device.activate === true).name;
+          .devices.find((device) => device.activate === true);
         const dbRef = ref(db);
-        const dbSnapshot = await get(child(dbRef, device));
-        if (dbSnapshot.exists()) {
-          const dates = Object.keys(dbSnapshot.val());
-          const storedDates = await sendDataToFirestore(dates);
-          return storedDates;
-        } else {
-          throw Error("Didn't find device data.");
+        if (device) {
+          const dbSnapshot = await get(child(dbRef, device.name));
+          if (dbSnapshot.exists()) {
+            const dates = Object.keys(dbSnapshot.val());
+            const storedDates = await sendDataToFirestore(dates);
+            return storedDates;
+          } else {
+            throw Error("Didn't find device data.");
+          }
         }
       } else {
         throw Error("No documents found");
