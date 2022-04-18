@@ -46,8 +46,9 @@ const MeasureGraph = () => {
 
   useEffect(() => {
     let isSubscribed = true;
-    if (currentUser && deviceList.length > 0) {
-      subscribeToDb(deviceList[0], (snapshot) => {
+    if (currentUser && deviceList && deviceList.length > 0) {
+      const device = deviceList.find((device) => device.activate === true);
+      subscribeToDb(device.name, (snapshot) => {
         const dataObjects = snapshot.val();
         if (dataObjects && isSubscribed) {
           let { kalmanAngleX, kalmanAngleY } = dataObjects;

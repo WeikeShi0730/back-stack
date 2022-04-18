@@ -225,8 +225,6 @@ export const addDevice = async (serialNumber) => {
         if (docSnap.exists()) {
           let deviceList = docSnap.data().devices;
           if (deviceList.includes(serialNumber)) return;
-          //IMU_LSM6DS3
-          //a396203550573738352e3120ff122e2e
           deviceList.forEach((device) => (device.activate = false));
           deviceList.push({ name: serialNumber, activate: true });
           deviceList.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
@@ -261,7 +259,6 @@ export const switchDevice = async (device) => {
             (e) => e.name === device.name
           );
           deviceList[foundIndex] = { name: device.name, activate: true };
-          deviceList.sort((a, b) => (a === b ? 0 : a ? -1 : 1));
           await updateDoc(currentUserRef, {
             devices: deviceList,
           });
