@@ -295,6 +295,13 @@ export const removeDevice = async (device) => {
           const foundIndex = deviceList.findIndex(
             (e) => e.name === device.name
           );
+          if (
+            deviceList[foundIndex].activate === true &&
+            foundIndex + 1 < deviceList.length
+          ) {
+            deviceList[foundIndex].activate = false;
+            deviceList[foundIndex + 1].activate = true;
+          }
           deviceList.splice(foundIndex, 1);
           await updateDoc(currentUserRef, {
             devices: deviceList,
