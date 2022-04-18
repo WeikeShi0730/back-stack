@@ -182,7 +182,7 @@ export const getDateData = async (dates, startTime, endTime) => {
             graphDatas.push({ date: date, data: averagedData });
           }
         } else {
-          throw Error("DB doc not found.tgdsfgfdg");
+          throw Error("DB doc not found.");
         }
       }
     }
