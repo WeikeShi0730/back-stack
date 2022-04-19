@@ -25,13 +25,12 @@ import {
 import moment from "moment";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCUKBUwf1bnrxDEyOwO7I7IvTIGOK0zxwY",
-  authDomain: "test2-529b3.firebaseapp.com",
-  databaseURL: "https://test2-529b3-default-rtdb.firebaseio.com",
-  projectId: "test2-529b3",
-  storageBucket: "test2-529b3.appspot.com",
-  messagingSenderId: "953401057455",
-  appId: "1:953401057455:web:beb8d64adce30b09e5745a",
+  apiKey: "AIzaSyC2ky5IO82s5Xi-K7ElJX3pHvu7GtXkmOI",
+  authDomain: "back-stack-app.firebaseapp.com",
+  projectId: "back-stack-app",
+  storageBucket: "back-stack-app.appspot.com",
+  messagingSenderId: "276662428261",
+  appId: "1:276662428261:web:d559a8badd9f53b5bf5c8c"
 };
 
 // Initialize Firebase
