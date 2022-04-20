@@ -105,7 +105,7 @@ const Selections = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="flex justify-center m-5">
+      <div className="flex flex-col lg:flex-row justify-center items-center m-5">
         <Select
           isMulti
           instanceId="data"
