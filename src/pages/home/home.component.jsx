@@ -2,11 +2,12 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="m-24 p-16 flex flex-col flex-grow font-light">
+    <div className="m-auto p-5 flex flex-col flex-grow font-light text-sm md:text-base lg:text-lg">
       <div>
         <p className="text-7xl">Back Stack</p>
-        <br /> Tracker of{" "}
-        <span className="underline decoration-green-700 underline-offset-1 text-2xl">
+        <br />
+        Tracker of{" "}
+        <span className="underline decoration-green-700 underline-offset-1 text-lg md:text-xl lg:text-2xl">
           spine alignment
         </span>
         , focusing on rehabilitating stroke vicims.
@@ -24,7 +25,7 @@ const Home = () => {
       <div>
         <p>
           Back Stack works in{" "}
-          <span className="underline decoration-green-700 underline-offset-1 text-2xl">
+          <span className="underline decoration-green-700 underline-offset-1 text-lg md:text-xl lg:text-2xl">
             3
           </span>{" "}
           easy steps:
