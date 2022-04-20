@@ -29,14 +29,14 @@ const DeviceList = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-4 sm:py-8 px-5 sm:px-10 text-sm md:text-base lg:text-lg">
         <div className="flex flex-col">
           <div className="text-center">My devices</div>
           {deviceList.map((device, index) => {
             return (
               <div
                 key={index}
-                className="bg-slate-100 my-3 rounded-lg break-all"
+                className="bg-slate-100 my-3 rounded-lg break-all "
               >
                 <Device device={device} setDeviceList={setDeviceList}/>
               </div>
