@@ -2,7 +2,7 @@ import MeasureGraph from "../../components/measure-graph/measure-graph.component
 
 const Measure = () => {
   return (
-    <div>
+    <div className="h-full">
       <MeasureGraph />
     </div>
   );

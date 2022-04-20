@@ -66,8 +66,8 @@ const MeasureGraph = () => {
     <>
       {loading && <Loading />}
       <div className="flex flex-col w-full h-full justify-center items-center">
-        <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
-          <div>Medial angle</div>
+        <div className="flex flex-col justify-center items-center relative w-3/4 m-5">
+          <div className="text-sm md:text-base lg:text-lg">Medial angle</div>
           <ReactSpeedometer
             width={400}
             ringWidth={50}
@@ -122,8 +122,8 @@ const MeasureGraph = () => {
             ]}
           />
         </div>
-        <div className="flex flex-col justify-center items-center relative w-3/4 m-10">
-          <div>Lateral angle</div>
+        <div className="flex flex-col justify-center items-center relative w-3/4 m-5">
+          <div className="text-sm md:text-base lg:text-lg">Lateral angle</div>
           <ReactSpeedometer
             width={400}
             maxValue={1}
