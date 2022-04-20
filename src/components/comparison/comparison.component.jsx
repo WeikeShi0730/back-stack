@@ -51,6 +51,12 @@ const Comparison = () => {
     }
     return () => (isSubscribed = false);
   }, [dates, startTime, endTime, datas]);
+  // aspect ratio   bars
+  // 8              1
+  // 7              2
+  // ...            ...
+  // 2              7
+  // 2              ...
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -74,13 +80,6 @@ const Comparison = () => {
     }
     return null;
   };
-
-  // aspect ratio   bars
-  // 8              1
-  // 7              2
-  // ...            ...
-  // 2              7
-  // 2              ...
 
   return (
     <div className="flex flex-col justify-center items-center">
