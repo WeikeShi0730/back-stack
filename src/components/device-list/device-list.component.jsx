@@ -25,7 +25,7 @@ const DeviceList = () => {
     getData();
     return () => (isSubscribed = false);
   }, []);
-
+  // NEED to align devices and update password!!!!!!???????!?!?
   return (
     <>
       {loading && <Loading />}
@@ -38,7 +38,7 @@ const DeviceList = () => {
                 key={index}
                 className="bg-slate-100 my-3 rounded-lg break-all "
               >
-                <Device device={device} setDeviceList={setDeviceList}/>
+                <Device device={device} setDeviceList={setDeviceList} />
               </div>
             );
           })}

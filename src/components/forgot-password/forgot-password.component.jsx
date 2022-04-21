@@ -48,7 +48,7 @@ const ForgotPassword = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10">
+      <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10 text-sm md:text-base lg:text-lg">
         <div className="text-center m-5">Reset my password</div>
         <form onSubmit={handleSubmit}>
           <div>
