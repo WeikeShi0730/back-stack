@@ -64,7 +64,7 @@ const Header = () => {
               </div>
             </Link>
           </div>
-          <div className=" lg:flex flex-shrink-0 flex-grow"></div>
+          <div className="lg:flex flex-shrink-0 flex-grow"></div>
           <div className="hidden flex-shrink-0 lg:flex lg:items-center lg:w-auto">
             {currentUser ? (
               <Link to={`/account/${currentUser.uid}`}>
