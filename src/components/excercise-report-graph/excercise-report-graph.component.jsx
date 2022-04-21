@@ -20,7 +20,7 @@ const Graph = () => {
   const { dates, datas, startTime, endTime, setDatas } =
     useContext(SelectionsContext);
   const [loading, setLoading] = useState(false);
-  const [aspectRatio, setAspectRatio] = useState(3);
+  const [height, setHeight] = useState(100);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -46,15 +46,17 @@ const Graph = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window) {
-        const aspectRatio =
+        const height =
           window.innerWidth < 1536
             ? window.innerWidth < 1280
               ? window.innerWidth < 1024
-                ? 1.5
-                : 2
-              : 2.5
-            : 3;
-        setAspectRatio(aspectRatio);
+                ? window.innerWidth < 768
+                  ? 300
+                  : 350
+                : 400
+              : 450
+            : 500;
+        setHeight(height);
       }
     };
     window.addEventListener("resize", handleResize);
@@ -90,7 +92,7 @@ const Graph = () => {
       <div className="">
         <div className="flex justify-center items-center">
           <div className="w-11/12 h-full">
-            <ResponsiveContainer aspect={aspectRatio} className="my-5">
+            <ResponsiveContainer width="100%" height={height} className="my-5">
               <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
@@ -171,7 +173,7 @@ const Graph = () => {
                 <Legend verticalAlign="top" height={36} />
               </LineChart>
             </ResponsiveContainer>
-            <ResponsiveContainer aspect={aspectRatio} className="my-5">
+            <ResponsiveContainer width="100%" height={height} className="my-5">
               <LineChart margin={{ top: 5, right: 5, bottom: 15, left: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis

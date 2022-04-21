@@ -13,7 +13,7 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 const Comparison = () => {
   const { dates, startTime, endTime, datas } = useContext(SelectionsContext);
   const [plotDatas, setPlotDatas] = useState([]);
-  const [aspectRatio, setAspectRatio] = useState(100);
+  const [height, setHeight] = useState(100);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -46,8 +46,8 @@ const Comparison = () => {
       }
       setPlotDatas(plotDatas);
 
-      const aspectRatio = dates.length * 100;
-      setAspectRatio(aspectRatio);
+      const height = dates.length * 100;
+      setHeight(height);
     }
 
     return () => (isSubscribed = false);
@@ -79,7 +79,7 @@ const Comparison = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-11/12 h-full">
-        <ResponsiveContainer width="100%" height={aspectRatio} className="my-5">
+        <ResponsiveContainer width="100%" height={height} className="my-5">
           <BarChart
             data={plotDatas}
             layout="vertical"
