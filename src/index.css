@@ -3,10 +3,20 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  overflow: scroll;
+}
+
 body {
   background-image: url("/public/background.jpeg");
 
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+}
+
+@layer components {
+  .hamburger {
+    @apply transform transition w-full h-px bg-current absolute;
+  }
 }
