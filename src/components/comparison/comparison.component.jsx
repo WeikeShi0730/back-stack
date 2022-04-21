@@ -13,7 +13,7 @@ import { SelectionsContext } from "../../pages/excercise-report/excercise-report
 const Comparison = () => {
   const { dates, startTime, endTime, datas } = useContext(SelectionsContext);
   const [plotDatas, setPlotDatas] = useState([]);
-  const [aspectRatio, setAspectRatio] = useState(8);
+  const [aspectRatio, setAspectRatio] = useState(100);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -46,17 +46,12 @@ const Comparison = () => {
       }
       setPlotDatas(plotDatas);
 
-      const aspectRatio = 9 - dates.length >= 2 ? 9 - dates.length : 2;
+      const aspectRatio = dates.length * 100;
       setAspectRatio(aspectRatio);
     }
+
     return () => (isSubscribed = false);
   }, [dates, startTime, endTime, datas]);
-  // aspect ratio   bars
-  // 8              1
-  // 7              2
-  // ...            ...
-  // 2              7
-  // 2              ...
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -84,7 +79,7 @@ const Comparison = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-11/12 h-full">
-        <ResponsiveContainer width="100%" aspect={aspectRatio} className="my-5">
+        <ResponsiveContainer width="100%" height={aspectRatio} className="my-5">
           <BarChart
             data={plotDatas}
             layout="vertical"
