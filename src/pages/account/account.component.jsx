@@ -17,7 +17,7 @@ const Account = () => {
     return () => (isSubscribed = false);
   });
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="h-full flex flex-col justify-center items-center">
       {currentUser ? (
         <div>
           <div className="text-5xl text-center mt-10 mb-4">
