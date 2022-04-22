@@ -66,15 +66,13 @@ const SignOut = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="grid grid-rows-5 grid-flow-col gap-4 justify-items-center mt-10">
+      <div className="mt-10">
         <button
           onClick={clearCurrentUser}
-          className="text-xs md:text-sm lg:text-base  py-2 px-4 text-red-500 rounded border border-red-500 font-light"
+          className="text-xs md:text-sm lg:text-base py-2 px-4 text-red-500 rounded border border-red-500 font-light"
         >
           Sign out
         </button>
-        {/* <div /> */}
-        {/* <div /> */}
       </div>
     </>
   );

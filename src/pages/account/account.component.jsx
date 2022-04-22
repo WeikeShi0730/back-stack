@@ -17,18 +17,20 @@ const Account = () => {
     return () => (isSubscribed = false);
   });
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       {currentUser ? (
-        <div className="flex flex-col">
-          <div className="text-5xl text-center m-10">
+        <div>
+          <div className="text-5xl text-center mt-10 mb-4">
             Hi, {currentUser.displayName}!
           </div>
           <DeviceList />
           <UpdatePassword currentUser={currentUser} />
         </div>
       ) : null}
-      <SignOut />
-    </>
+      <div className="">
+        <SignOut />
+      </div>
+    </div>
   );
 };
 
