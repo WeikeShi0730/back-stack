@@ -21,10 +21,10 @@ const Comparison = () => {
       isSubscribed &&
       dates !== undefined &&
       dates !== null &&
-      dates.length > 0 &&
       startTime &&
       endTime
     ) {
+      console.log(datas);
       let plotDatas = [];
       for (const data of datas) {
         let total = data.data.length;
@@ -46,7 +46,7 @@ const Comparison = () => {
       }
       setPlotDatas(plotDatas);
 
-      const height = dates.length * 100;
+      const height = (dates.length > 0 ? dates.length : 1) * 100;
       setHeight(height);
     }
 
