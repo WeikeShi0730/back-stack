@@ -3,7 +3,7 @@ import DeviceConnectionForm from "../../components/device-connection-form/device
 
 const DeviceConnection = () => {
   return (
-    <div>
+    <div className="h-full flex justify-center items-center">
       <DeviceConnectionForm />
     </div>
   );
