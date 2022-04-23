@@ -68,24 +68,6 @@ const Graph = () => {
     return moment.unix(unixTime).format("HH:mm");
   };
 
-  // const CustomTooltip = ({ active, payload, label }) => {
-  //   if (active && payload && payload.length) {
-  //     return (
-  //       <div className="bg-slate-500 bg-opacity-30 backdrop-blur-md p-2 rounded-md shadow-lg">
-  //         <p className="text-lg">{`Time : ${timeFormat(label)}`}</p>
-  //         {payload.map((eachPayload, index) => {
-  //           return (
-  //             <div key={index}>
-  //               <p className="text-lg">{`${eachPayload.value.toFixed(1)} °`}</p>
-  //             </div>
-  //           );
-  //         })}
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // };
-
   return (
     <>
       {loading && <Loading />}
@@ -250,7 +232,6 @@ const Graph = () => {
                     />
                   );
                 })}
-                {/* <Tooltip content={<CustomTooltip />} /> */}
                 <Legend verticalAlign="top" height={36} />
               </LineChart>
             </ResponsiveContainer>
