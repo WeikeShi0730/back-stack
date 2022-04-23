@@ -25,7 +25,6 @@ const DeviceList = () => {
     getData();
     return () => (isSubscribed = false);
   }, []);
-  // NEED to align devices and update password!!!!!!???????!?!?
   return (
     <>
       {loading && <Loading />}
