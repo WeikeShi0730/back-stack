@@ -46,22 +46,6 @@ const SignOut = () => {
       console.error("error clear current user", error);
     }
   };
-  //   const handleDeleteRecord = async () => {
-  //     try {
-  //       await deleteUserRecord();
-  //       //   toast.success("user record deleted successfully", {
-  //       //     position: toast.POSITION.TOP_CENTER,
-  //       //     theme: "dark",
-  //       //     autoClose: 3000,
-  //       //   });
-  //     } catch (error) {
-  //       //   toast.error("error deleting record: " + error.message, {
-  //       //     position: toast.POSITION.TOP_CENTER,
-  //       //     theme: "dark",
-  //       //   });
-  //       console.error("error deleting record", error.message);
-  //     }
-  //   };
 
   return (
     <>

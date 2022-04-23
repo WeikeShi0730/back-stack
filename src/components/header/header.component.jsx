@@ -11,7 +11,6 @@ const Header = () => {
   useClickOutside(ref, () => setOpen(() => !open));
   const handleOnClick = (event) => {
     event.preventDefault();
-    console.log("ININININI");
     setOpen(() => !open);
   };
   useEffect(() => {
