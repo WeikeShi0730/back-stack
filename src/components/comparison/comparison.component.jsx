@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend
 } from "recharts";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 
@@ -89,7 +90,7 @@ const Comparison = () => {
             <XAxis type="number" />
             <YAxis dataKey="label" type="category" scale="band" />
             <Tooltip content={<CustomTooltip />} />
-            {/* <Legend /> */}
+            <Legend />
             <Bar dataKey="bad" stackId="a" fill="#d08770" />
             <Bar dataKey="upright" stackId="a" fill="#a3be8c" />
           </BarChart>
