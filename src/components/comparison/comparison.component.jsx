@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend
+  Legend,
 } from "recharts";
 import { SelectionsContext } from "../../pages/excercise-report/excercise-report.component";
 
@@ -80,6 +80,9 @@ const Comparison = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-11/12 h-full">
+        <div className="text-sm md:text-base lg:text-lg text-center m-5">
+          Comparison
+        </div>
         <ResponsiveContainer width="100%" height={height} className="my-5">
           <BarChart
             data={plotDatas}
