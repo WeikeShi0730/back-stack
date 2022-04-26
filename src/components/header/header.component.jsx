@@ -29,7 +29,7 @@ const Header = () => {
           <div className="flex flex-shrink-0 text-white mx-6">
             <Link to="/">
               <img
-                className="fill-current xs:mr-2 h-6 sm:h-8 md:h-10 lg:h-12"
+                className="fill-current h-10"
                 src="/logo.png"
                 alt="Back Stack"
               />
