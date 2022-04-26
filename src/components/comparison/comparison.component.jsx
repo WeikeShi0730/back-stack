@@ -78,8 +78,8 @@ const Comparison = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="w-11/12 h-full">
+    <div className="flex justify-center items-center">
+      <div className="flex flex-col w-11/12">
         <div className="text-sm md:text-base lg:text-lg text-center m-5">
           Comparison
         </div>
@@ -87,7 +87,7 @@ const Comparison = () => {
           <BarChart
             data={plotDatas}
             layout="vertical"
-            margin={{ top: 5, right: 5, bottom: 15, left: 5 }}
+            padding={{ top: 15, right: 5, bottom: 15, left: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" />

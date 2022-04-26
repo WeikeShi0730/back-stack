@@ -38,15 +38,9 @@ const ExcerciseReport = () => {
   return (
     <div className="h-full">
       <SelectionsContext.Provider value={value}>
-        <div className="">
-          <Selections />
-        </div>
-        <div className="">
-          <Graph />
-        </div>
-        <div className="">
-          <Comparison />
-        </div>
+        <Selections />
+        <Graph />
+        <Comparison />
       </SelectionsContext.Provider>
     </div>
   );
