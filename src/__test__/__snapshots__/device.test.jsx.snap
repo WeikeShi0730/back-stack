@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Device /> <Device /> activate 1`] = `
+<body>
+  <div>
+    <div
+      class="flex gap-x-1 sm:gap-x-5 items-center justify-start p-3 rounded-lg h-16 text-sm md:text-base lg:text-lg bg-green-200"
+    >
+      <div
+        class="w-28 truncate"
+      >
+        test
+      </div>
+      <div
+        class="flex flex-grow justify-center items-center border-2 border-green-500 p-2 sm:p-3 rounded-md text-green-500 hover:text-white hover:bg-green-500 transition duration-200"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+          />
+        </svg>
+      </div>
+      <button
+        class="font-light border-2 border-red-500 p-1 sm:p-2 rounded-md hover:bg-red-500 hover:text-white transition duration-200"
+        name="remove"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`<Device /> <Device /> not activate 1`] = `
+<body>
+  <div>
+    <div
+      class="flex gap-x-1 sm:gap-x-5 items-center justify-start p-3 rounded-lg h-16 text-sm md:text-base lg:text-lg "
+    >
+      <div
+        class="w-28 truncate"
+      >
+        test
+      </div>
+      <button
+        class="font-light border-2 border-blue-500 p-1 sm:p-2 rounded-md hover:bg-blue-500 hover:text-white transition duration-200"
+        name="activate"
+      >
+        Activate
+      </button>
+      <button
+        class="font-light border-2 border-red-500 p-1 sm:p-2 rounded-md hover:bg-red-500 hover:text-white transition duration-200"
+        name="remove"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</body>
+`;
