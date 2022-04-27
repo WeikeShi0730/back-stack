@@ -14,8 +14,8 @@ const DeviceList = () => {
         if (isSubscribed) {
           setLoading(true);
           const deviceList = await getDiviceList();
-          setLoading(false);
           setDeviceList(deviceList);
+          setLoading(false);
         }
       } catch (error) {
         setLoading(false);
