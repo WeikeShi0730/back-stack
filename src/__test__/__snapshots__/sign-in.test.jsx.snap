@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignIn /> <SignIn /> 1`] = `
+<body>
+  <div>
+    <div
+      class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10"
+    >
+      <div
+        class="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center"
+      >
+        Alrady have an account? Sign in 🔐
+      </div>
+      <form>
+        <div>
+          <label
+            class="text-sm md:text-base"
+          >
+            Email
+          </label>
+          <input
+            class="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
+            name="email"
+            placeholder="Your email"
+            required=""
+            type="email"
+          />
+        </div>
+        <div>
+          <label
+            class="text-sm md:text-base"
+          >
+            Password
+          </label>
+          <input
+            autocomplete="off"
+            class="w-full p-2 text-xs md:text-md text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
+            name="password"
+            placeholder="Your password"
+            required=""
+            type="password"
+          />
+        </div>
+        <div
+          class="flex justify-center items-center mt-6"
+        >
+          <button
+            class="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
+            name="signInWithEmail"
+            type="submit"
+          >
+            Sign In
+          </button>
+        </div>
+        <div
+          class="flex justify-center items-center mt-6"
+        >
+          <button
+            class="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
+            name="signInWithGoogle"
+            type="submit"
+          >
+            Sign in with Google
+          </button>
+        </div>
+      </form>
+      <div>
+        <button
+          class="font-light"
+        >
+          Forgot password?
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;
