@@ -2,7 +2,6 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import SignIn from "../components/sign-in/sign-in.component";
-import createMockRouter from "./test-utils/createMockRouter";
 
 let documentBody;
 const mockHistoryPush = jest.fn();
