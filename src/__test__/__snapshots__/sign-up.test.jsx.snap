@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignUp /> Test <SignUp /> 1`] = `
+<body>
+  <div>
+    <div
+      class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg m-auto mt-10 mb-4 bg-white rounded-lg border border-primaryBorder shadow-default py-8 px-10"
+    >
+      <h1
+        class="text-base lg:text-lg font-light text-primary mt-4 mb-12 text-center"
+      >
+        Don't have an account? Sign up 🔐
+      </h1>
+      <form>
+        <div>
+          <label
+            class="text-sm md:text-base"
+          >
+            Username
+          </label>
+          <input
+            class="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
+            maxlength="10"
+            name="displayName"
+            placeholder="Your username"
+            required=""
+            type="text"
+          />
+        </div>
+        <div>
+          <label
+            class="text-sm md:text-base"
+          >
+            Email
+          </label>
+          <input
+            class="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
+            name="email"
+            placeholder="Your email"
+            required=""
+            type="email"
+          />
+        </div>
+        <div>
+          <label
+            class="text-sm md:text-base"
+          >
+            Password
+          </label>
+          <input
+            autocomplete="off"
+            class="text-xs md:text-md w-full p-2 text-primary border rounded-md outline-none transition duration-150 ease-in-out mb-4"
+            minlength="6"
+            name="password"
+            placeholder="Your password"
+            required=""
+            type="password"
+          />
+        </div>
+        <div
+          class="flex justify-center items-center mt-6"
+        >
+          <button
+            class="text-xs md:text-sm bg-gray-800 py-2 px-4 text-white rounded border focus:outline-none font-light"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+`;
