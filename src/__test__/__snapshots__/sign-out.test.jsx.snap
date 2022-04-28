@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignOut /> Test <SignOut /> 1`] = `
+<body>
+  <div>
+    <div
+      class="mt-10"
+    >
+      <button
+        class="text-xs md:text-sm lg:text-base py-2 px-4 text-red-500 rounded border border-red-500 font-light"
+      >
+        Sign out
+      </button>
+    </div>
+  </div>
+</body>
+`;
