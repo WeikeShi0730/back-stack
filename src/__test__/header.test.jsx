@@ -14,4 +14,15 @@ describe("<Header />", () => {
     expect(screen.getByText("Home 🏠")).toBeInTheDocument();
     expect(baseElement).toMatchSnapshot();
   });
+  test("<Header /> size", () => {
+    window.innerWidth = 400;
+    window.dispatchEvent(new Event("resize"));
+    const { baseElement } = render(
+      <BrowserRouter>
+        <Header />
+      </BrowserRouter>
+    );
+    expect(screen.getByText("Home 🏠")).toBeInTheDocument();
+    expect(baseElement).toMatchSnapshot();
+  });
 });
