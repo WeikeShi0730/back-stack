@@ -3,7 +3,5 @@ import DeviceConnection from "../pages/device-connection/device-connection.compo
 
 describe("<DeviceConnection />", () => {
   test("<DeviceConnection />", () => {
-    const { baseElement } = render(<DeviceConnection />);
-    expect(baseElement).toMatchSnapshot();
   });
 });
