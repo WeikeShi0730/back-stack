@@ -15,16 +15,44 @@ const SignIn = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSignInGoogle = async (event) => {
     event.preventDefault();
-    const { name } = event.nativeEvent.submitter;
     try {
       setLoading(true);
-      if (name === "signInWithGoogle") {
-        await signInWithGoogle();
-      } else if (name === "signInWithEmail") {
-        await signInWithEmail(signInInfo);
-      }
+      await signInWithGoogle();
+      setLoading(false);
+      history.push("/");
+      toast.success("🥳 Signed in successfully!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      console.error("error signing in with Google: ", error);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      await signInWithEmail(signInInfo);
       setLoading(false);
       history.push("/");
       toast.success("🥳 Signed in successfully!", {
@@ -105,16 +133,17 @@ const SignIn = () => {
               Sign In
             </button>
           </div>
-          <div className="flex justify-center items-center mt-6">
-            <button
-              type="submit"
-              className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
-              name="signInWithGoogle"
-            >
-              Sign in with Google
-            </button>
-          </div>
         </form>
+        <div className="flex justify-center items-center mt-6">
+          <button
+            type="submit"
+            className="text-xs md:text-sm bg-blue-500 py-2 px-4 text-white rounded border focus:outline-none focus:bg-gray-550 font-light"
+            name="signInWithGoogle"
+            onClick={handleSignInGoogle}
+          >
+            Sign in with Google
+          </button>
+        </div>
         <div>
           <button onClick={handleClickForgotPassword} className="font-light">
             Forgot password?
